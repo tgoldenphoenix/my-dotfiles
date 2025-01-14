@@ -8,6 +8,9 @@ vim.g.maplocalleader = ' '
 -- vim.g.have_nerd_font = false
 vim.g.have_nerd_font = true
 
+-- vimtex
+vim.g.vimtex_view_method = "zathura"
+
 -- [[ Setting options ]]
 -- See `:help vim.opt`
 -- NOTE: You can change these options as you wish!
@@ -366,9 +369,11 @@ require('lazy').setup({
       },
     },
   },
+
   { 'Bilal2453/luvit-meta', lazy = true },
+
+  -- Main LSP Configuration
   {
-    -- Main LSP Configuration
     'neovim/nvim-lspconfig',
     dependencies = {
       -- Automatically install LSPs and related tools to stdpath for Neovim
@@ -749,7 +754,11 @@ require('lazy').setup({
       }
     end,
   },
+  "hrsh7th/cmp-nvim-lsp",
+  -- vimtex
+  "lervag/vimtex",
 
+  -- colorscheme
   { -- You can easily change to a different colorscheme.
     -- Change the name of the colorscheme plugin below, and then
     -- change the command in the config to whatever the name of that colorscheme is.
