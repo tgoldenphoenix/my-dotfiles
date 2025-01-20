@@ -1,3 +1,6 @@
+-- vim.cmd.echo('"nvim/lua/vim-options.lua"')
+
+
 -- [[ Setting options ]]
 -- See `:help vim.opt`
 -- NOTE: You can change these options as you wish!
