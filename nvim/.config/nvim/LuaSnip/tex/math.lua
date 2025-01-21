@@ -67,22 +67,56 @@ return {
 
     -- Combining text and insert nodes to create basic LaTeX commands
     s({trig="tt", dscr="Expands 'tt' into '\texttt{}'"},
-    {
-    t("\\texttt{"), -- remember: backslashes need to be escaped
-    i(1),
-    t("}"),
-    }
+    fmta(
+        "\\texttt{<>}",
+        { i(1) }
+    )
     ),
+
+
     -- Yes, these jumbles of text nodes and insert nodes get messy fast, and yes,
     -- there is a much better, human-readable solution: ls.fmt, described shortly.
     s({trig="ff", dscr="Expands 'ff' into '\frac{}{}'"},
+    fmt(
+    "\\frac{<>}{<>}",
     {
-    t("\\frac{"),
-    i(1),  -- insert node 1
-    t("}{"),
-    i(2),  -- insert node 2
-    t("}")
+        i(1),
+        i(2)
+    },
+    {delimiters = "<>"} -- manually specifying angle bracket delimiters
+    )
+    ),
+
+    -- The same equation snippet, using LuaSnip's fmt function.
+    -- The snippet is not shorter, but it is more *human-readable*.
+    s({trig="eq", dscr="A LaTeX equation environment"},
+    fmt( -- The snippet code actually looks like the equation environment it produces.
+    [[
+        \begin{equation}
+            <>
+        \end{equation}
+    ]],
+    -- The insert node is placed in the <> angle brackets
+    { i(1) },
+    -- This is where I specify that angle brackets are used as node positions.
+    { delimiters = "<>" }
+    )
+    ),
+
+    -- Code for environment snippet in the above GIF
+    s({trig="env", snippetType="autosnippet"},
+    fmta(
+    [[
+        \begin{<>}
+            <>
+        \end{<>}
+    ]],
+    {
+        i(1),
+        i(2),
+        rep(1),  -- this node repeats insert node i(1)
     }
+    )
     ),
 
 }
