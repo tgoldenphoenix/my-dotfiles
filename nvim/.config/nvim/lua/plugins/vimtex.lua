@@ -1,3 +1,6 @@
+-- set all global VimTeX options (those that start with g:)
+-- These are configuration that should be set before VimTeX loads.
+
 return {
     "lervag/vimtex",
     lazy = false,     -- we don't want to lazy load VimTeX
