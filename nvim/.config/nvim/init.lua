@@ -9,8 +9,11 @@ vim.g.maplocalleader = ' '
 -- vim.g.have_nerd_font = false
 vim.g.have_nerd_font = true
 
+-- require .lua files in ./lua/
 require("vim-options")
 require("keymaps")
+
+-- require("core.keymaps")
 
 -- [[ Install `lazy.nvim` plugin manager ]]
 --    See `:help lazy.nvim.txt` or https://github.com/folke/lazy.nvim for more info
@@ -58,10 +61,18 @@ require('lazy').setup("plugins", { -- The plugins/ directory in ./lua/
   },
 })
 
+-- gruvbox colorscheme
+vim.o.background = "dark" -- or "light" for light mode
+vim.cmd([[colorscheme gruvbox]])
+-- gruvbox colorscheme END
+
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
 
--- #######Luasnip#######
+-- This section is for testing Lua commands
+-- print('hello from init.lua')
+
+-- #######START Luasnip#######
 
 -- Yes, we're just executing a bunch of Vimscript, but this is the officially
 -- endorsed method; see https://github.com/L3MON4D3/LuaSnip#keymaps
@@ -104,3 +115,5 @@ require("luasnip").config.set_config({ -- Setting LuaSnip config
   -- For repeated nodes to update as you type
   update_events = 'TextChanged,TextChangedI'
 })
+
+-- #######START Luasnip#######
