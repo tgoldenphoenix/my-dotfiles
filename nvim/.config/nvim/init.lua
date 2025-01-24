@@ -9,9 +9,6 @@ vim.g.maplocalleader = ' '
 -- vim.g.have_nerd_font = false
 vim.g.have_nerd_font = true
 
--- vimtex
-vim.g.vimtex_view_method = "zathura"
-
 require("vim-options")
 require("keymaps")
 
