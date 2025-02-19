@@ -2,6 +2,7 @@
 -- See `:help mapleader`
 --  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
 -- mapleader là 1 'internal variable'. Nó không phải là 1 option nhé
+-- distinguish leader vs super key which is the window key
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 

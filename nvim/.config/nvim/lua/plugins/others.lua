@@ -10,4 +10,15 @@ return {
             -- add any options here
         }
     },
+
+    {
+        "iamcco/markdown-preview.nvim",
+        -- cmd key for Lazy-load on command
+        cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
+        build = "cd app && yarn install",
+        init = function()
+          vim.g.mkdp_filetypes = { "markdown" }
+        end,
+        ft = { "markdown" },
+      },
 }
