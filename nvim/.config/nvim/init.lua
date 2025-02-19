@@ -13,6 +13,7 @@ vim.g.have_nerd_font = true
 require("vim-options")
 require("keymaps")
 
+-- Nếu path là ~/lua/core/keymaps.lua
 -- require("core.keymaps")
 
 -- [[ Install `lazy.nvim` plugin manager ]]

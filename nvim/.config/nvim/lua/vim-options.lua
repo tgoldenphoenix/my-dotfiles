@@ -1,19 +1,9 @@
 -- vim.cmd.echo('"nvim/lua/vim-options.lua"')
 
-
 -- [[ Setting options ]]
 -- See `:help vim.opt`
 -- NOTE: You can change these options as you wish!
 --  For more options, you can see `:help option-list`
-
--- Make line numbers default
-vim.opt.number = true
--- You can also add relative line numbers, to help with jumping.
---  Experiment for yourself to see if you like it!
--- vim.opt.relativenumber = true
-
--- Enable mouse mode, can be useful for resizing splits for example!
-vim.opt.mouse = 'a'
 
 -- Don't show the mode, since it's already in the status line
 vim.opt.showmode = false
@@ -58,8 +48,21 @@ vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 -- Preview substitutions live, as you type!
 vim.opt.inccommand = 'split'
 
--- Show which line your cursor is on
-vim.opt.cursorline = true
+-- Nếu không để "local" thì default là global variables
+local options = {
+  number = true,              -- set numbered lines
+  -- You can also add relative line numbers, to help with jumping. Experiment for yourself to see if you like it!
+  relativenumber = false,     -- set relative numbered lines
 
--- Minimal number of screen lines to keep above and below the cursor.
-vim.opt.scrolloff = 10
+  cursorline = true,          -- highlight the current line
+  cmdheight = 2,              -- more space in the neovim command line for displaying messages
+  mouse = 'a',                -- Enable mouse mode, can be useful for resizing splits for example!
+  wrap = true,                -- display lines as one long line
+  scrolloff = 10,             -- Minimal number of screen lines to keep above and below the cursor.
+}
+
+for k, v in pairs(options) do
+  vim.opt[k] = v
+end
+
+vim.opt.iskeyword:append "-"  -- hyphenated words recognized by searches
