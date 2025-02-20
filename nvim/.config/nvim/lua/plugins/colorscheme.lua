@@ -4,3 +4,5 @@ return {
     config = true, 
     opts = {},
 }
+
+-- try: tokyonight

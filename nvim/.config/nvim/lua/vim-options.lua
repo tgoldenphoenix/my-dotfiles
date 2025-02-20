@@ -59,6 +59,8 @@ local options = {
   mouse = 'a',                -- Enable mouse mode, can be useful for resizing splits for example!
   wrap = true,                -- display lines as one long line
   scrolloff = 10,             -- Minimal number of screen lines to keep above and below the cursor.
+
+  termguicolors = true,       -- set term gui colors (most terminals support this)
 }
 
 for k, v in pairs(options) do

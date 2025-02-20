@@ -12,6 +12,7 @@ return {
     },
 
     {
+        -- install with yarn or npm
         "iamcco/markdown-preview.nvim",
         -- cmd key for Lazy-load on command
         cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },

@@ -1,3 +1,10 @@
+-- START testing Lua commands
+-- use `:messages` to view all logged messages
+
+-- print('hello from init.lua')
+-- vim.notify("bu vu kim phuong")
+-- END testing Lua commands
+
 -- Set <space> as the leader key
 -- See `:help mapleader`
 --  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
@@ -63,18 +70,26 @@ require('lazy').setup("plugins", { -- The plugins/ directory in ./lua/
   },
 })
 
--- gruvbox colorscheme
+-- gruvbox colorscheme START
 vim.o.background = "dark" -- or "light" for light mode
-vim.cmd([[colorscheme gruvbox]])
+-- vim.cmd([[colorscheme gruvbox]])
+
+local colorscheme = "gruvbox" -- change this variable to your colorscheme's name
+
+-- error handling in Lua using protected call
+-- src: https://www.youtube.com/watch?v=RtNPfJKNr_8&list=PLhoH5vyxr6Qq41NFL4GvhFp-WLd5xzIzZ&index=6
+-- `..` in string concatenation in Lua
+local status_ok, _ = pcall(vim.cmd, "colorscheme " .. colorscheme)
+if not status_ok then
+  vim.notify('colorscheme "' .. colorscheme .. '" not found!')
+  return
+end
 -- gruvbox colorscheme END
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
 
--- This section is for testing Lua commands
--- print('hello from init.lua')
-
--- #######START Luasnip#######
+-- ####### START Luasnip #######
 
 -- Yes, we're just executing a bunch of Vimscript, but this is the officially
 -- endorsed method; see https://github.com/L3MON4D3/LuaSnip#keymaps
@@ -118,4 +133,4 @@ require("luasnip").config.set_config({ -- Setting LuaSnip config
   update_events = 'TextChanged,TextChangedI'
 })
 
--- #######START Luasnip#######
+-- ####### END Luasnip #######
