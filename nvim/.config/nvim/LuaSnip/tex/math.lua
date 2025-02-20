@@ -38,7 +38,6 @@ end
 -- Then pass the table `{condition = in_mathzone}` to any snippet you want to
 -- expand only in math contexts such as inside $$.
 
-  
 --  END section: Functions to be passed to the condition key in opts table
 
 -- This is the `get_visual` function I've been talking about.
@@ -105,7 +104,6 @@ return {
     t({"Line 1", "Line 2", "Line3: Toi muon xuat tinh vao lon Kim Phuong"})
     }
     ),
-
 
     -- Combining text and insert nodes to create basic LaTeX commands
     s({trig="tt", dscr="Expands 'tt' into '\texttt{}'"},
