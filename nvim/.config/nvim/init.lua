@@ -89,13 +89,3 @@ end
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
-
--- ####### START Luasnip #######
-
--- Load all snippets from the nvim/LuaSnip directory at startup
--- require("luasnip.loaders.from_lua").load({paths = "~/.config/nvim/LuaSnip/"})
-
--- Lazy-load snippets, i.e. only load when required, e.g. for a given filetype
-require("luasnip.loaders.from_lua").lazy_load({paths = "~/.config/nvim/LuaSnip/"})
-
--- ####### END Luasnip #######
