@@ -17,9 +17,14 @@ vim.g.maplocalleader = ' '
 -- vim.g.have_nerd_font = false
 vim.g.have_nerd_font = true
 
+-- disable netrw at the very start of your init.lua
+-- use nvim-tree
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
 -- require .lua files in ./lua/
-require("vim-options")
-require("keymaps")
+require("user.options")
+require("user.keymaps")
 
 -- Nếu path là ~/lua/core/keymaps.lua
 -- require("core.keymaps")
@@ -70,22 +75,6 @@ require('lazy').setup("plugins", -- The plugins/ directory in ./lua/
     },
   },
 })
-
--- gruvbox colorscheme START
-vim.o.background = "dark" -- or "light" for light mode
--- vim.cmd([[colorscheme gruvbox]])
-
-local colorscheme = "gruvbox" -- change this variable to your colorscheme's name
-
--- error handling in Lua using protected call
--- src: https://www.youtube.com/watch?v=RtNPfJKNr_8&list=PLhoH5vyxr6Qq41NFL4GvhFp-WLd5xzIzZ&index=6
--- `..` in string concatenation in Lua
-local status_ok, _ = pcall(vim.cmd, "colorscheme " .. colorscheme)
-if not status_ok then
-  vim.notify('colorscheme "' .. colorscheme .. '" not found!')
-  return
-end
--- gruvbox colorscheme END
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et

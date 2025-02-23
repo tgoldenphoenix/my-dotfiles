@@ -1,5 +1,6 @@
 -- [[ Basic Keymaps ]]
 --  See `:help vim.keymap.set()`
+-- vim.notify("bu vu kim phuong keymap user")
 
 local opts = { noremap = true, silent = true }
 

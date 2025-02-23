@@ -211,7 +211,7 @@ return {
 					},
 					{ name = 'nvim_lsp' },
 					{ name = 'luasnip' },
-					{ name = "buffer" },
+					{ name = "buffer" }, -- buffer là những files đang currently opened
 					{ name = 'path' },
 					{ name = 'nvim_lsp_signature_help' },
 				},
