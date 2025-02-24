@@ -10,7 +10,7 @@ return {
             ---@diagnostic disable-next-line: missing-fields
             require('tokyonight').setup {
                 styles = {
-                comments = { italic = false }, -- Disable italics in comments
+                    comments = { italic = false }, -- Disable italics in comments
                 },
             }
 
@@ -20,6 +20,7 @@ return {
             vim.cmd.colorscheme 'tokyonight-night'
         end,
     },
+    
     -- error handling in Lua using protected call
     -- src: https://www.youtube.com/watch?v=RtNPfJKNr_8&list=PLhoH5vyxr6Qq41NFL4GvhFp-WLd5xzIzZ&index=6
     -- `..` in string concatenation in Lua

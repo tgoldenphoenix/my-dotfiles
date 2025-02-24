@@ -9,6 +9,14 @@ local term_opts = { silent = true }
 -- Shorten function name
 local keymap = vim.keymap.set
 
+
+local wk = require("plugins.which-key")
+
+-- require như v sẽ gặp error
+-- The root for lua importation is: ~/.config/nvim/lua
+-- src: https://vi.stackexchange.com/questions/45546/neovim-requirewhich-key-in-keymaps-lua-file-gives-error
+-- local wk = require("which-key")
+
 -- Modes
 --   normal_mode = "n",
 --   insert_mode = "i",
@@ -23,7 +31,9 @@ local keymap = vim.keymap.set
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
 -- Diagnostic keymaps
-keymap('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
+-- keymap('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
+-- dòng ở dưới sẽ override dòng phía trên
+-- vim.keymap.set('n', '<leader>q', '<cmd>fuck this<CR>')
 
 -- TIP: Disable arrow keys in normal mode
 -- vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
