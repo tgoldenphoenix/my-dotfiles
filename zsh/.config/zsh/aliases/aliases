@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+# Git
+
+alias gs='git status'
+alias gl='git log'
+
+alias ga='git add *'
+# alias gc='git commit'
+alias gp='git push'
+
+alias gplo='git pull'
