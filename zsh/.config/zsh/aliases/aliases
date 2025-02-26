@@ -1,7 +1,6 @@
 #!/usr/bin/env bash
 
-# Git
-
+### Git
 alias gs='git status'
 alias gl='git log'
 
@@ -10,3 +9,8 @@ alias ga='git add *'
 alias gp='git push'
 
 alias gplo='git pull'
+
+### ls
+alias ls='ls --color'
+alias vim='nvim'
+alias c='clear'
