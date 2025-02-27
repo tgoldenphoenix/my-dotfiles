@@ -1,0 +1,14 @@
+# latex auto-generated files
+*.pdf
+*.aux
+*.fdb_latexmk
+*.fls
+*.log
+*.gz
+
+benjamin-latex-config
+nvim.bak-gan-day-nhat
+nvim.bak-hoi-con-moi-hoc
+.config
+
+building_management_system_link.sql

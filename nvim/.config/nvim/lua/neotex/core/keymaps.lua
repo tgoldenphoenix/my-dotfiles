@@ -101,10 +101,13 @@ function _G.set_markdown_keymaps()
 end
 -- local map = vim.keymap.set -- for conciseness
 
---Remap space as leader key
-vim.g.mapleader = " "
--- vim.g.maplocalleader = " "
-
+-- Remap <space> as the leader key
+-- See `:help mapleader`
+--  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
+-- mapleader là 1 'internal variable'. Nó không phải là 1 option nhé
+-- distinguish leader vs super key which is the window key
+vim.g.mapleader = ' '
+vim.g.maplocalleader = ' '
 
 -------------------- General Keymaps --------------------
 
