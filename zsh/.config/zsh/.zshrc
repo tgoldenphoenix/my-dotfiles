@@ -26,12 +26,6 @@ if [[ -f "/opt/homebrew/bin/brew" ]] then
   eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
-# ruby version manager
-source /Users/anhao/.rvm/scripts/rvm
-
-# ruby version manager
-[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
-
 # nvm - node version manager
 export NVM_DIR="$HOME/.config/nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
@@ -130,3 +124,12 @@ eval "$(zoxide init --cmd cd zsh)"   # must be added after compinit is called
 
 ### Preferences
 # Dreams of Autonomy: https://www.youtube.com/watch?v=ud7YxC33Z3w
+
+# ruby version manager
+# source /Users/anhao/.rvm/scripts/rvm
+
+# ruby version manager
+# [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
