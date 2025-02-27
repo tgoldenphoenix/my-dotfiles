@@ -1,10 +1,17 @@
-local options = {
+-- vim.cmd.echo('"nvim/lua/vim-options.lua"')
+
+-- [[ Setting options ]]
+-- See `:help vim.opt`
+-- NOTE: You can change these options as you wish!
+--  For more options, you can see `:help option-list`
+
+local options = {     -- Nếu không để "local" thì default là global variables
 
   -- GENERAL
-  timeoutlen = 100,               -- time to wait for a mapped sequence to complete (in milliseconds)
-  updatetime = 200,               -- faster completion (4000ms default)
+  timeoutlen = 100,               -- time to wait for a mapped sequence to complete (in milliseconds); Decrease mapped sequence wait time
+  updatetime = 200,               -- faster completion (4000ms default); Decrease update time
   swapfile = false,               -- creates a swapfile
-  undofile = true,                -- enable persistent undo
+  undofile = true,                -- enable persistent undo, Save undo history
   writebackup = false,            -- if a file is being edited by another program, it is not allowed to be edited
 
   -- APPEARANCE
@@ -15,7 +22,10 @@ local options = {
   termguicolors = true,           -- set term gui colors (most terminals support this)
   conceallevel = 0,               -- so that `` is visible in markdown files
   number = true,                  -- set numbered lines
+
+  -- You can also add relative line numbers, to help with jumping. Experiment for yourself to see if you like it!
   relativenumber = true,          -- set relative numbered lines
+
   numberwidth = 2,                -- set number column width to 2 {default 4}
   signcolumn = "yes",             -- always show the sign column, otherwise it would shift the text each time
   fillchars = "eob: ",            -- don't show tildes
@@ -23,7 +33,7 @@ local options = {
   -- colorcolumn = "100",             -- highlight vertical colorcolumn (moved to after/python.lua)
   wrap = true,                    -- display lines as one long line
   showbreak = "  ",               -- set indent of wrapped lines
-  cmdheight = 1,                  -- space in the neovim command line for displaying messages
+  cmdheight = 1,                  -- space in the neovim command line for displaying messages; can be set to '2' for more space
   pumheight = 7,                 -- pop up menu height
   showmode = false,               -- we don't need to see things like -- INSERT -- anymore
   splitbelow = true,              -- force all horizontal splits to go below current window
@@ -45,13 +55,22 @@ local options = {
   -- EDIT
   spell = true,                   -- turns on spellchecker
   spelllang = { 'en_us' },        -- sets spelling dictionary
+
+  -- Sync clipboard between OS and Neovim.
+  --  Remove this option if you want your OS clipboard to remain independent.
+  --  See `:help 'clipboard'`
   clipboard = "unnamedplus",      -- allows neovim to access the system clipboard
+
+
   mouse = "a",                    -- allow the mouse to be used in neovim
   mousescroll = "ver:2,hor:4",    -- change the speed of the scroll wheel
+
+  -- Case-insensitive searching UNLESS \C or one or more capital letters in the search term
   ignorecase = true,              -- ignore case in search patterns
   smartcase = true,               -- smart case
+
   virtualedit = "block",          -- vitualblock mode doesn't get stuck at the end of line
-  inccommand = "split",           -- shows all inline replacements in split
+  inccommand = "split",           -- shows all inline replacements in split; Preview substitutions live, as you type!
   autoread = true,
 
   -- FOLDING
@@ -65,6 +84,14 @@ local options = {
 for k, v in pairs(options) do
   vim.opt[k] = v
 end
+
+-- Sets how neovim will display certain whitespace characters in the editor.
+--  See `:help 'list'`
+--  and `:help 'listchars'`
+vim.opt.list = true
+vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
+
+vim.opt.iskeyword:append "-"  -- hyphenated words recognized by searches
 
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 -- vim.g.have_nerd_font = false
