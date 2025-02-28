@@ -144,6 +144,9 @@ TEMPLATES (<leader>t):
   m - MultipleAnswer.tex
 ]]
 
+local harpoon = require("harpoon")
+local builtin = require 'telescope.builtin'
+
 return {
 
   -- NOTE: Plugins can also be configured to run Lua code when they are loaded.
@@ -248,6 +251,8 @@ return {
       nowait = true,  -- use `nowait` when creating keymaps
       prefix = "<leader>",
       mode = { "n", "v" },
+
+      -- only character, không map với number được sẽ lỗi syntax such as <leader>1, 1 = {} là lỗi
       b = { "<cmd>VimtexCompile<CR>", "build" },
       c = { "<cmd>vert sb<CR>", "create split" },
       d = { "<cmd>update! | lua Snacks.bufdelete()<CR>", "delete buffer" },
@@ -266,7 +271,6 @@ return {
       --   a = { "<cmd>lua require('harpoon.mark').add_file()<cr>", "mark" },
       --   n = { "<cmd>lua require('harpoon.ui').nav_next()<cr>", "next" },
       --   p = { "<cmd>lua require('harpoon.ui').nav_prev()<cr>", "previous" },
-      -- 1 = { "<cmd>VimtexCompile<CR>", "build" },
 
       a = {
         name = "ACTIONS",
@@ -277,7 +281,7 @@ return {
         f = { "<cmd>lua vim.lsp.buf.format()<CR>", "format" },
         g = { "<cmd>e ~/.config/nvim/templates/Glossary.tex<CR>", "edit glossary" },
         -- h = { "<cmd>lua _HTOP_TOGGLE()<CR>", "htop" },
-        h = { "<cmd>LocalHighlightToggle<CR>", "highlight" },
+        H = { "<cmd>LocalHighlightToggle<CR>", "highlight" },
         k = { "<cmd>VimtexClean<CR>", "kill aux" },
         l = { "<cmd>LeanInfoviewToggle<CR>", "lean info" },
         -- l = { "<cmd>lua vim.g.cmptoggle = not vim.g.cmptoggle<CR>", "LSP" },
@@ -296,9 +300,11 @@ return {
         S = { "<cmd>TermExec cmd='ssh brastmck@eofe10.mit.edu'<CR>", "ssh" },
       },
 
+      -- FIND
       f = {
         name = "FIND",
-        a = { "<cmd>lua require('telescope.builtin').find_files({ no_ignore = true, hidden = true, search_dirs = { '~/' } })<CR>", "all files" },
+        -- a = { "<cmd>lua require('telescope.builtin').find_files({ no_ignore = true, hidden = true, search_dirs = { '~/' } })<CR>", "all files" },
+        a = { "<cmd>lua require('telescope.builtin').find_files()<CR>", "all files" },
         b = {
           "<cmd>lua require('telescope.builtin').buffers(require('telescope.themes').get_dropdown{previewer = false})<CR>",
           "buffers",
@@ -320,6 +326,7 @@ return {
         -- r = { "<cmd>Telescope oldfiles<CR>", "recent" },
       },
 
+      -- GIT
       g = {
         name = "GIT",
         -- { '<leader>g', group = ' Git' },
@@ -336,6 +343,7 @@ return {
         t = { "<cmd>Gitsigns toggle_word_diff<CR>", "toggle word diff" },
       },
 
+      -- AI HELP
       h = {
         name = "AI HELP",
         a = { "<cmd>AvanteAsk<CR>", "ask" },
@@ -361,6 +369,7 @@ return {
         p = { "<cmd>AutolistCyclePrev<CR>", "previous" },
         r = { "<cmd>AutolistRecalculate<CR>", "reorder" },
       },
+      -- LSP
       l = {
         name = "LSP",
         b = { "<cmd>Telescope diagnostics bufnr=0<CR>", "buffer diagnostics" },
@@ -423,6 +432,7 @@ return {
         -- x = { "<cmd>echo "run: unoconv -f pdf path-to.docx""  , "word to pdf"},
       },
 
+      -- RUN
       r = {
         name = "RUN",
         d = { "<cmd>Dashboard<cr>", "Dashboard" },
@@ -433,15 +443,16 @@ return {
         h = { "<cmd>Hardtime toggle<cr>", "Hardtime Toggle" },
         s = { "<cmd>lua Snacks.notifier.show_history()<cr>", "Show Notifications" },
         -- d = { "function() vim.diagnostic.open_float(0, { scope = 'line', header = false, focus = false }) end", "diagnostics" },
-    -- map('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>')
-    -- map('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>')
-    -- map('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>')
-    -- map('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>')
-    -- map('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>')
-    -- map('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>')
-    -- map('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>')prev{popup_opts = {show_header = false}} end", "previous" },
+        -- map('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>')
+        -- map('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>')
+        -- map('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>')
+        -- map('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>')
+        -- map('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>')
+        -- map('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>')
+        -- map('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>')prev{popup_opts = {show_header = false}} end", "previous" },
       },
 
+      -- SURROUND
       s = {
         name = "SURROUND",
         s = { "<Plug>(nvim-surround-normal)", "surround" },
@@ -495,10 +506,23 @@ return {
     wk.setup(opts.setup)
     wk.register(opts.defaults)
 
-    local harpoon = require("harpoon")
     wk.add({
+      -- Harpoon
+      -- harpoon import ở trên cùng file này
       { "<C-e>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end, desc = "Harpoon Menu", mode = "n" },
-      -- vim.keymap.set("n", "<C-e>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end, { desc = 'harpoon menu' })
+      { "<leader>ah", function() harpoon:list():add() end, desc = "Add Harpoon File", mode = "n" },
+
+      { "<leader>1", function() harpoon:list():select(1) end, desc = "Harpoon File 1", mode = "n" },
+      { "<leader>2", function() harpoon:list():select(2) end, desc = "Harpoon File 2", mode = "n" },
+      { "<leader>3", function() harpoon:list():select(3) end, desc = "Harpoon File 3", mode = "n" },
+      { "<leader>4", function() harpoon:list():select(4) end, desc = "Harpoon File 4", mode = "n" },
+      { "<leader>5", function() harpoon:list():select(5) end, desc = "Harpoon File 5", mode = "n" },
+
+      -- Toggle previous & next buffers stored within Harpoon list
+      -- vim.keymap.set("n", "<C-S-P>", function() harpoon:list():prev() end)
+      -- vim.keymap.set("n", "<C-S-N>", function() harpoon:list():next() end)
+
+      -- Telescope
     })
   end,
 }
