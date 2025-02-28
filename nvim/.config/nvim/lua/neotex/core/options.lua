@@ -24,7 +24,7 @@ local options = {     -- Nếu không để "local" thì default là global vari
   number = true,                  -- set numbered lines
 
   -- You can also add relative line numbers, to help with jumping. Experiment for yourself to see if you like it!
-  relativenumber = true,          -- set relative numbered lines
+  relativenumber = false,          -- set relative numbered lines
 
   numberwidth = 2,                -- set number column width to 2 {default 4}
   signcolumn = "yes",             -- always show the sign column, otherwise it would shift the text each time

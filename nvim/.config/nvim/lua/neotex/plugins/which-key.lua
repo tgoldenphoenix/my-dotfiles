@@ -261,10 +261,10 @@ return {
       j = { "<cmd>clo<CR>", "drop split" },
       i = { "<cmd>VimtexTocOpen<CR>", "index" },
       k = { "<cmd>on<CR>", "max split" },
-      q = { "<cmd>wa! | qa!<CR>", "quit" },
+      q = { "<cmd>wa! | qa!<CR>", "quit" }, -- save and quite all buffers
       u = { "<cmd>Telescope undo<CR>", "undo" },
       v = { "<cmd>VimtexView<CR>", "view" },
-      w = { "<cmd>wa!<CR>", "write" },
+      w = { "<cmd>wa!<CR>", "write" },  -- save buffer
       -- z = { "<cmd>ZenMode<CR>", "zen" },
 
       --   HARPOON
@@ -303,8 +303,8 @@ return {
       -- FIND
       f = {
         name = "FIND",
-        -- a = { "<cmd>lua require('telescope.builtin').find_files({ no_ignore = true, hidden = true, search_dirs = { '~/' } })<CR>", "all files" },
-        a = { "<cmd>lua require('telescope.builtin').find_files()<CR>", "all files" },
+        a = { "<cmd>lua require('telescope.builtin').find_files({ no_ignore = true, hidden = true, search_dirs = { '~/' } })<CR>", "all files" },
+        -- a = { "<cmd>lua require('telescope.builtin').find_files()<CR>", "all files" },
         b = {
           "<cmd>lua require('telescope.builtin').buffers(require('telescope.themes').get_dropdown{previewer = false})<CR>",
           "buffers",

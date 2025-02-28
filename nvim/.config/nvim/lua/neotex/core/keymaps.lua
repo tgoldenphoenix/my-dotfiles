@@ -205,12 +205,11 @@ end, { remap = true })
 -- Kill search highlights
 keymap("n", "<CR>", "<cmd>noh<CR>", opts)
 
-
 -- Find project files
 vim.keymap.set("n", "<C-p>", "<cmd>Telescope find_files<CR>", { remap = true })
-  -- function ()
-  --   require('telescope.builtin').find_files(require('telescope.themes').get_dropdown({previewer = false}))
-  -- end, 
+-- function ()
+--   require('telescope.builtin').find_files(require('telescope.themes').get_dropdown({previewer = false}))
+-- end, 
 
 
 -- Toggle comments. Dùng `;` chứ không dùng `/`
@@ -304,11 +303,9 @@ keymap("v", "<A-k>", ":m-2<CR>gv", opts)
 keymap("i", "jk", "<ESC>", opts)
 keymap("i", "kj", "<ESC>", opts)
 
-
 -- Horizontal line movments --
 keymap("n", "<c-u>", "<c-u>zz", opts)
 keymap("n", "<c-d>", "<c-d>zz", opts)
-
 
 -- Horizontal line movments --
 keymap("v", "<S-h>", "g^", opts)
@@ -316,6 +313,13 @@ keymap("v", "<S-l>", "g$", opts)
 keymap("n", "<S-h>", "g^", opts)
 keymap("n", "<S-l>", "g$", opts)
 
+-- Navigate display lines
+-- một wrapped line có nhiều displayed line
+-- Nhưng một wrap line chỉ ứng với only one real numbered line
+keymap("n", "J", "gj", opts)    -- Shift+j để navigate displayed line
+keymap("n", "K", "gk", opts)
+keymap("v", "J", "gj", opts)
+keymap("v", "K", "gk", opts)
 
 -- Indentation
 -- Use in visual mode, select and use arrow key to indent
@@ -325,10 +329,3 @@ keymap("n", "<", "<S-v><<esc>", opts)
 keymap("n", ">", "<S-v>><esc>", opts)
 -- keymap("v", "<", "<gv^", opts)
 -- keymap("v", ">", ">gv^", opts)
-
--- Navigate display lines
-keymap("n", "J", "gj", opts)
-keymap("n", "K", "gk", opts)
-keymap("v", "J", "gj", opts)
-keymap("v", "K", "gk", opts)
-
