@@ -145,12 +145,33 @@ TEMPLATES (<leader>t):
 ]]
 
 return {
-  "folke/which-key.nvim",
+
+  -- NOTE: Plugins can also be configured to run Lua code when they are loaded.
+  --
+  -- This is often very useful to both group configuration, as well as handle
+  -- lazy loading plugins that don't need to be loaded immediately at startup.
+  --
+  -- For example, in the following configuration, we use:
+  --  event = 'VimEnter'
+  --
+  -- which loads which-key before all the UI elements are loaded. Events can be
+  -- normal autocommands events (`:help autocmd-events`).
+  --
+  -- Then, because we use the `opts` key (recommended), the configuration runs
+  -- after the plugin has been loaded as `require(MODULE).setup(opts)`.
+
+  "folke/which-key.nvim", -- Useful plugin to show you pending keybinds.
   event = "VeryLazy",
   dependencies = {
     'echasnovski/mini.nvim',
   },
   opts = {
+    -- your configuration comes here
+    -- or leave it empty to use the default settings
+    -- refer to the configuration section below
+
+
+    -- will be required in config function below
     setup = {
       show_help = false,
       show_keys = false,        -- show the currently pressed key and its label as a message in the command line
@@ -218,6 +239,8 @@ return {
         ft = { "NvimTree" } -- add your explorer's filetype here
       }
     },
+
+    -- default keymaps
     defaults = {
       buffer = nil,   -- Global mappings. Specify a buffer number for buffer local mappings
       silent = true,  -- use `silent` when creating keymaps
@@ -238,6 +261,13 @@ return {
       v = { "<cmd>VimtexView<CR>", "view" },
       w = { "<cmd>wa!<CR>", "write" },
       -- z = { "<cmd>ZenMode<CR>", "zen" },
+
+      --   HARPOON
+      --   a = { "<cmd>lua require('harpoon.mark').add_file()<cr>", "mark" },
+      --   n = { "<cmd>lua require('harpoon.ui').nav_next()<cr>", "next" },
+      --   p = { "<cmd>lua require('harpoon.ui').nav_prev()<cr>", "previous" },
+      -- 1 = { "<cmd>VimtexCompile<CR>", "build" },
+
       a = {
         name = "ACTIONS",
         a = { "<cmd>lua PdfAnnots()<CR>", "annotate" },
@@ -265,6 +295,7 @@ return {
         s = { "<cmd>e ~/.config/nvim/snippets/tex.snippets<CR>", "snippets edit" },
         S = { "<cmd>TermExec cmd='ssh brastmck@eofe10.mit.edu'<CR>", "ssh" },
       },
+
       f = {
         name = "FIND",
         a = { "<cmd>lua require('telescope.builtin').find_files({ no_ignore = true, hidden = true, search_dirs = { '~/' } })<CR>", "all files" },
@@ -288,9 +319,10 @@ return {
         -- c = { "<cmd>Telescope commands<CR>", "commands" },
         -- r = { "<cmd>Telescope oldfiles<CR>", "recent" },
       },
+
       g = {
         name = "GIT",
-    -- { '<leader>g', group = ' Git' },
+        -- { '<leader>g', group = ' Git' },
         b = { "<cmd>Telescope git_branches<CR>", "checkout branch" },
         c = { "<cmd>Telescope git_commits<CR>", "git commits" },
         d = { "<cmd>Gitsigns diffthis HEAD<CR>", "diff" },
@@ -303,6 +335,7 @@ return {
         t = { "<cmd>Gitsigns toggle_current_line_blame<CR>", "toggle blame" },
         t = { "<cmd>Gitsigns toggle_word_diff<CR>", "toggle word diff" },
       },
+
       h = {
         name = "AI HELP",
         a = { "<cmd>AvanteAsk<CR>", "ask" },
@@ -315,11 +348,9 @@ return {
         r = { "<cmd>AvanteRefresh<CR>", "refresh assistant" },
         t = { "<cmd>AvanteToggle<CR>", "toggle assistant" },
       },
-      --   HARPOON
-      --   a = { "<cmd>lua require('harpoon.mark').add_file()<cr>", "mark" },
-      --   n = { "<cmd>lua require('harpoon.ui').nav_next()<cr>", "next" },
-      --   p = { "<cmd>lua require('harpoon.ui').nav_prev()<cr>", "previous" },
+
       -- LIST MAPPINGS
+      -- Ở đây là capital `L` khác với lowercase `l` ở dưới nhé
       L = {
         name = "LIST",
         c = { "<cmd>lua HandleCheckbox()<CR>", "checkbox" },
@@ -348,17 +379,22 @@ return {
         R = { "<cmd>lua vim.lsp.buf.rename()<CR>", "rename" },
         -- T = { "<cmd>Telescope lsp_type_definitions<CR>", "type definition" },
       },
+
       -- MARKDOWN MAPPINGS
       m = {
         name = "MARKDOWN",
         v = { "<cmd>Slides<CR>", "view slides" },
       },
+
+      -- SESSIONS
       S = {
         name = "SESSIONS",
         s = { "<cmd>SessionManager save_current_session<CR>", "save" },
         d = { "<cmd>SessionManager delete_session<CR>", "delete" },
         l = { "<cmd>SessionManager load_session<CR>", "load" },
       },
+
+      -- NIXOS
       n = {
         name = "NIXOS",
         d = { "<cmd>TermExec cmd='nix develop'<CR><C-w>j", "develop" },
@@ -374,6 +410,8 @@ return {
         -- r = { "<cmd>TermExec cmd='home-manager switch --flake ~/.config/home-manager/'<CR><C-w>j", "rebuild" },
         u = { "<cmd>TermExec cmd='nix flake update'<CR><C-w>j", "update" },
       },
+
+      -- PANDOC
       p = {
         name = "PANDOC",
         w = { "<cmd>TermExec cmd='pandoc %:p -o %:p:r.docx'<CR>", "word" },
@@ -384,6 +422,7 @@ return {
         v = { "<cmd>TermExec cmd='zathura %:p:r.pdf &' open=0<CR>", "view" },
         -- x = { "<cmd>echo "run: unoconv -f pdf path-to.docx""  , "word to pdf"},
       },
+
       r = {
         name = "RUN",
         d = { "<cmd>Dashboard<cr>", "Dashboard" },
@@ -402,12 +441,15 @@ return {
     -- map('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>')
     -- map('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>')prev{popup_opts = {show_header = false}} end", "previous" },
       },
+
       s = {
         name = "SURROUND",
         s = { "<Plug>(nvim-surround-normal)", "surround" },
         d = { "<Plug>(nvim-surround-delete)", "delete" },
         c = { "<Plug>(nvim-surround-change)", "change" },
       },
+
+      -- TEMPLATES
       t = {
         name = "TEMPLATES",
         p = {
@@ -443,11 +485,20 @@ return {
           "MultipleAnswer.tex",
         },
       },
+
+      -- END default mappings
     },
   },
+
   config = function(_, opts)
     local wk = require("which-key")
     wk.setup(opts.setup)
     wk.register(opts.defaults)
+
+    local harpoon = require("harpoon")
+    wk.add({
+      { "<C-e>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end, desc = "Harpoon Menu", mode = "n" },
+      -- vim.keymap.set("n", "<C-e>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end, { desc = 'harpoon menu' })
+    })
   end,
 }

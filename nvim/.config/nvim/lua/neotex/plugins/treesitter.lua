@@ -8,11 +8,16 @@ return {
     "windwp/nvim-ts-autotag",
   },
   config = function()
+    -- Use opts = {} is same as require("nvim-treesitter.configs").setup({})
     require("nvim-treesitter.configs").setup({
       -- enable syntax highlighting
       highlight = {
         enable = true,
         disable = { "css", "latex", "markdown", "cls" }, -- list of language that will be disabled
+
+        -- Some languages depend on vim's regex highlighting system (such as Ruby) for indent rules.
+        --  If you are experiencing weird indenting issues, add the language to
+        --  the list of additional_vim_regex_highlighting and disabled languages for indent.
         -- additional_vim_regex_highlighting = { 'org' }, -- for orgmode
       },
       -- enable indentation
@@ -53,7 +58,7 @@ return {
         -- "perl",
       },
       auto_install = true,
-      ignore_install = { "latex" }, -- List of parsers to ignore installing
+      -- ignore_install = { "latex" }, -- List of parsers to ignore installing
       autopairs = {
         enable = true,
       },
