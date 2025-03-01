@@ -11,6 +11,7 @@ return {
     local function on_attach(bufnr)
       local api = require('nvim-tree.api')
 
+      -- Nice opts function!
       local function opts(desc)
         return { desc = 'nvim-tree: ' .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
       end
@@ -24,13 +25,18 @@ return {
       keymap.set('n', 'J', api.node.navigate.sibling.last, opts('Last Sibling'))
       keymap.set('n', 'K', api.node.navigate.sibling.first, opts('First Sibling'))
       keymap.set('n', '-', api.tree.change_root_to_parent, opts('Up'))
+
       keymap.set('n', 'a', api.fs.create, opts('Create'))
       keymap.set('n', 'y', api.fs.copy.node, opts('Copy'))
+      keymap.set('n', 'x', api.fs.cut, opts('Cut'))
+      keymap.set('n', 'p', api.fs.paste, opts('Paste'))
       keymap.set('n', 'd', api.fs.remove, opts('Delete'))
       keymap.set('n', 'D', api.fs.trash, opts('Trash'))
+
       keymap.set('n', '?', api.tree.toggle_help, opts('Help'))
+      -- TODO: change to Cmd S .
       keymap.set('n', 'H', api.tree.toggle_hidden_filter, opts('Toggle Dotfiles'))
-      keymap.set('n', 'p', api.fs.paste, opts('Paste'))
+
       keymap.set('n', 'O', api.node.navigate.parent, opts('Parent Directory'))
       keymap.set('n', 'q', api.tree.close, opts('Close'))
       keymap.set('n', 'r', api.fs.rename, opts('Rename'))
@@ -38,7 +44,7 @@ return {
       keymap.set('n', 'o', api.node.run.system, opts('System Open'))
       keymap.set('n', 's', api.tree.search_node, opts('Search'))
       keymap.set('n', 'v', api.node.open.vertical, opts('Vertical Split'))
-      keymap.set('n', 'x', api.fs.cut, opts('Cut'))
+      
       keymap.set('n', '<2-LeftMouse>', api.node.open.edit, opts('Open'))
       -- keymap.set('n', '<BS>',  api.node.navigate.parent_close,        opts('Close Directory'))
       -- keymap.set('n', '<CR>',  api.node.open.edit,                    opts('Open'))
