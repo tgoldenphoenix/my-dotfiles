@@ -72,7 +72,8 @@ semantic_escape_chars = ",│`|:\"' ()[]{}<>"
 
 [shell]
 args = ["new-session", "-A"]
-program = "/run/current-system/sw/bin/tmux"
+program = "/usr/bin/zsh"
+# program = "/run/current-system/sw/bin/tmux"
 
 # [[shell.key_bindings]]
 # action = "Paste"
