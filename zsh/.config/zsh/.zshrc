@@ -126,9 +126,6 @@ source $ZDOTDIR/aliases/aliases
 eval "$(fzf --zsh)" # install with homebrew
 eval "$(zoxide init --cmd cd zsh)"   # must be added after compinit is called
 
-### Preferences
-# Dreams of Autonomy: https://www.youtube.com/watch?v=ud7YxC33Z3w
-
 # ruby version manager
 # source /Users/anhao/.rvm/scripts/rvm
 
@@ -137,3 +134,10 @@ eval "$(zoxide init --cmd cd zsh)"   # must be added after compinit is called
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
+
+# Wezterm terminal emulator
+PATH="$PATH:/Applications/WezTerm.app/Contents/MacOS"
+export PATH
+
+### Preferences
+# Dreams of Autonomy: https://www.youtube.com/watch?v=ud7YxC33Z3w
