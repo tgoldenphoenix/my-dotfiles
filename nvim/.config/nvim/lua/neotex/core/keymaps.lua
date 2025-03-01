@@ -316,6 +316,7 @@ keymap("n", "<S-l>", "g$", opts)
 -- Navigate display lines
 -- một wrapped line có nhiều displayed line
 -- Nhưng một wrap line chỉ ứng với only one real numbered line
+-- src: https://stackoverflow.com/questions/13376822/vim-line-numbers-on-display-lines
 keymap("n", "J", "gj", opts)    -- Shift+j để navigate displayed line
 keymap("n", "K", "gk", opts)
 keymap("v", "J", "gj", opts)
