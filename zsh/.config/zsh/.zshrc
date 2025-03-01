@@ -26,6 +26,10 @@ if [[ -f "/opt/homebrew/bin/brew" ]] then
   eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
+# auto-added by fzf install script
+# fzf này tải bằng git lưu ở ~/.fzf/bin. Trong này có luôn uninstall script
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
 # nvm - node version manager
 export NVM_DIR="$HOME/.config/nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm

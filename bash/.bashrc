@@ -117,3 +117,4 @@ if ! shopt -oq posix; then
 fi
 
 export PATH="/usr/local/texlive/2024/bin/x86_64-linux:$PATH"
+[ -f ~/.fzf.bash ] && source ~/.fzf.bash
