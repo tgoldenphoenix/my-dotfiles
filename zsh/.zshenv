@@ -45,3 +45,6 @@ export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk-17.jdk/Contents/Home"
 
 # for nodejs
 export PATH=$PATH:/usr/local/bin
+
+# add latex to path on ubuntu
+export PATH=/usr/local/texlive/2024/bin/x86_64-linux:$PATH

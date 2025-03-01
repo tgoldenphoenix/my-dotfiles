@@ -5,7 +5,7 @@ local constants = require 'constants'
 local config = wezterm.config_builder()
 
 -- Font settings
-config.font_size = 19.0
+config.font_size = 16.0
 config.line_height = 1.2
 config.font = wezterm.font 'Hack Nerd Font' -- nếu font không có trên máy sẽ lỗi
 config.font_rules = {
