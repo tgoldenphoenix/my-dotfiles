@@ -1,5 +1,5 @@
 return {
-  "neovim/nvim-lspconfig",
+  "neovim/nvim-lspconfig", -- configuration for the built-in lsp client of neovim
   event = { "BufReadPre", "BufNewFile" },
   dependencies = {
     { "hrsh7th/cmp-nvim-lsp" },

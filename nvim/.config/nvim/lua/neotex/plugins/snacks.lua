@@ -14,11 +14,13 @@ return {
         ft = "git",
       }
     },
+
     bigfile = {
       enabled = false,
       notify = true,
       size = 100 * 1024,   -- 100 KB
     },
+
     bufdelete = { enabled = true },
     dashboard = {
       enabled = true,
@@ -26,6 +28,7 @@ return {
       sections = require("neotex.plugins.snacks.dashboard").sections,
       -- sections = require("neotex.plugins.snacks.gh_dashboard").sections,
     },
+
     git = { enabled = true },
     gitbrowse = { enabled = true },
     indent = {
@@ -79,6 +82,7 @@ return {
       more_format = ' ↓ %d lines ',
       refresh = 50,
     },
+
     notify = { enabled = true },
     profiler = { enabled = false },
     quickfile = { enabled = true },
@@ -121,6 +125,7 @@ return {
         -- },
       },
     },
+    
     scratch = { enabled = false },
     scroll = { enabled = false },
     statuscolumn = {
