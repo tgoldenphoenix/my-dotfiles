@@ -3,6 +3,7 @@ local M = {}
 M.preset = {
   pick = nil,
   keys = {
+    -- { icon = " ", key = "s", desc = "Restore Session", action = function() require("persistence").select() end },
     { icon = " ", key = "s", desc = "Restore Session", action = ":SessionManager load_session" },
     { icon = " ", key = "r", desc = "Recent Files", action = ":lua Snacks.dashboard.pick('oldfiles')" },
     { icon = " ", key = "e", desc = "Explorer", action = ":NvimTreeToggle" },

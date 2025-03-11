@@ -22,6 +22,7 @@ return {
     },
 
     bufdelete = { enabled = true },
+    
     dashboard = {
       enabled = true,
       preset = require("neotex.plugins.snacks.dashboard").preset,

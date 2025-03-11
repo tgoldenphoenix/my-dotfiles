@@ -28,8 +28,8 @@ return {
     -- Viewer settings
     -- Default view_method is 'general'
     -- vim.g.vimtex_view_method = "zathura"
-    vim.g.vimtex_view_method = 'zathura_simple'    -- For Wayland compatibility, avoid xdotool
-    -- vim.g.vimtex_view_method = "skim"
+    -- vim.g.vimtex_view_method = 'zathura_simple'    -- For Wayland compatibility, avoid xdotool
+    vim.g.vimtex_view_method = "skim"
     vim.g.vimtex_context_pdf_viewer = 'okular'     -- External PDF viewer for the Vimtex menu
 
     -- Formatting settings
