@@ -52,9 +52,10 @@ return {
             -- vim.keymap.set("n", "<leader>4", function() harpoon:list():select(4) end, { desc = 'harpoon file 4' })
 
             -- Toggle previous & next buffers stored within Harpoon list
-            vim.keymap.set("n", "<C-S-P>", function() harpoon:list():prev() end)
-            vim.keymap.set("n", "<C-S-N>", function() harpoon:list():next() end)
+            -- vim.keymap.set("n", "<C-S-P>", function() harpoon:list():prev() end)
+            -- vim.keymap.set("n", "<C-S-N>", function() harpoon:list():next() end)
         end,
+
         -- keys property này là của Lazy package manager, nó conflict với vim.keymap.set()
         -- keys = {
         --     { "<leader>A", function() require("harpoon"):list():append() end, desc = "harpoon file", },

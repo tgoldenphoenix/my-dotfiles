@@ -156,7 +156,7 @@ end
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
--------------------- General Keymaps --------------------
+--=================== General Keymaps ===================
 
 -- delete single character without copying into register
 -- keymap("n", "x", '"_x', opts)
@@ -181,8 +181,8 @@ keymap("n", "gcc", "<nop>", opts)
 -- vim.keymap.set("v", '<C-s>', 'S', { remap = true }) -- see surround.lua
 
 -- Terminal
-vim.keymap.set("n", "<C-t>", "<cmd>lua Snacks.terminal.toggle()<CR>", { remap = true })
-vim.keymap.set("t", "<C-t>", "<cmd>lua Snacks.terminal.toggle()<CR>", { remap = true })
+-- vim.keymap.set("n", "<C-t>", "<cmd>lua Snacks.terminal.toggle()<CR>", { remap = true })
+-- vim.keymap.set("t", "<C-t>", "<cmd>lua Snacks.terminal.toggle()<CR>", { remap = true })
 
 -- Spelling
 vim.keymap.set("n", "<C-s>", function()

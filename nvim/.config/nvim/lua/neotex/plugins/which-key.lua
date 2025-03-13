@@ -173,7 +173,6 @@ return {
     -- or leave it empty to use the default settings
     -- refer to the configuration section below
 
-
     -- will be required in config function below
     setup = {
       show_help = false,
@@ -254,14 +253,21 @@ return {
 
       -- only character, không map với number được sẽ lỗi syntax such as <leader>1, 1 = {} là lỗi
       b = { "<cmd>VimtexCompile<CR>", "build" },
-      c = { "<cmd>vert sb<CR>", "create split" },
+
+      -- sb = sbuffer
+      -- c = { "<cmd>vert sb<CR>", "create split" }, -- ???
+
       d = { "<cmd>update! | lua Snacks.bufdelete()<CR>", "delete buffer" },
       -- d = { "<cmd>update! | bdelete!<CR>", "delete buffer" },
+
       e = { "<cmd>NvimTreeToggle<CR>", "explorer" },
-      j = { "<cmd>clo<CR>", "drop split" },
-      i = { "<cmd>VimtexTocOpen<CR>", "index" },
-      k = { "<cmd>on<CR>", "max split" },
-      q = { "<cmd>wa! | qa!<CR>", "quit" }, -- save and quite all buffers
+      -- j = { "<cmd>clo<CR>", "drop split" },
+      i = { "<cmd>VimtexTocOpen<CR>", "index" }, -- !usefull
+
+      -- :only
+      -- k = { "<cmd>on<CR>", "max split" }, -- ??
+
+      q = { "<cmd>wa! | qa!<CR>", "quit" }, -- save and quit all buffers
       u = { "<cmd>Telescope undo<CR>", "undo" },
       v = { "<cmd>VimtexView<CR>", "view" },
       w = { "<cmd>wa!<CR>", "write" },  -- save buffer
@@ -274,12 +280,12 @@ return {
 
       a = {
         name = "ACTIONS",
-        a = { "<cmd>lua PdfAnnots()<CR>", "annotate" },
-        b = { "<cmd>terminal bibexport -o %:p:r.bib %:p:r.aux<CR>", "bib export" },
+        -- a = { "<cmd>lua PdfAnnots()<CR>", "annotate" },
+        -- b = { "<cmd>terminal bibexport -o %:p:r.bib %:p:r.aux<CR>", "bib export" },
         c = { "<cmd>:VimtexClearCache All<CR>", "clear vimtex" },
         e = { "<cmd>VimtexErrors<CR>", "error report" },
         f = { "<cmd>lua vim.lsp.buf.format()<CR>", "format" },
-        g = { "<cmd>e ~/.config/nvim/templates/Glossary.tex<CR>", "edit glossary" },
+        -- g = { "<cmd>e ~/.config/nvim/templates/Glossary.tex<CR>", "edit glossary" },
         -- h = { "<cmd>lua _HTOP_TOGGLE()<CR>", "htop" },
         H = { "<cmd>LocalHighlightToggle<CR>", "highlight" },
         k = { "<cmd>VimtexClean<CR>", "kill aux" },
@@ -287,17 +293,17 @@ return {
         -- l = { "<cmd>lua vim.g.cmptoggle = not vim.g.cmptoggle<CR>", "LSP" },
         M = { "<cmd>!xdg-open %<CR>", "markdown preview" },
 
-        m = { "<cmd>TermExec cmd='cd /home/benjamin/Documents/Philosophy/Projects/ModelChecker/Code && python3 -m src.model_checker.cli %:p:r.py'<CR>", "model checker" },
-        p = { "<cmd>TermExec cmd='python %:p:r.py'<CR>", "python" },
+        -- m = { "<cmd>TermExec cmd='cd /home/benjamin/Documents/Philosophy/Projects/ModelChecker/Code && python3 -m src.model_checker.cli %:p:r.py'<CR>", "model checker" },
+        -- p = { "<cmd>TermExec cmd='python %:p:r.py'<CR>", "python" },
         r = { "<cmd>AutolistRecalculate<CR>", "reorder list" },
         t = { "<cmd>terminal latexindent -w %:p:r.tex<CR>", "tex format" },
-        u = { "<cmd>cd %:p:h<CR>", "update cwd" },
+        -- u = { "<cmd>cd %:p:h<CR>", "update cwd" },
         v = { "<plug>(vimtex-context-menu)", "vimtex menu" },
         w = { "<cmd>VimtexCountWords!<CR>", "word count" },
         -- w = { "<cmd>TermExec cmd='pandoc %:p -o %:p:r.docx'<CR>" , "word"},
         -- s = { "<cmd>lua function() require('cmp_vimtex.search').search_menu() end<CR>"           , "search citations" },
         s = { "<cmd>e ~/.config/nvim/snippets/tex.snippets<CR>", "snippets edit" },
-        S = { "<cmd>TermExec cmd='ssh brastmck@eofe10.mit.edu'<CR>", "ssh" },
+        -- S = { "<cmd>TermExec cmd='ssh brastmck@eofe10.mit.edu'<CR>", "ssh" },
       },
 
       -- FIND
@@ -346,15 +352,15 @@ return {
       -- AI HELP
       h = {
         name = "AI HELP",
-        a = { "<cmd>AvanteAsk<CR>", "ask" },
-        b = { "<cmd>AvanteBuild<CR>", "build dependencies" },
-        c = { "<cmd>AvanteChat<CR>", "chat" },
-        C = { "<cmd>AvanteClear<CR>", "clear" },
-        e = { "<cmd>AvanteEdit<CR>", "edit" },
-        m = { "<cmd>AvanteShowRepoMap<CR>", "map repo" },
-        p = { "<cmd>AvanteSwitchProvider<CR>", "switch provider" },
-        r = { "<cmd>AvanteRefresh<CR>", "refresh assistant" },
-        t = { "<cmd>AvanteToggle<CR>", "toggle assistant" },
+        -- a = { "<cmd>AvanteAsk<CR>", "ask" },
+        -- b = { "<cmd>AvanteBuild<CR>", "build dependencies" },
+        -- c = { "<cmd>AvanteChat<CR>", "chat" },
+        -- C = { "<cmd>AvanteClear<CR>", "clear" },
+        -- e = { "<cmd>AvanteEdit<CR>", "edit" },
+        -- m = { "<cmd>AvanteShowRepoMap<CR>", "map repo" },
+        -- p = { "<cmd>AvanteSwitchProvider<CR>", "switch provider" },
+        -- r = { "<cmd>AvanteRefresh<CR>", "refresh assistant" },
+        -- t = { "<cmd>AvanteToggle<CR>", "toggle assistant" },
       },
 
       -- LIST MAPPINGS
@@ -390,10 +396,10 @@ return {
       },
 
       -- MARKDOWN MAPPINGS
-      m = {
-        name = "MARKDOWN",
-        v = { "<cmd>Slides<CR>", "view slides" },
-      },
+      -- m = {
+      --   name = "MARKDOWN",
+      --   v = { "<cmd>Slides<CR>", "view slides" },
+      -- },
 
       -- SESSIONS
       S = {
@@ -404,33 +410,33 @@ return {
       },
 
       -- NIXOS
-      n = {
-        name = "NIXOS",
-        d = { "<cmd>TermExec cmd='nix develop'<CR><C-w>j", "develop" },
-        -- f = { "<cmd>TermExec cmd='sudo nixos-rebuild switch --flake ~/.config/nixos/'<CR><C-w>j", "flake" },
-        g = { "<cmd>TermExec cmd='nix-collect-garbage --delete-older-than 15d'<CR><C-w>j", "garbage" },
-        -- g = { "<cmd>TermExec cmd='nix-collect-garbage -d'<CR><C-w>j", "garbage" },
-        p = { "<cmd>TermExec cmd='brave https://search.nixos.org/packages' open=0<CR>", "packages" },
-        m = { "<cmd>TermExec cmd='brave https://mynixos.com' open=0<CR>", "my-nixos" },
-        r = { "<cmd>TermExec cmd='sudo nixos-rebuild switch --flake ~/.dotfiles/'<CR><C-w>l", "rebuild flake" },
-        h = { "<cmd>TermExec cmd='home-manager switch --flake ~/.dotfiles/'<CR><C-w>l", "home-manager" },
-        -- r = { "<cmd>TermExec cmd='home-manager switch'<CR><C-w>j", "home rebuild" },
-        -- r = { "<cmd>TermExec cmd='sudo nixos-rebuild switch --flake ~/.config/home-manager/#nandi'<CR><C-w>j", "home rebuild" },
-        -- r = { "<cmd>TermExec cmd='home-manager switch --flake ~/.config/home-manager/'<CR><C-w>j", "rebuild" },
-        u = { "<cmd>TermExec cmd='nix flake update'<CR><C-w>j", "update" },
-      },
+      -- n = {
+      --   name = "NIXOS",
+      --   d = { "<cmd>TermExec cmd='nix develop'<CR><C-w>j", "develop" },
+      --   f = { "<cmd>TermExec cmd='sudo nixos-rebuild switch --flake ~/.config/nixos/'<CR><C-w>j", "flake" },
+      --   g = { "<cmd>TermExec cmd='nix-collect-garbage --delete-older-than 15d'<CR><C-w>j", "garbage" },
+      --   g = { "<cmd>TermExec cmd='nix-collect-garbage -d'<CR><C-w>j", "garbage" },
+      --   p = { "<cmd>TermExec cmd='brave https://search.nixos.org/packages' open=0<CR>", "packages" },
+      --   m = { "<cmd>TermExec cmd='brave https://mynixos.com' open=0<CR>", "my-nixos" },
+      --   r = { "<cmd>TermExec cmd='sudo nixos-rebuild switch --flake ~/.dotfiles/'<CR><C-w>l", "rebuild flake" },
+      --   h = { "<cmd>TermExec cmd='home-manager switch --flake ~/.dotfiles/'<CR><C-w>l", "home-manager" },
+      --   r = { "<cmd>TermExec cmd='home-manager switch'<CR><C-w>j", "home rebuild" },
+      --   r = { "<cmd>TermExec cmd='sudo nixos-rebuild switch --flake ~/.config/home-manager/#nandi'<CR><C-w>j", "home rebuild" },
+      --   r = { "<cmd>TermExec cmd='home-manager switch --flake ~/.config/home-manager/'<CR><C-w>j", "rebuild" },
+      --   u = { "<cmd>TermExec cmd='nix flake update'<CR><C-w>j", "update" },
+      -- },
 
       -- PANDOC
-      p = {
-        name = "PANDOC",
-        w = { "<cmd>TermExec cmd='pandoc %:p -o %:p:r.docx'<CR>", "word" },
-        m = { "<cmd>TermExec cmd='pandoc %:p -o %:p:r.md'<CR>", "markdown" },
-        h = { "<cmd>TermExec cmd='pandoc %:p -o %:p:r.html'<CR>", "html" },
-        l = { "<cmd>TermExec cmd='pandoc %:p -o %:p:r.tex'<CR>", "latex" },
-        p = { "<cmd>TermExec cmd='pandoc %:p -o %:p:r.pdf' open=0<CR>", "pdf" },
-        v = { "<cmd>TermExec cmd='zathura %:p:r.pdf &' open=0<CR>", "view" },
-        -- x = { "<cmd>echo "run: unoconv -f pdf path-to.docx""  , "word to pdf"},
-      },
+      -- p = {
+      --   name = "PANDOC",
+      --   w = { "<cmd>TermExec cmd='pandoc %:p -o %:p:r.docx'<CR>", "word" },
+      --   m = { "<cmd>TermExec cmd='pandoc %:p -o %:p:r.md'<CR>", "markdown" },
+      --   h = { "<cmd>TermExec cmd='pandoc %:p -o %:p:r.html'<CR>", "html" },
+      --   l = { "<cmd>TermExec cmd='pandoc %:p -o %:p:r.tex'<CR>", "latex" },
+      --   p = { "<cmd>TermExec cmd='pandoc %:p -o %:p:r.pdf' open=0<CR>", "pdf" },
+      --   v = { "<cmd>TermExec cmd='zathura %:p:r.pdf &' open=0<CR>", "view" },
+      --   -- x = { "<cmd>echo "run: unoconv -f pdf path-to.docx""  , "word to pdf"},
+      -- },
 
       -- RUN
       r = {
@@ -453,49 +459,49 @@ return {
       },
 
       -- SURROUND
-      s = {
-        name = "SURROUND",
-        s = { "<Plug>(nvim-surround-normal)", "surround" },
-        d = { "<Plug>(nvim-surround-delete)", "delete" },
-        c = { "<Plug>(nvim-surround-change)", "change" },
-      },
+      -- s = {
+      --   name = "SURROUND",
+      --   s = { "<Plug>(nvim-surround-normal)", "surround" },
+      --   d = { "<Plug>(nvim-surround-delete)", "delete" },
+      --   c = { "<Plug>(nvim-surround-change)", "change" },
+      -- },
 
       -- TEMPLATES
-      t = {
-        name = "TEMPLATES",
-        p = {
-          "<cmd>read ~/.config/nvim/templates/PhilPaper.tex<CR>",
-          "PhilPaper.tex",
-        },
-        l = {
-          "<cmd>read ~/.config/nvim/templates/Letter.tex<CR>",
-          "Letter.tex",
-        },
-        g = {
-          "<cmd>read ~/.config/nvim/templates/Glossary.tex<CR>",
-          "Glossary.tex",
-        },
-        h = {
-          "<cmd>read ~/.config/nvim/templates/HandOut.tex<CR>",
-          "HandOut.tex",
-        },
-        b = {
-          "<cmd>read ~/.config/nvim/templates/PhilBeamer.tex<CR>",
-          "PhilBeamer.tex",
-        },
-        s = {
-          "<cmd>read ~/.config/nvim/templates/SubFile.tex<CR>",
-          "SubFile.tex",
-        },
-        r = {
-          "<cmd>read ~/.config/nvim/templates/Root.tex<CR>",
-          "Root.tex",
-        },
-        m = {
-          "<cmd>read ~/.config/nvim/templates/MultipleAnswer.tex<CR>",
-          "MultipleAnswer.tex",
-        },
-      },
+      -- t = {
+      --   name = "TEMPLATES",
+      --   p = {
+      --     "<cmd>read ~/.config/nvim/templates/PhilPaper.tex<CR>",
+      --     "PhilPaper.tex",
+      --   },
+      --   l = {
+      --     "<cmd>read ~/.config/nvim/templates/Letter.tex<CR>",
+      --     "Letter.tex",
+      --   },
+      --   g = {
+      --     "<cmd>read ~/.config/nvim/templates/Glossary.tex<CR>",
+      --     "Glossary.tex",
+      --   },
+      --   h = {
+      --     "<cmd>read ~/.config/nvim/templates/HandOut.tex<CR>",
+      --     "HandOut.tex",
+      --   },
+      --   b = {
+      --     "<cmd>read ~/.config/nvim/templates/PhilBeamer.tex<CR>",
+      --     "PhilBeamer.tex",
+      --   },
+      --   s = {
+      --     "<cmd>read ~/.config/nvim/templates/SubFile.tex<CR>",
+      --     "SubFile.tex",
+      --   },
+      --   r = {
+      --     "<cmd>read ~/.config/nvim/templates/Root.tex<CR>",
+      --     "Root.tex",
+      --   },
+      --   m = {
+      --     "<cmd>read ~/.config/nvim/templates/MultipleAnswer.tex<CR>",
+      --     "MultipleAnswer.tex",
+      --   },
+      -- },
 
       -- END default mappings
     },
@@ -519,6 +525,9 @@ return {
       { "<leader>5", function() harpoon:list():select(5) end, desc = "Harpoon File 5", mode = "n" },
 
       -- Toggle previous & next buffers stored within Harpoon list
+      { "<C-S-P>", function() harpoon:list():prev() end, desc = "Previous harpoon buffer", mode = "n" },
+      { "<C-S-N>", function() harpoon:list():next() end, desc = "Next harpoon buffer", mode = "n" },
+      
       -- vim.keymap.set("n", "<C-S-P>", function() harpoon:list():prev() end)
       -- vim.keymap.set("n", "<C-S-N>", function() harpoon:list():next() end)
 
