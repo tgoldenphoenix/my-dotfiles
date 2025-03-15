@@ -2,7 +2,7 @@
 -- use `:messages` to view all logged messages
 
 -- print('hello from init.lua')
--- vim.notify("bu vu kim phuong")
+-- vim.notify("muon bu vu kim phuong")
 -- END testing Lua commands
 
 -- require .lua files in ./lua/

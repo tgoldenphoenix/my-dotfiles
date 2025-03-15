@@ -71,7 +71,6 @@ return {
 -- }
 
 
-
 -- -- NIGHTFLY
 -- return {
 --   "bluz71/vim-nightfly-guicolors",
@@ -116,7 +115,7 @@ return {
 --   -- end
 -- }
 
--- OTHER
+-- OTHER TO TRY
 -- "luisiacc/gruvbox-baby"
 -- "folke/tokyonight.nvim"
 -- "lunarvim/darkplus.nvim"

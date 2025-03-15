@@ -1,4 +1,3 @@
--- vim.notify("num vu kim phuong completion")
 -- completions & snippet
 
 local kind_icons = {
@@ -81,32 +80,6 @@ return {
 		config = function()
 			-- vim.notify("config of cmp")
 
-			-- START set keymaps for latex luasnip
-			-- Yes, we're just executing a bunch of Vimscript, but this is the officially
-			-- endorsed method; see https://github.com/L3MON4D3/LuaSnip#keymaps
-			vim.cmd[[
-				" Vimscript goes here!
-				
-				" Set snippet trigger and tabstop navigation keys
-				" !!! WARNING !!! These vimscript mappings are deprecated, see the actualy mappings below
-
-				" Expand snippets in insert mode with Tab
-				" imap <silent><expr> <Tab> luasnip#expandable() ? '<Plug>luasnip-expand-snippet' : '<Tab>'
-				
-				" Jump forward in through tabstops in insert and visual mode with Control-f
-				" imap <silent><expr> <C-f> luasnip#jumpable(1) ? '<Plug>luasnip-jump-next' : '<C-f>'
-				" smap <silent><expr> <C-f> luasnip#jumpable(1) ? '<Plug>luasnip-jump-next' : '<C-f>'
-				
-				" Jump backward through snippet tabstops with Shift-Tab (for example)
-				" imap <silent><expr> <S-Tab> luasnip#jumpable(-1) ? '<Plug>luasnip-jump-prev' : '<S-Tab>'
-				" smap <silent><expr> <S-Tab> luasnip#jumpable(-1) ? '<Plug>luasnip-jump-prev' : '<S-Tab>'
-				
-				" Cycle forward through choice nodes with Control-f (for example)
-				" Choice nodes are a more advanced tool that I won\'t cover in this article, so you can safely skip this step for now.
-				" imap <silent><expr> <C-k> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-f>'
-				" smap <silent><expr> <C-k> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-f>'
-			]]
-
 			-- Somewhere in your Neovim startup, e.g. init.lua
 			require("luasnip").config.set_config({ -- Setting LuaSnip config
 				-- Enable autotriggered snippets
@@ -116,6 +89,7 @@ return {
 				store_selection_keys = "<Tab>",
 
 				-- For repeated nodes to update as you type
+				-- default is "InsertLeave" which will update repeated nodes only after leaving insert mode
 				update_events = 'TextChanged,TextChangedI'
 			})
 
@@ -125,18 +99,13 @@ return {
 			-- Lazy-load snippets, i.e. only load when required, e.g. for a given filetype
 			require("luasnip.loaders.from_lua").lazy_load({paths = "~/.config/nvim/LuaSnip/"})
 
-			require('luasnip.loaders.from_vscode').lazy_load()
+			-- require('luasnip.loaders.from_vscode').lazy_load()
 
-			-- snipmate: https://github.com/garbas/vim-snipmate
-			-- require("luasnip.loaders.from_snipmate").load({ paths = "~/.config/nvim/snippets/" })
-
-			-- === END set keymaps for latex luasnip ===
-
-			-- START nvim cmp config
-			-- See `:help cmp`
+			-- If do not use protected calls
 			-- local cmp = require 'cmp'
 			-- local luasnip = require 'luasnip'
 
+			-- 'hrsh7th/nvim-cmp'
 			local cmp_status_ok, cmp = pcall(require, "cmp")
 			if not cmp_status_ok then
 			return
@@ -146,8 +115,6 @@ return {
 			if not snip_status_ok then
 			return
 			end
-
-			-- luasnip.config.setup {}
 	  
 			cmp.setup {
 				-- REQUIRED - you must specify a snippet engine
@@ -157,18 +124,25 @@ return {
 					end,
 				},
 				mapping = {
-					-- Set snippet trigger, tabstop navigation keys and other functions
+					-- ==== Set snippet trigger, tabstop navigation keys and other functions
+					-- I still can't find a way to add description for these mappings
 
 					["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-1), { "i", "c" }), -- "c" stands for command mode
 					["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(1), { "i", "c" }),
+
+					--  Manually trigger a completion from nvim-cmp.
+					--  Generally you don't need this, because nvim-cmp will display
+					--  completions whenever it has completion options available.
 					["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
+
 					-- Can change to Esc
 					["<C-e>"] = cmp.mapping {
 						i = cmp.mapping.abort(),
 						c = cmp.mapping.close(),
 					},
 					
-					["<C-y>"] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
+					-- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
+					["<C-y>"] = cmp.config.disable,
 					
 					-- Expand snippets in insert mode, you can also use <TAB>
 					['<C-y>'] = cmp.mapping(function(fallback)
@@ -178,6 +152,7 @@ return {
 							else
 								-- Accept currently selected item. If none selected, `select` first item.
 								-- Set `select` to `false` to only confirm explicitly selected items.
+								--  This will expand snippets if the LSP sent a snippet.
 								cmp.confirm({
 									select = true,
 								})
@@ -186,27 +161,86 @@ return {
 							fallback()
 						end
 					end),
-					-- Jump forward in through tabstops in insert and visual mode with Control-n
-					["<C-n>"] = cmp.mapping(function(fallback)
+
+					-- Separate jump & select_next_item
+					-- <C-j> & <C-k> to select next & prev item in the cmp menu
+					["<C-j>"] = cmp.mapping(function(fallback)
 						if cmp.visible() then
-						  cmp.select_next_item()
-						elseif luasnip.locally_jumpable(1) then
+						  cmp.select_next_item() -- bị dính phải C-e to quit :/
+						else
+						  fallback()
+						end
+					end, { "i", "s" }),
+
+					["<C-k>"] = cmp.mapping(function(fallback)
+						if cmp.visible() then
+						  cmp.select_prev_item() -- bị dính phải C-e to quit :/
+						else
+						  fallback()
+						end
+					end, { "i", "s" }),
+
+					-- <C-n> & <C-p> to jump
+					["<C-n>"] = cmp.mapping(function(fallback)
+						if luasnip.locally_jumpable(1) then
 						  luasnip.jump(1)
 						else
 						  fallback()
 						end
 					end, { "i", "s" }),
-					-- Jump backward through snippet tabstops
+					
 					["<C-p>"] = cmp.mapping(function(fallback)
-						if cmp.visible() then
-						  cmp.select_prev_item()
-						elseif luasnip.locally_jumpable(-1) then
+						if luasnip.locally_jumpable(-1) then
 						  luasnip.jump(-1)
 						else
 						  fallback()
 						end
 					end, { "i", "s" }),
+
+					-- Combine jump & select_next_item into one keymap
+					-- Jump forward in through tabstops in insert and visual mode with Control-n
+					-- ["<C-n>"] = cmp.mapping(function(fallback)
+					-- 	if cmp.visible() then
+					-- 	  cmp.select_next_item() -- bị dính phải C-e to quit :/
+					-- 	elseif luasnip.locally_jumpable(1) then
+					-- 	  luasnip.jump(1)
+					-- 	else
+					-- 	  fallback()
+					-- 	end
+					-- end, { "i", "s" }),
+
+					-- Jump backward through snippet tabstops
+					-- ["<C-p>"] = cmp.mapping(function(fallback)
+					-- 	if cmp.visible() then
+					-- 	  cmp.select_prev_item()
+					-- 	elseif luasnip.locally_jumpable(-1) then
+					-- 	  luasnip.jump(-1)
+					-- 	else
+					-- 	  fallback()
+					-- 	end
+					-- end, { "i", "s" }),
+
+					-- Think of <c-l> as moving to the right of your snippet expansion.
+					--  So if you have a snippet that's like:
+					--  function $name($args)
+					--    $body
+					--  end
+					--
+					-- <c-l> will move you to the right of each of the expansion locations.
+					-- <c-h> is similar, except moving you backwards.
+					['<C-l>'] = cmp.mapping(function()
+						if luasnip.expand_or_locally_jumpable() then
+						luasnip.expand_or_jump()
+						end
+					end, { 'i', 's' }),
+					['<C-h>'] = cmp.mapping(function()
+						if luasnip.locally_jumpable(-1) then
+						luasnip.jump(-1)
+						end
+					end, { 'i', 's' }),
+
 				}, -- END mapping
+
 				sources = {
 					-- Order of precedence top to bottom
 					-- nên để lsp & snippet on top thứ tự ưu tiên
@@ -237,6 +271,15 @@ return {
 					end,
 				},
 			} -- END cmp.setup()
+
+			vim.cmd[[
+				" Vimscript goes here!
+				
+				" Cycle forward through choice nodes with Control-f (for example)
+				" Choice nodes are a more advanced tool that I won\'t cover in this article, so you can safely skip this step for now.
+				" imap <silent><expr> <C-k> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-f>'
+				" smap <silent><expr> <C-k> luasnip#choice_active() ? '<Plug>luasnip-next-choice' : '<C-f>'
+			]]
 		end,
 	}
 }

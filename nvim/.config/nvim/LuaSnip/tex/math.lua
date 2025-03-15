@@ -6,8 +6,11 @@ local t = ls.text_node
 local i = ls.insert_node
 local f = ls.function_node
 local d = ls.dynamic_node
-local fmt = require("luasnip.extras.fmt").fmt
-local fmta = require("luasnip.extras.fmt").fmta
+-- the format function for writing human-readable snippets
+local fmt = require("luasnip.extras.fmt").fmt -- use {} as the default node placeholder
+local fmta = require("luasnip.extras.fmt").fmta -- use <>
+-- fmat is is more convenient for LaTeX, which itself uses curly braces to specify command and environment arguments
+
 local rep = require("luasnip.extras").rep
 local line_begin = require("luasnip.extras.expand_conditions").line_begin
 
@@ -83,38 +86,43 @@ return {
 
     -- Examples of Greek letter snippets, autotriggered for efficiency
     s({trig=";a", snippetType="autosnippet"},
-    {
-    t("\\alpha"),
-    }
+        {
+        t("\\alpha"), -- remember: backslashes need to be escaped
+        }
     ),
     s({trig=";b", snippetType="autosnippet"},
-    {
-    t("\\beta Muon liem lon Kim Phuong"),
-    }
+        {
+        t("\\beta"),
+        }
     ),
     s({trig=";g", snippetType="autosnippet"},
-    {
-    t("\\gamma"),
-    }
+        {
+        t("\\gamma"),
+        }
+    ),
+    s({trig=";t", snippetType="autosnippet"},
+        {
+        t("\\theta"),
+        }
     ),
 
     -- Example of a multiline text node
     s({trig = "lines", dscr = "Demo: a text node with three lines."},
-    {
-    t({"Line 1", "Line 2", "Line3: Toi muon xuat tinh vao lon Kim Phuong"})
-    }
+        {
+        t({"Line 1", "Line 2", "Line3: Toi muon xuat tinh vao lon Kim Phuong"})
+        }
     ),
 
-    -- Combining text and insert nodes to create basic LaTeX commands
+    -- \texttt
     s({trig="tt", dscr="Expands 'tt' into '\texttt{}'"},
-    fmta(
-        "\\texttt{<>}",
-        { i(1) }
-    )
+        fmta(
+            "\\texttt{<>}",
+            { i(1) }
+        )
     ),
 
     -- Another take on the fraction snippet without using a regex trigger
-    s({trig = "ff"},
+    s({trig = "ff", dscr="Expands 'ff' into '\frac{}{}'"},
         fmta(
         "\\frac{<>}{<>}",
         {
@@ -125,59 +133,60 @@ return {
         {condition = in_mathzone}  -- `condition` option passed in the snippet `opts` table 
     ),
 
-    -- The same equation snippet, using LuaSnip's fmt function.
-    -- The snippet is not shorter, but it is more *human-readable*.
+    -- Equation
     s({trig="eq", dscr="A LaTeX equation environment"},
-    fmt( -- The snippet code actually looks like the equation environment it produces.
-    [[
-        \begin{equation}
-            <>
-        \end{equation}
-    ]],
-    -- The insert node is placed in the <> angle brackets
-    { i(1) },
-    -- This is where I specify that angle brackets are used as node positions.
-    { delimiters = "<>" }
-    )
-    ),
-
-    -- Code for environment snippet in the above GIF
-    s({trig="env", snippetType="autosnippet"},
-    fmta(
-    [[
-        \begin{<>}
-            <>
-        \end{<>}
-    ]],
-    {
-        i(1),
-        i(2),
-        rep(1),  -- this node repeats insert node i(1)
-    }
-    )
+        fmt( -- The snippet code actually looks like the equation environment it produces.
+            -- Equation snippet, using a multiline Lua string.
+            -- (No need to escape backslashes in multiline strings.) 
+            [[
+                \begin{equation}
+                    <>
+                \end{equation}
+            ]],
+            -- The insert node is placed in the <> angle brackets
+            { i(1) },
+            { delimiters = "<>" } -- manually specifying angle bracket delimiters
+        )
     ),
 
     -- Using a zero-index insert node to exit snippet in equation body
-    s({trig="eq", dscr=""},
-    fmta(
-        [[
-        \begin{equation}
-            <>
-        \end{equation}
-        ]],
-        { i(0) }
-    )
+    -- https://ejmastnak.com/tutorials/vim-latex/luasnip/#files
+    -- s({trig="eq", dscr="A LaTeX equation environment"},
+    --     fmta( 
+    --         [[
+    --             \begin{equation}
+    --                 <>
+    --             \end{equation}
+    --         ]],
+    --         { i(0) }
+    --     )
+    -- ),
+
+    -- environment snippet
+    s({trig="env", snippetType="autosnippet"},
+        fmta(
+            [[
+                \begin{<>}
+                    <>
+                \end{<>}
+            ]],
+            {
+                i(1),
+                i(2),
+                rep(1),  -- this node repeats insert node i(1)
+            }
+        )
     ),
 
     -- Example use of insert node placeholder text
     s({trig="hr", dscr="The hyperref package's href{}{} command (for url links)"},
-    fmta(
-    [[\href{<>}{<>}]],
-    {
-        i(1, "url"),
-        i(2, "display name"),
-    }
-    )
+        fmta( -- Use [[ ]] instead of " " will not need to escape backslash
+        [[\href{<>}{<>}]],
+        {
+            i(1, "url"),
+            i(2, "display name"),
+        }
+        )
     ),
 
     -- Example: italic font implementing visual selection
@@ -230,19 +239,19 @@ return {
     ),
 
     s({trig="new", dscr="A generic new environmennt"},
-    fmta(
-        [[
-        \begin{<>}
-            <>
-        \end{<>}
-        ]],
-        {
-        i(1),
-        i(2),
-        rep(1),
-        }
-    ),
-    {condition = line_begin}
+        fmta(
+            [[
+            \begin{<>}
+                <>
+            \end{<>}
+            ]],
+            {
+            i(1),
+            i(2),
+            rep(1),
+            }
+        ),
+        {condition = line_begin}
     ),
 
     s({trig="test", snippetType="autosnippet"},
