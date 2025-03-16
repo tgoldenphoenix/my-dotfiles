@@ -44,47 +44,27 @@ local get_visual = helpers.get_visual
 
 -- the return table must be placed at the end of the .lua file
 return {
-    -- Example of a multiline text node
-    s({trig = "lines", dscr = "Demo: a text node with three lines."},
-        {
-        t({
-            "Line 1: muốn bú vú kim phượng", 
-            "Line 2", 
-            "Line3: Toi muon xuat tinh vao lon Kim Phuong"
-        })
-        }
-    ),
-
-    -- Example use of insert node placeholder text
-    s({trig="hr", dscr="The hyperref package's href{}{} command (for url links)"},
-        fmta( -- Use [[ ]] instead of " " will not need to escape backslash
-        [[\href{<>}{<>}]],
-        {
-            i(1, "url"),
-            i(2, "display name"),
-        }
-        )
-    ),
-
-    -- Inspied by the HTML <h1> tag
-    s({trig = "h1", dscr="Top-level section"},
-        fmta(
-            [[\section{<>}]],
-            { i(1) }
-        ), 
-        {condition = line_begin}  -- set condition in the `opts` table
-    ),
-
     -- Expand 'dd' into \draw, but only in TikZ environments
-    s({trig = "dd"},
-        fmta(
-            "\\draw [<>] ",
-            {
-                i(1, "params"),
-            }
-        ),
-        { condition = tex_utils.in_tikz }
-    ),
+    -- s({trig = "dd"},
+    --     fmta(
+    --         "\\draw2 [<>] ",
+    --         {
+    --             i(1, "params"),
+    --         }
+    --     ),
+    --     { condition = tex_utils.in_tikz }
+    -- ),
+
+    -- Example of a multiline text node
+    -- s({trig = "lines", dscr = "Demo: a text node with three lines."},
+    --     {
+    --     t({
+    --         "Line 1: muốn bú vú kim phượng", 
+    --         "Line 2", 
+    --         "Line3: Toi muon xuat tinh vao lon Kim Phuong"
+    --     })
+    --     }
+    -- ),
 
     -- s({trig="test", snippetType="autosnippet"},
     --     {t("The current line number is even and toi muon moc lon kim phuong")},
@@ -99,7 +79,7 @@ return {
 	-- 	end, {})
 	-- ),
 
-    
+
 }
 
   
