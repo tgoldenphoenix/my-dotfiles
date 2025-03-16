@@ -4,14 +4,18 @@ local s = ls.snippet
 local sn = ls.snippet_node
 local t = ls.text_node
 local i = ls.insert_node
-local f = ls.function_node
-local d = ls.dynamic_node
+
+local f = ls.function_node  -- used for regex capture
+local d = ls.dynamic_node   -- used with visual selection
 -- the format function for writing human-readable snippets
 local fmt = require("luasnip.extras.fmt").fmt -- use {} as the default node placeholder
 local fmta = require("luasnip.extras.fmt").fmta -- use <>
 -- fmat is is more convenient for LaTeX, which itself uses curly braces to specify command and environment arguments
 
+-- Repeated nodes
 local rep = require("luasnip.extras").rep
+
+-- Alternative is to write a regex that detect line begin manually
 local line_begin = require("luasnip.extras.expand_conditions").line_begin
 
 -- Three progressively shorter ways to do the same thing---define a snippet
@@ -19,7 +23,7 @@ local line_begin = require("luasnip.extras.expand_conditions").line_begin
 -- ls.snippet()
 -- s()
 
---  START section: Functions to be passed to the condition key in opts table
+--  ==== START section: Functions to be passed to the condition key in opts table
 
 -- Silly example: returns true when the cursor is on an even-numbered line
 is_even_line = function()
@@ -34,14 +38,24 @@ end
 -- but I wanted to make the if/else logic explicitly clear.)
 
 -- Include this `in_mathzone` function at the start of a snippets file...
-local in_mathzone = function()
-    -- The `in_mathzone` function requires the VimTeX plugin
-    return vim.fn['vimtex#syntax#in_mathzone']() == 1
-end
+local tex_utils = {}
+
 -- Then pass the table `{condition = in_mathzone}` to any snippet you want to
 -- expand only in math contexts such as inside $$.
+tex_utils.in_mathzone = function()  -- math context detection
+  return vim.fn['vimtex#syntax#in_mathzone']() == 1
+end
 
---  END section: Functions to be passed to the condition key in opts table
+-- local in_mathzone = function()
+--     -- The `in_mathzone` function requires the VimTeX plugin
+--     return vim.fn['vimtex#syntax#in_mathzone']() == 1
+-- end
+
+tex_utils.in_tikz = function()  -- TikZ picture environment detection
+    return tex_utils.in_env('tikzpicture')
+end
+
+--  ==== END section: Functions to be passed to the condition key in opts table
 
 -- This is the `get_visual` function I've been talking about.
 -- You must place this function before the returned table
@@ -51,6 +65,7 @@ end
 -- When `LS_SELECT_RAW` is empty, the function simply returns an empty insert node.
 local get_visual = function(args, parent)
     if (#parent.snippet.env.LS_SELECT_RAW > 0) then
+        -- sn là snippet node
       return sn(nil, i(1, parent.snippet.env.LS_SELECT_RAW))
     else  -- If LS_SELECT_RAW is empty, return a blank insert node
       return sn(nil, i(1))
@@ -121,18 +136,6 @@ return {
         )
     ),
 
-    -- Another take on the fraction snippet without using a regex trigger
-    s({trig = "ff", dscr="Expands 'ff' into '\frac{}{}'"},
-        fmta(
-        "\\frac{<>}{<>}",
-        {
-            i(1),
-            i(2),
-        }
-        ),
-        {condition = in_mathzone}  -- `condition` option passed in the snippet `opts` table 
-    ),
-
     -- Equation
     s({trig="eq", dscr="A LaTeX equation environment"},
         fmt( -- The snippet code actually looks like the equation environment it produces.
@@ -190,73 +193,133 @@ return {
     ),
 
     -- Example: italic font implementing visual selection
+    -- if there is no active visual selection, the dynamic node simply acts as a regular insert node.
     s({trig = "tii", dscr = "Expands 'tii' into LaTeX's textit{} command."},
-    fmta("\\textit{<>}",
-    {
-        d(1, get_visual),
-    }
-    )
+        fmta("\\textit{<>}",
+            {
+                d(1, get_visual),
+            }
+        )
     ),
+
+    -- test regex capture
+    -- s(
+	-- 	{ trig = "b(%d)", regTrig = true },
+	-- 	f(function(_, snip)
+	-- 		return "Captured Text: " .. snip.captures[1] .. "."
+	-- 	end, {})
+	-- ),
 
     -- Using regex in trigger pattern
-    s({trig = "([^%a])mm", wordTrig = false, regTrig = true},
-    fmta(
-        "<>$<>$",
+    -- INLINE MATH
+    -- Make mm expand to $ $ (inline math), but not in words like “comment”, “command”, etc…
+    -- s({trig = "([^%l])mm", regTrig = true, wordTrig = false, snippetType="autosnippet"},
+    --   fmta(
+    --     "<>$<>$",
+    --     {
+    --       f( function(_, snip) return snip.captures[1] end ),
+    --       d(1, get_visual),
+    --     }
+    --   )
+    -- ),
+    -- s({trig = "([^%a])mm", wordTrig = false, regTrig = true},
+    --     fmta(
+    --         "<>$<>$",
+    --         {
+    --             f( function(_, snip) return snip.captures[1] end ),
+    --             d(1, get_visual),
+    --         }
+    --     )
+    -- ),
+
+    -- Make ff expand to frac{}{} but not in words like “off”, “offer”, etc…
+    -- Will not work correctly at line_beginning though
+    -- s({trig = '([^%a])ff', regTrig = true, wordTrig = false},
+    --     fmta(
+    --         [[<>\frac{<>}{<>}]],
+    --         {
+    --             f( function(_, snip) return snip.captures[1] end ),
+    --             i(1),
+    --             i(2)
+    --         }
+    --     )
+    -- ),
+
+    -- Another take on the fraction snippet without using a regex trigger
+    s({trig = "ff", dscr="Expands 'ff' into '\frac{}{}'", snippetType="autosnippet"},
+        fmta(
+        "\\frac{<>}{<>}",
         {
-        f( function(_, snip) return snip.captures[1] end ),
-        d(1, get_visual),
+            i(1),
+            i(2),
         }
-    )
+        ),
+        {condition = tex_utils.in_mathzone}  -- `condition` option passed in the snippet `opts` table 
     ),
 
-    s({trig = '([^%a])ee', regTrig = true, wordTrig = false},
-    fmta(
-        "<>e^{<>}",
-        {
-        f( function(_, snip) return snip.captures[1] end ),
-        d(1, get_visual)
-        }
-    )
+    -- Make ee expand to e^{} (Euler’s number raised to a power) after spaces, delimiters, and so on, but not in words like “see”, “feel”, etc…
+    s({trig = 'ee', dscr="Expands 'ee' into 'e^{}'", snippetType="autosnippet"},
+        fmta(
+            "<>e^{<>}",
+            {
+                f( function(_, snip) return snip.captures[1] end ),
+                d(1, get_visual)
+            }
+        ),
+        {condition = tex_utils.in_mathzone}
     ),
 
-    s({trig = '([^%a])ff', regTrig = true, wordTrig = false},
-    fmta(
-        [[<>\frac{<>}{<>}]],
-        {
-        f( function(_, snip) return snip.captures[1] end ),
-        i(1),
-        i(2)
-        }
-    )
+    -- A fun zero subscript snippet
+    -- expands only after letter characters and closing delimiters, but not after blank spaces or numbers.
+    s({trig = '([%a%)%]%}])00', regTrig = true, wordTrig = false, snippetType="autosnippet"},
+        fmta(
+            "<>_{<>}",
+            {
+                f( function(_, snip) return snip.captures[1] end ),
+                t("0")
+            }
+        )
     ),
 
+    -- Inspied by the HTML <h1> tag
     s({trig = "h1", dscr="Top-level section"},
-    fmta(
-        [[\section{<>}]],
-        { i(1) }
-    ), 
-    {condition = line_begin}  -- set condition in the `opts` table
+        fmta(
+            [[\section{<>}]],
+            { i(1) }
+        ), 
+        {condition = line_begin}  -- set condition in the `opts` table
     ),
 
     s({trig="new", dscr="A generic new environmennt"},
         fmta(
             [[
-            \begin{<>}
-                <>
-            \end{<>}
+                \begin{<>}
+                    <>
+                \end{<>}
             ]],
             {
-            i(1),
-            i(2),
-            rep(1),
+                i(1),
+                i(2),
+                rep(1),
             }
         ),
         {condition = line_begin}
     ),
 
-    s({trig="test", snippetType="autosnippet"},
-        {t("The current line number is even and toi muon moc lon kim phuong")},
-        {condition = is_even_line}
+    -- s({trig="test", snippetType="autosnippet"},
+    --     {t("The current line number is even and toi muon moc lon kim phuong")},
+    --     {condition = is_even_line}
+    -- ),
+
+    -- Expand 'dd' into \draw, but only in TikZ environments
+    s({trig = "dd"},
+        fmta(
+            "\\draw [<>] ",
+            {
+                i(1, "params"),
+            }
+        ),
+        { condition = tex_utils.in_tikz }
     ),
 
 }
