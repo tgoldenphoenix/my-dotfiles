@@ -299,9 +299,10 @@ keymap("v", "<A-k>", ":m-2<CR>gv", opts)
 -- keymap("v", "<A-j>", ":m '>+1<CR>gv=gv", opts)
 -- keymap("v", "<A-k>", ":m '<-2<CR>gv=gv", opts)
 
--- Press jk fast to exit insert mode 
-keymap("i", "jk", "<ESC>", opts)
-keymap("i", "kj", "<ESC>", opts)
+-- Press jk fast to exit insert mode
+-- Please remapped Caps Lock to Escape on a system-wide level and use that to exit insert mode
+-- https://www.dannyguo.com/blog/remap-caps-lock-to-escape-and-control/
+keymap("i", "fd", "<ESC>", opts)
 
 -- Horizontal line movments --
 keymap("n", "<c-u>", "<c-u>zz", opts)

@@ -57,21 +57,9 @@ end
 
 --  ==== END section: Functions to be passed to the condition key in opts table
 
--- This is the `get_visual` function I've been talking about.
--- You must place this function before the returned table
--- ----------------------------------------------------------------------------
--- Summary: When `LS_SELECT_RAW` is populated with a visual selection, the function
--- returns an insert node whose initial text is set to the visual selection.
--- When `LS_SELECT_RAW` is empty, the function simply returns an empty insert node.
-local get_visual = function(args, parent)
-    if (#parent.snippet.env.LS_SELECT_RAW > 0) then
-        -- sn là snippet node
-      return sn(nil, i(1, parent.snippet.env.LS_SELECT_RAW))
-    else  -- If LS_SELECT_RAW is empty, return a blank insert node
-      return sn(nil, i(1))
-    end
-end
--- ----------------------------------------------------------------------------
+-- From any snippet file, source `get_visual` from global helper functions file
+local helpers = require('neotex.luasnip-helper-funcs') -- from ~/lua/neotex/
+local get_visual = helpers.get_visual
 
 -- the return table must be placed at the end of the .lua file
 return {

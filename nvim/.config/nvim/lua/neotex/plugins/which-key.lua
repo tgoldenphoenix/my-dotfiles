@@ -380,6 +380,8 @@ return {
         n = { "function() vim.diagnostic.goto_next{popup_opts = {show_header = false}} end", "next" },
         p = { "function() vim.diagnostic.goto_prev{popup_opts = {show_header = false}} end", "prev" },
         r = { "<cmd>ReloadConfig<cr>", "Reload Configs" },
+        -- reaload Luasnip snippets
+        l = { '<Cmd>lua require("luasnip.loaders.from_lua").load({paths = "~/.config/nvim/LuaSnip/"})<CR>', "Reload Luasnip snippets" },
         h = { "<cmd>Hardtime toggle<cr>", "Hardtime Toggle" },
         s = { "<cmd>lua Snacks.notifier.show_history()<cr>", "Show Notifications" },
         -- d = { "function() vim.diagnostic.open_float(0, { scope = 'line', header = false, focus = false }) end", "diagnostics" },

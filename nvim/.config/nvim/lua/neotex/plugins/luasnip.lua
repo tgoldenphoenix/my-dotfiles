@@ -180,8 +180,8 @@ return {
 						end
 					end, { "i", "s" }),
 
-					-- <C-n> & <C-p> to jump
-					["<C-n>"] = cmp.mapping(function(fallback)
+					-- <C-n> to jump forward
+					["jk"] = cmp.mapping(function(fallback)
 						if luasnip.locally_jumpable(1) then
 						  luasnip.jump(1)
 						else
@@ -189,6 +189,7 @@ return {
 						end
 					end, { "i", "s" }),
 					
+					-- <C-p> to jump backward
 					["<C-p>"] = cmp.mapping(function(fallback)
 						if luasnip.locally_jumpable(-1) then
 						  luasnip.jump(-1)
