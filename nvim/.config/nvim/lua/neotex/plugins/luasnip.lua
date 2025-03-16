@@ -80,6 +80,25 @@ return {
 		config = function()
 			-- vim.notify("config of cmp")
 
+			-- Abbreviations used in this article and the LuaSnip docs
+			local ls = require("luasnip")
+			local s = ls.snippet
+			local sn = ls.snippet_node
+			local t = ls.text_node
+			local i = ls.insert_node
+
+			local f = ls.function_node  -- used for regex capture
+			local d = ls.dynamic_node   -- used with visual selection
+			-- the format function for writing human-readable snippets
+			local fmt = require("luasnip.extras.fmt").fmt -- use {} as the default node placeholder
+			local fmta = require("luasnip.extras.fmt").fmta -- use <>
+			-- fmat is is more convenient for LaTeX, which itself uses curly braces to specify command and environment arguments
+
+			-- Three progressively shorter ways to do the same thing---define a snippet
+			-- require("luasnip").snippet()
+			-- ls.snippet()
+			-- s()
+
 			-- Somewhere in your Neovim startup, e.g. init.lua
 			require("luasnip").config.set_config({ -- Setting LuaSnip config
 				-- Enable autotriggered snippets

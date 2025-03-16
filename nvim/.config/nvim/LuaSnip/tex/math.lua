@@ -1,315 +1,585 @@
--- Abbreviations used in this article and the LuaSnip docs
-local ls = require("luasnip")
-local s = ls.snippet
-local sn = ls.snippet_node
-local t = ls.text_node
-local i = ls.insert_node
-
-local f = ls.function_node  -- used for regex capture
-local d = ls.dynamic_node   -- used with visual selection
--- the format function for writing human-readable snippets
-local fmt = require("luasnip.extras.fmt").fmt -- use {} as the default node placeholder
-local fmta = require("luasnip.extras.fmt").fmta -- use <>
--- fmat is is more convenient for LaTeX, which itself uses curly braces to specify command and environment arguments
-
--- Repeated nodes
-local rep = require("luasnip.extras").rep
-
--- Alternative is to write a regex that detect line begin manually
-local line_begin = require("luasnip.extras.expand_conditions").line_begin
-
--- Three progressively shorter ways to do the same thing---define a snippet
--- require("luasnip").snippet()
--- ls.snippet()
--- s()
-
---  ==== START section: Functions to be passed to the condition key in opts table
-
--- Silly example: returns true when the cursor is on an even-numbered line
-is_even_line = function()
-    local line_number = vim.fn['line']('.')
-    if ((line_number % 2) == 0) then  -- an even-numbered line
-        return true
-    else  -- an odd-numbered line
-        return false
-    end
-end
--- (Yes, I know I could have written `return ((line_number % 2) == 0)`,
--- but I wanted to make the if/else logic explicitly clear.)
-
--- Include this `in_mathzone` function at the start of a snippets file...
-local tex_utils = {}
-
--- Then pass the table `{condition = in_mathzone}` to any snippet you want to
--- expand only in math contexts such as inside $$.
-tex_utils.in_mathzone = function()  -- math context detection
-  return vim.fn['vimtex#syntax#in_mathzone']() == 1
-end
-
--- local in_mathzone = function()
---     -- The `in_mathzone` function requires the VimTeX plugin
---     return vim.fn['vimtex#syntax#in_mathzone']() == 1
--- end
-
-tex_utils.in_tikz = function()  -- TikZ picture environment detection
-    return tex_utils.in_env('tikzpicture')
-end
-
---  ==== END section: Functions to be passed to the condition key in opts table
-
--- From any snippet file, source `get_visual` from global helper functions file
-local helpers = require('neotex.luasnip-helper-funcs') -- from ~/lua/neotex/
+local helpers = require('neotex.luasnip-helper-funcs')
 local get_visual = helpers.get_visual
 
--- the return table must be placed at the end of the .lua file
-return {
-    -- Example: how to set snippet parameters
-    -- s(
-    --   { -- Table 1: snippet parameters
-    --     trig="hi",
-    --     dscr="An autotriggering snippet that expands 'hi' into 'Hello, world!'",
-    --     regTrig=false,
-    --     priority=100,
-    --     snippetType="autosnippet"
-    --   },
-    --   { -- Table 2: snippet nodes (don't worry about this for now---we'll cover nodes shortly)
-    --     t("Hello, kim phuong! I want to suck your boobs!"), -- A single text node
-    --   }
-    --   -- Table 3, the advanced snippet options, is left blank.
-    -- ),
+-- Math context detection 
+local tex = {}
+tex.in_mathzone = function() return vim.fn['vimtex#syntax#in_mathzone']() == 1 end
+tex.in_text = function() return not tex.in_mathzone() end
 
-    -- Shorthand
-    -- s("vu",  -- LuaSnip expands this to {trig = "hi"}
-    -- { t("Muon bu vu kim Phuong!"), }
-    -- ),
-    -- Here is the equivalent longhand
-    -- s({trig = "vu"},  -- explicitly setting trigger via params table
-    -- { t("Muon bu vu kim Phuong!"), }
-    -- ),
-
-    -- Examples of Greek letter snippets, autotriggered for efficiency
-    s({trig=";a", snippetType="autosnippet"},
-        {
-        t("\\alpha"), -- remember: backslashes need to be escaped
-        }
+-- Return snippet tables
+return
+{
+  -- SUPERSCRIPT
+  -- %w: alphanumeric characters
+  s({trig = "([%w%)%]%}])'", wordTrig=false, regTrig = true, snippetType="autosnippet"},
+    fmta(
+      "<>^{<>}",
+      {
+        f( function(_, snip) return snip.captures[1] end ),
+        d(1, get_visual),
+      }
     ),
-    s({trig=";b", snippetType="autosnippet"},
-        {
-        t("\\beta"),
-        }
+    {condition = tex.in_mathzone}
+  ),
+
+  -- SUBSCRIPT
+  s({trig = "([%w%)%]%}]);", wordTrig=false, regTrig = true, snippetType="autosnippet"},
+    fmta(
+      "<>_{<>}",
+      {
+        f( function(_, snip) return snip.captures[1] end ),
+        d(1, get_visual),
+      }
     ),
-    s({trig=";g", snippetType="autosnippet"},
-        {
-        t("\\gamma"),
-        }
+    {condition = tex.in_mathzone}
+  ),
+
+  -- SUBSCRIPT AND SUPERSCRIPT
+  s({trig = "([%w%)%]%}])__", wordTrig=false, regTrig = true, snippetType="autosnippet"},
+    fmta(
+      "<>^{<>}_{<>}",
+      {
+        f( function(_, snip) return snip.captures[1] end ),
+        i(1),
+        i(2),
+      }
     ),
-    s({trig=";t", snippetType="autosnippet"},
-        {
-        t("\\theta"),
-        }
+    {condition = tex.in_mathzone}
+  ),
+
+  -- TEXT SUBSCRIPT
+  -- s({trig = 'sd', snippetType="autosnippet", wordTrig=false},
+  --   fmta("_{\\mathrm{<>}}",
+  --     { d(1, get_visual) }
+  --   ),
+  --   {condition = tex.in_mathzone}
+  -- ),
+
+  -- SUPERSCRIPT SHORTCUT
+  -- Places the first alphanumeric character after the trigger into a superscript.
+  -- Try typing `1234"5` inside mathzone
+  s({trig = '([%w%)%]%}])"([%w])', regTrig = true, wordTrig = false, snippetType="autosnippet"},
+    fmta(
+      "<>^{<>}",
+      {
+        f( function(_, snip) return snip.captures[1] end ),
+        f( function(_, snip) return snip.captures[2] end ),
+      }
     ),
+    {condition = tex.in_mathzone}
+  ),
 
-    -- Example of a multiline text node
-    s({trig = "lines", dscr = "Demo: a text node with three lines."},
-        {
-        t({"Line 1", "Line 2", "Line3: Toi muon xuat tinh vao lon Kim Phuong"})
-        }
+  -- SUBSCRIPT SHORTCUT
+  -- Places the first alphanumeric character after the trigger into a subscript.
+  -- Try typing `1234"5` inside mathzone
+  s({trig = '([%w%)%]%}]):([%w])', regTrig = true, wordTrig = false, snippetType="autosnippet"},
+    fmta(
+      "<>_{<>}",
+      {
+        f( function(_, snip) return snip.captures[1] end ),
+        f( function(_, snip) return snip.captures[2] end ),
+      }
     ),
+    {condition = tex.in_mathzone}
+  ),
 
-    -- \texttt
-    s({trig="tt", dscr="Expands 'tt' into '\texttt{}'"},
-        fmta(
-            "\\texttt{<>}",
-            { i(1) }
-        )
+  -- EULER'S NUMBER SUPERSCRIPT SHORTCUT
+  -- %a: letters. Used with negate symbol caret `^`
+  -- Make ee expand to e^{} (Euler’s number raised to a power) after spaces, delimiters, and so on, but not in words like “see”, “feel”, etc…
+  s({trig = '([^%a])ee', regTrig = true, wordTrig = false, snippetType="autosnippet"},
+    fmta(
+      "<>e^{<>}",
+      {
+        f( function(_, snip) return snip.captures[1] end ),
+        d(1, get_visual)
+      }
     ),
+    {condition = tex.in_mathzone}
+  ),
 
-    -- Equation
-    s({trig="eq", dscr="A LaTeX equation environment"},
-        fmt( -- The snippet code actually looks like the equation environment it produces.
-            -- Equation snippet, using a multiline Lua string.
-            -- (No need to escape backslashes in multiline strings.) 
-            [[
-                \begin{equation}
-                    <>
-                \end{equation}
-            ]],
-            -- The insert node is placed in the <> angle brackets
-            { i(1) },
-            { delimiters = "<>" } -- manually specifying angle bracket delimiters
-        )
+  -- ZERO SUBSCRIPT SHORTCUT
+  -- expands only after letter characters and closing delimiters, but not after blank spaces or numbers.
+  -- type `a00`, `b00` and `100`, `1000`
+  -- src: https://ejmastnak.com/tutorials/vim-latex/luasnip/#after-a
+  s({trig = '([%a%)%]%}])00', regTrig = true, wordTrig = false, snippetType="autosnippet"},
+    fmta(
+      "<>_{<>}",
+      {
+        f( function(_, snip) return snip.captures[1] end ),
+        t("0")
+      }
     ),
+    {condition = tex.in_mathzone}
+  ),
 
-    -- Using a zero-index insert node to exit snippet in equation body
-    -- https://ejmastnak.com/tutorials/vim-latex/luasnip/#files
-    -- s({trig="eq", dscr="A LaTeX equation environment"},
-    --     fmta( 
-    --         [[
-    --             \begin{equation}
-    --                 <>
-    --             \end{equation}
-    --         ]],
-    --         { i(0) }
-    --     )
-    -- ),
-
-    -- environment snippet
-    s({trig="env", snippetType="autosnippet"},
-        fmta(
-            [[
-                \begin{<>}
-                    <>
-                \end{<>}
-            ]],
-            {
-                i(1),
-                i(2),
-                rep(1),  -- this node repeats insert node i(1)
-            }
-        )
+  -- MINUS ONE SUPERSCRIPT SHORTCUT
+  -- Mình gõ Unikey vietnamese VNI so sometimes must type `a111` instead of `a11` :D
+  s({trig = '([%a%)%]%}])11', regTrig = true, wordTrig = false, snippetType="autosnippet"},
+    fmta(
+      "<>_{<>}",
+      {
+        f( function(_, snip) return snip.captures[1] end ),
+        t("-1")
+      }
     ),
+    {condition = tex.in_mathzone}
+  ),
 
-    -- Example use of insert node placeholder text
-    s({trig="hr", dscr="The hyperref package's href{}{} command (for url links)"},
-        fmta( -- Use [[ ]] instead of " " will not need to escape backslash
-        [[\href{<>}{<>}]],
-        {
-            i(1, "url"),
-            i(2, "display name"),
-        }
-        )
+  -- J SUBSCRIPT SHORTCUT (since jk triggers snippet jump forward)
+  -- must type capital "J" not lowercase "j"
+  s({trig = '([%a%)%]%}])JJ', wordTrig = false, regTrig = true, snippetType="autosnippet"},
+    fmta(
+      "<>_{<>}",
+      {
+        f( function(_, snip) return snip.captures[1] end ),
+        t("j")
+      }
     ),
+    {condition = tex.in_mathzone}
+  ),
 
-    -- Example: italic font implementing visual selection
-    -- if there is no active visual selection, the dynamic node simply acts as a regular insert node.
-    s({trig = "tii", dscr = "Expands 'tii' into LaTeX's textit{} command."},
-        fmta("\\textit{<>}",
-            {
-                d(1, get_visual),
-            }
-        )
+  -- PLUS SUPERSCRIPT SHORTCUT
+  s({trig = '([%a%)%]%}])%+%+', regTrig = true, wordTrig = false, snippetType="autosnippet"},
+    fmta(
+      "<>^{<>}",
+      {
+        f( function(_, snip) return snip.captures[1] end ),
+        t("+")
+      }
     ),
+    {condition = tex.in_mathzone}
+  ),
 
-    -- test regex capture
-    -- s(
-	-- 	{ trig = "b(%d)", regTrig = true },
-	-- 	f(function(_, snip)
-	-- 		return "Captured Text: " .. snip.captures[1] .. "."
-	-- 	end, {})
-	-- ),
+  -- COMPLEMENT SUPERSCRIPT
+  -- s({trig = '([%a%)%]%}])CC', regTrig = true, wordTrig = false, snippetType="autosnippet"},
+  --   fmta(
+  --     "<>^{<>}",
+  --     {
+  --       f( function(_, snip) return snip.captures[1] end ),
+  --       t("\\complement")
+  --     }
+  --   ),
+  --   {condition = tex.in_mathzone}
+  -- ),
 
-    -- Using regex in trigger pattern
-    -- INLINE MATH
-    -- Make mm expand to $ $ (inline math), but not in words like “comment”, “command”, etc…
-    -- s({trig = "([^%l])mm", regTrig = true, wordTrig = false, snippetType="autosnippet"},
-    --   fmta(
-    --     "<>$<>$",
-    --     {
-    --       f( function(_, snip) return snip.captures[1] end ),
-    --       d(1, get_visual),
-    --     }
-    --   )
-    -- ),
-    -- s({trig = "([^%a])mm", wordTrig = false, regTrig = true},
-    --     fmta(
-    --         "<>$<>$",
-    --         {
-    --             f( function(_, snip) return snip.captures[1] end ),
-    --             d(1, get_visual),
-    --         }
-    --     )
-    -- ),
+  -- CONJUGATE (STAR) SUPERSCRIPT SHORTCUT
+  -- s({trig = '([%a%)%]%}])%*%*', regTrig = true, wordTrig = false, snippetType="autosnippet"},
+  --   fmta(
+  --     "<>^{<>}",
+  --     {
+  --       f( function(_, snip) return snip.captures[1] end ),
+  --       t("*")
+  --     }
+  --   ),
+  --   {condition = tex.in_mathzone}
+  -- ),
 
-    -- Make ff expand to frac{}{} but not in words like “off”, “offer”, etc…
-    -- Will not work correctly at line_beginning though
-    -- s({trig = '([^%a])ff', regTrig = true, wordTrig = false},
-    --     fmta(
-    --         [[<>\frac{<>}{<>}]],
-    --         {
-    --             f( function(_, snip) return snip.captures[1] end ),
-    --             i(1),
-    --             i(2)
-    --         }
-    --     )
-    -- ),
-
-    -- Another take on the fraction snippet without using a regex trigger
-    s({trig = "ff", dscr="Expands 'ff' into '\frac{}{}'", snippetType="autosnippet"},
-        fmta(
-        "\\frac{<>}{<>}",
-        {
-            i(1),
-            i(2),
-        }
-        ),
-        {condition = tex_utils.in_mathzone}  -- `condition` option passed in the snippet `opts` table 
+  -- VECTOR, i.e. \vec
+  s({trig = "([^%a])vv", wordTrig = false, regTrig = true, snippetType="autosnippet"},
+    fmta(
+      "<>\\vec{<>}",
+      {
+        f( function(_, snip) return snip.captures[1] end ),
+        d(1, get_visual),
+      }
     ),
+    {condition = tex.in_mathzone}
+  ),
 
-    -- Make ee expand to e^{} (Euler’s number raised to a power) after spaces, delimiters, and so on, but not in words like “see”, “feel”, etc…
-    s({trig = 'ee', dscr="Expands 'ee' into 'e^{}'", snippetType="autosnippet"},
-        fmta(
-            "<>e^{<>}",
-            {
-                f( function(_, snip) return snip.captures[1] end ),
-                d(1, get_visual)
-            }
-        ),
-        {condition = tex_utils.in_mathzone}
+  -- DEFAULT UNIT VECTOR WITH SUBSCRIPT, i.e. \unitvector_{}
+  -- s({trig = "([^%a])ue", wordTrig = false, regTrig = true, snippetType="autosnippet"},
+  --   fmta(
+  --     "<>\\unitvector_{<>}",
+  --     {
+  --       f( function(_, snip) return snip.captures[1] end ),
+  --       d(1, get_visual),
+  --     }
+  --   ),
+  --   {condition = tex.in_mathzone}
+  -- ),
+
+  -- UNIT VECTOR WITH HAT, i.e. \uvec{}
+  -- s({trig = "([^%a])uv", wordTrig = false, regTrig = true, snippetType="autosnippet"},
+  --   fmta(
+  --     "<>\\uvec{<>}",
+  --     {
+  --       f( function(_, snip) return snip.captures[1] end ),
+  --       d(1, get_visual),
+  --     }
+  --   ),
+  --   {condition = tex.in_mathzone}
+  -- ),
+
+  -- MATRIX, i.e. \vec
+  -- s({trig = "([^%a])mt", wordTrig = false, regTrig = true, snippetType="autosnippet"},
+  --   fmta(
+  --     "<>\\mat{<>}",
+  --     {
+  --       f( function(_, snip) return snip.captures[1] end ),
+  --       d(1, get_visual),
+  --     }
+  --   ),
+  --   {condition = tex.in_mathzone}
+  -- ),
+
+  -- FRACTION
+  -- combine both regex trigger and mathzone condition
+  -- Make ff expand to frac{}{} but not in words like “off”, “offer”, etc…
+  -- Will not work correctly at line_beginning though
+  s({trig = "([^%a])ff", wordTrig = false, regTrig = true, snippetType="autosnippet"},
+    fmta(
+      "<>\\frac{<>}{<>}",
+      {
+        f( function(_, snip) return snip.captures[1] end ),
+        d(1, get_visual),
+        i(2),
+      }
     ),
+    {condition = tex.in_mathzone} -- `condition` option passed in the snippet `opts` table 
+  ),
 
-    -- A fun zero subscript snippet
-    -- expands only after letter characters and closing delimiters, but not after blank spaces or numbers.
-    s({trig = '([%a%)%]%}])00', regTrig = true, wordTrig = false, snippetType="autosnippet"},
-        fmta(
-            "<>_{<>}",
-            {
-                f( function(_, snip) return snip.captures[1] end ),
-                t("0")
-            }
-        )
+  -- ANGLE
+  s({trig = "([^%a])gg", regTrig = true, wordTrig = false, snippetType="autosnippet"},
+    fmta(
+      "<>\\ang{<>}",
+      {
+        f( function(_, snip) return snip.captures[1] end ),
+        d(1, get_visual),
+      }
     ),
+    {condition = tex.in_mathzone}
+  ),
 
-    -- Inspied by the HTML <h1> tag
-    s({trig = "h1", dscr="Top-level section"},
-        fmta(
-            [[\section{<>}]],
-            { i(1) }
-        ), 
-        {condition = line_begin}  -- set condition in the `opts` table
+  -- ABSOLUTE VALUE
+  -- The 'a' key on the lofree bluetooth keyboard is stuck sometimes :P
+  -- I still love the Lofree keyboard though <3
+  s({trig = "([^%a])aa", regTrig = true, wordTrig = false, snippetType="autosnippet"},
+    fmta(
+      "<>\\abs{<>}",
+      {
+        f( function(_, snip) return snip.captures[1] end ),
+        d(1, get_visual),
+      }
     ),
+    {condition = tex.in_mathzone}
+  ),
 
-    s({trig="new", dscr="A generic new environmennt"},
-        fmta(
-            [[
-                \begin{<>}
-                    <>
-                \end{<>}
-            ]],
-            {
-                i(1),
-                i(2),
-                rep(1),
-            }
-        ),
-        {condition = line_begin}
+  -- SQUARE ROOT
+  s({trig = "([^%\\])sq", wordTrig = false, regTrig = true, snippetType="autosnippet"},
+    fmta(
+      "<>\\sqrt{<>}",
+      {
+        f( function(_, snip) return snip.captures[1] end ),
+        d(1, get_visual),
+      }
     ),
+    {condition = tex.in_mathzone}
+  ),
 
-    -- s({trig="test", snippetType="autosnippet"},
-    --     {t("The current line number is even and toi muon moc lon kim phuong")},
-    --     {condition = is_even_line}
-    -- ),
-
-    -- Expand 'dd' into \draw, but only in TikZ environments
-    s({trig = "dd"},
-        fmta(
-            "\\draw [<>] ",
-            {
-                i(1, "params"),
-            }
-        ),
-        { condition = tex_utils.in_tikz }
+  -- BINOMIAL SYMBOL
+  s({trig = "([^%\\])bnn", wordTrig = false, regTrig = true, snippetType="autosnippet"},
+    fmta(
+      "<>\\binom{<>}{<>}",
+      {
+        f( function(_, snip) return snip.captures[1] end ),
+        i(1),
+        i(2),
+      }
     ),
+    {condition = tex.in_mathzone}
+  ),
 
-}
+  -- LOGARITHM WITH BASE SUBSCRIPT
+  s({trig = "([^%a%\\])ll", wordTrig = false, regTrig = true, snippetType="autosnippet"},
+    fmta(
+      "<>\\log_{<>}",
+      {
+        f( function(_, snip) return snip.captures[1] end ),
+        i(1),
+      }
+    ),
+    {condition = tex.in_mathzone}
+  ),
+
+  -- DERIVATIVE with denominator only
+  s({trig = "([^%a])dV", wordTrig = false, regTrig = true, snippetType="autosnippet"},
+    fmta(
+      "<>\\dvOne{<>}",
+      {
+        f( function(_, snip) return snip.captures[1] end ),
+        d(1, get_visual),
+      }
+    ),
+    {condition = tex.in_mathzone}
+  ),
+  -- DERIVATIVE with numerator and denominator
+  s({trig = "([^%a])dvv", wordTrig = false, regTrig = true, snippetType="autosnippet"},
+    fmta(
+      "<>\\dv{<>}{<>}",
+      {
+        f( function(_, snip) return snip.captures[1] end ),
+        i(1),
+        i(2)
+      }
+    ),
+    {condition = tex.in_mathzone}
+  ),
+  -- DERIVATIVE with numerator, denominator, and higher-order argument
+  s({trig = "([^%a])ddv", wordTrig = false, regTrig = true, snippetType="autosnippet"},
+    fmta(
+      "<>\\dvN{<>}{<>}{<>}",
+      {
+        f( function(_, snip) return snip.captures[1] end ),
+        i(1),
+        i(2),
+        i(3),
+      }
+    ),
+    {condition = tex.in_mathzone}
+  ),
+  -- PARTIAL DERIVATIVE with denominator only
+  s({trig = "([^%a])pV", wordTrig = false, regTrig = true, snippetType="autosnippet"},
+    fmta(
+      "<>\\pdvOne{<>}",
+      {
+        f( function(_, snip) return snip.captures[1] end ),
+        d(1, get_visual),
+      }
+    ),
+    {condition = tex.in_mathzone}
+  ),
+  -- PARTIAL DERIVATIVE with numerator and denominator
+  s({trig = "([^%a])pvv", wordTrig = false, regTrig = true, snippetType="autosnippet"},
+    fmta(
+      "<>\\pdv{<>}{<>}",
+      {
+        f( function(_, snip) return snip.captures[1] end ),
+        i(1),
+        i(2)
+      }
+    ),
+    {condition = tex.in_mathzone}
+  ),
+  -- PARTIAL DERIVATIVE with numerator, denominator, and higher-order argument
+  s({trig = "([^%a])ppv", wordTrig = false, regTrig = true, snippetType="autosnippet"},
+    fmta(
+      "<>\\pdvN{<>}{<>}{<>}",
+      {
+        f( function(_, snip) return snip.captures[1] end ),
+        i(1),
+        i(2),
+        i(3),
+      }
+    ),
+    {condition = tex.in_mathzone}
+  ),
+
+  -- SUM with lower limit
+  s({trig = "([^%a])sM", wordTrig = false, regTrig = true, snippetType="autosnippet"},
+    fmta(
+      "<>\\sum_{<>}",
+      {
+        f( function(_, snip) return snip.captures[1] end ),
+        i(1),
+      }
+    ),
+    {condition = tex.in_mathzone}
+  ),
+  -- SUM with upper and lower limit
+  s({trig = "([^%a])smm", wordTrig = false, regTrig = true, snippetType="autosnippet"},
+    fmta(
+      "<>\\sum_{<>}^{<>}",
+      {
+        f( function(_, snip) return snip.captures[1] end ),
+        i(1),
+        i(2),
+      }
+    ),
+    {condition = tex.in_mathzone}
+  ),
+
+  -- INTEGRAL with upper and lower limit
+  s({trig = "([^%a])intt", wordTrig = false, regTrig = true, snippetType="autosnippet"},
+    fmta(
+      "<>\\int_{<>}^{<>}",
+      {
+        f( function(_, snip) return snip.captures[1] end ),
+        i(1),
+        i(2),
+      }
+    ),
+    {condition = tex.in_mathzone}
+  ),
+  -- INTEGRAL from positive to negative infinity
+  s({trig = "([^%a])intf", wordTrig = false, regTrig = true, snippetType="autosnippet"},
+    fmta(
+      "<>\\int_{\\infty}^{\\infty}",
+      {
+        f( function(_, snip) return snip.captures[1] end ),
+      }
+    ),
+    {condition = tex.in_mathzone}
+  ),
+
+  -- BOXED command
+  s({trig = "([^%a])bb", wordTrig = false, regTrig = true, snippetType="autosnippet"},
+    fmta(
+      "<>\\boxed{<>}",
+      {
+        f( function(_, snip) return snip.captures[1] end ),
+        d(1, get_visual)
+      }
+    ),
+    {condition = tex.in_mathzone}
+  ),
+  --
+  -- BEGIN STATIC SNIPPETS (snippet with no placeholder)
+  --
+
+  -- DIFFERENTIAL, i.e. \diff
+  s({trig = "df", snippetType="autosnippet", priority=2000, snippetType="autosnippet"},
+    {
+      t("\\diff"),
+    },
+    {condition = tex.in_mathzone}
+  ),
+  -- BASIC INTEGRAL SYMBOL, i.e. \int
+  s({trig = "in1", snippetType="autosnippet"},
+    {
+      t("\\int"),
+    },
+    {condition = tex.in_mathzone}
+  ),
+  -- DOUBLE INTEGRAL, i.e. \iint
+  s({trig = "in2", snippetType="autosnippet"},
+    {
+      t("\\iint"),
+    },
+    {condition = tex.in_mathzone}
+  ),
+  -- TRIPLE INTEGRAL, i.e. \iiint
+  s({trig = "in3", snippetType="autosnippet"},
+    {
+      t("\\iiint"),
+    },
+    {condition = tex.in_mathzone}
+  ),
+  -- CLOSED SINGLE INTEGRAL, i.e. \oint
+  s({trig = "oi1", snippetType="autosnippet"},
+    {
+      t("\\oint"),
+    },
+    {condition = tex.in_mathzone}
+  ),
+  -- CLOSED DOUBLE INTEGRAL, i.e. \oiint
+  s({trig = "oi2", snippetType="autosnippet"},
+    {
+      t("\\oiint"),
+    },
+    {condition = tex.in_mathzone}
+  ),
+  -- GRADIENT OPERATOR, i.e. \grad
+  s({trig = "gdd", snippetType="autosnippet"},
+    {
+      t("\\grad "),
+    },
+    {condition = tex.in_mathzone}
+  ),
+  -- CURL OPERATOR, i.e. \curl
+  s({trig = "cll", snippetType="autosnippet"},
+    {
+      t("\\curl "),
+    },
+    {condition = tex.in_mathzone}
+  ),
+  -- DIVERGENCE OPERATOR, i.e. \divergence
+  s({trig = "DI", snippetType="autosnippet"},
+    {
+      t("\\div "),
+    },
+    {condition = tex.in_mathzone}
+  ),
+  -- LAPLACIAN OPERATOR, i.e. \laplacian
+  s({trig = "laa", snippetType="autosnippet"},
+    {
+      t("\\laplacian "),
+    },
+    {condition = tex.in_mathzone}
+  ),
+  -- PARALLEL SYMBOL, i.e. \parallel
+  s({trig = "||", snippetType="autosnippet"},
+    {
+      t("\\parallel"),
+    }
+  ),
+  -- CDOTS, i.e. \cdots
+  s({trig = "cdd", snippetType="autosnippet"},
+    {
+      t("\\cdots"),
+    }
+  ),
+  -- LDOTS, i.e. \ldots
+  s({trig = "ldd", snippetType="autosnippet"},
+    {
+      t("\\ldots"),
+    }
+  ),
+  -- EQUIV, i.e. \equiv
+  s({trig = "eqq", snippetType="autosnippet"},
+    {
+      t("\\equiv "),
+    }
+  ),
+  -- SETMINUS, i.e. \setminus
+  s({trig = "stm", snippetType="autosnippet"},
+    {
+      t("\\setminus "),
+    }
+  ),
+  -- SUBSET, i.e. \subset
+  s({trig = "sbb", snippetType="autosnippet"},
+    {
+      t("\\subset "),
+    }
+  ),
+  -- APPROX, i.e. \approx
+  s({trig = "px", snippetType="autosnippet"},
+    {
+      t("\\approx "),
+    },
+    {condition = tex.in_mathzone}
+  ),
+  -- PROPTO, i.e. \propto
+  s({trig = "pt", snippetType="autosnippet"},
+    {
+      t("\\propto "),
+    },
+    {condition = tex.in_mathzone}
+  ),
+  -- COLON, i.e. \colon
+  s({trig = "::", snippetType="autosnippet"},
+    {
+      t("\\colon "),
+    }
+  ),
+  -- IMPLIES, i.e. \implies
+  s({trig = ">>", snippetType="autosnippet"},
+    {
+      t("\\implies "),
+    }
+  ),
+  -- DOT PRODUCT, i.e. \cdot
+  s({trig = ",.", snippetType="autosnippet"},
+    {
+      t("\\cdot "),
+    }
+  ),
+  -- CROSS PRODUCT, i.e. \times
+  s({trig = "xx", snippetType="autosnippet"},
+    {
+      t("\\times "),
+    }
+  ),
 
   
+}
