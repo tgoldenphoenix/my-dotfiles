@@ -2,7 +2,7 @@
 -- use `:messages` to view all logged messages
 
 -- print('hello from init.lua')
--- vim.notify("muon bu vu kim phuong")
+-- vim.notify("console log")
 -- END testing Lua commands
 
 -- require .lua files in ./lua/
@@ -13,4 +13,9 @@
 -- require("core.keymaps")
 
 require("neotex.core")
+
+-- boot plugins
 require("neotex.bootstrap")
+
+-- require("anhao.core")
+-- require("anhao.bootstrap")

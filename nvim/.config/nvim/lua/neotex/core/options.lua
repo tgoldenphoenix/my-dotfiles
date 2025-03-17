@@ -8,7 +8,13 @@
 local options = {     -- Nếu không để "local" thì default là global variables
 
   -- GENERAL
-  timeoutlen = 100,               -- time to wait for a mapped sequence to complete (in milliseconds); Decrease mapped sequence wait time
+
+  -- If timeoutlen = 100 some keymap like "dse" will not have enough time to be pressed
+  -- I spent an entire day figuring this bug out!!!
+  timeoutlen = 1400,               -- time to wait for a mapped sequence to complete (in milliseconds); Decrease mapped sequence wait time
+
+  -- This is a funny one, press ESC to get back to normal mode and wait :D
+  -- ttimeoutlen = 3000,
   updatetime = 200,               -- faster completion (4000ms default); Decrease update time
   swapfile = false,               -- creates a swapfile
   undofile = true,                -- enable persistent undo, Save undo history
@@ -18,7 +24,10 @@ local options = {     -- Nếu không để "local" thì default là global vari
   laststatus = 3,                 -- views can only be fully collapsed with the global statusline
   fileencoding = "utf-8",         -- the encoding written to a file
   guifont = "monospace:h17",      -- the font used in graphical neovim applications
+
+  -- will affect colorscheme like guvbox
   background = "dark",            -- colorschemes that can be light or dark will be made dark
+
   termguicolors = true,           -- set term gui colors (most terminals support this)
   conceallevel = 0,               -- so that `` is visible in markdown files
   number = true,                  -- set numbered lines

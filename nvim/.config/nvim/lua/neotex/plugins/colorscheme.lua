@@ -21,6 +21,7 @@ return {
     })
     vim.cmd("colorscheme gruvbox")
   end,
+  -- opts = {}
 }
 
 -- -- MONOKAI
