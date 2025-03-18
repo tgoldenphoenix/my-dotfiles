@@ -1,2 +1,11 @@
-" My LaTex settings
 " echo "anhao"
+
+" setting indentation
+setlocal expandtab
+setlocal autoindent
+setlocal tabstop=4
+setlocal softtabstop=4
+setlocal shiftwidth=4
+
+" Turn off automatic indenting in enumerated environments
+" let g:tex_indent_items=0

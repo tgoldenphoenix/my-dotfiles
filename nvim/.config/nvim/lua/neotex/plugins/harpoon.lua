@@ -41,10 +41,17 @@ return {
             -- require('telescope').load_extension('harpoon')
 
             -- KEYMAPS
+
+            -- require file from different directory
+            -- Use ~/lua/ as the root of require
+            -- local harpoon = require("neotex.plugins.harpoon")
+            
+            -- if require a file in the same directory
+            -- file name in ~/lua/neotex/plugins/ must be exactly harpoon.lua
             local harpoon = require("harpoon")
 
             -- vim.keymap.set("n", "<leader>ah", function() harpoon:list():add() end, { desc = 'add harpoon file' })
-            -- vim.keymap.set("n", "<C-e>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end, { desc = 'harpoon menu' })
+            vim.keymap.set("n", "<C-e>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end, { desc = 'harpoon menu' })
 
             -- vim.keymap.set("n", "<leader>1", function() harpoon:list():select(1) end, { desc = 'harpoon file 1' })
             -- vim.keymap.set("n", "<leader>2", function() harpoon:list():select(2) end, { desc = 'harpoon file 2' })

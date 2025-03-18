@@ -1,3 +1,4 @@
+-- github dashboard style
 return {
   { section = "header" },
   {

@@ -53,6 +53,8 @@ local options = {     -- Nếu không để "local" thì default là global vari
   mousemoveevent = true,
 
   -- INDENT
+
+  -- can try tabstop 2
   tabstop = 2,                    -- insert 2 spaces for a tab
   shiftwidth = 2,                 -- the number of spaces inserted for each indentation
   softtabstop = 2,                -- insert 2 spaces for a tab
@@ -105,11 +107,6 @@ vim.opt.iskeyword:append "-"  -- hyphenated words recognized by searches
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 -- vim.g.have_nerd_font = false
 -- vim.g.have_nerd_font = true
-
--- disable netrw at the very start of your init.lua
--- use nvim-tree
--- vim.g.loaded_netrw = 1
--- vim.g.loaded_netrwPlugin = 1
 
 -- CLIPBOARD -- (for yanky)
 -- May help Arch/Debian Linux users

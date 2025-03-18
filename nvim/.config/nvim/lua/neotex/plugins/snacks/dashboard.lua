@@ -1,7 +1,14 @@
 local M = {}
 
 M.preset = {
+  -- Defaults to a picker that supports `fzf-lua`, `telescope.nvim` and `mini.pick`
+  ---@type fun(cmd:string, opts:table)|nil
   pick = nil,
+
+  -- Used by the `keys` section to show keymaps.
+  -- Set your custom keymaps here.
+  -- When using a function, the `items` argument are the default keymaps.
+  ---@type snacks.dashboard.Item[]
   keys = {
     -- { icon = " ", key = "s", desc = "Restore Session", action = function() require("persistence").select() end },
     { icon = " ", key = "s", desc = "Restore Session", action = ":SessionManager load_session" },
@@ -15,7 +22,9 @@ M.preset = {
     { icon = " ", key = "m", desc = "Manage Plugins", action = ":Lazy", enabled = package.loaded.lazy ~= nil },
     { icon = " ", key = "h", desc = "Checkhealth", action = ":checkhealth" },
     { icon = " ", key = "q", desc = "Quit", action = ":qa!" },
+    
   },
+
   header = [[
                                                                          
                                                                        
