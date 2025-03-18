@@ -51,8 +51,8 @@ keymap('x', "<C-;>", '<Plug>(comment_toggle_linewise_visual)', opts)
 keymap("n", "<CR>", "<cmd>noh<CR>", opts)
 
 -- Diagnostic keymaps
--- keymap('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
--- dòng ở dưới sẽ override dòng phía trên
+-- vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
+-- Btw, dòng ở dưới này sẽ override dòng phía trên
 -- vim.keymap.set('n', '<leader>q', '<cmd>override test<CR>')
 
 -- TIP: Disable arrow keys in normal mode
@@ -149,49 +149,3 @@ keymap("n", "<", "<S-v><<esc>", opts)
 keymap("n", ">", "<S-v>><esc>", opts)
 -- keymap("v", "<", "<gv^", opts)
 -- keymap("v", ">", ">gv^", opts)
-
--- e = { "<cmd>NvimTreeToggle<CR>", "explorer" },
-keymap("n", "<leader>e", "<cmd>NvimTreeToggle<CR>", opts)
-keymap("v", "<leader>e", "<cmd>NvimTreeToggle<CR>", opts)
-
--- SESSIONS
--- S = {
---     name = "SESSIONS",
---     s = { "<cmd>SessionManager save_current_session<CR>", "save" },
---     d = { "<cmd>SessionManager delete_session<CR>", "delete" },
---     l = { "<cmd>SessionManager load_session<CR>", "load" },
---   },
--- keymap("n", "<leader>Ss", "<cmd>SessionManager save_current_session<CR>", opts)
-
--- reaload Luasnip snippets
--- <leader>rl
--- l = { '<Cmd>lua require("luasnip.loaders.from_lua").load({paths = "~/.config/nvim/LuaSnip/"})<CR>', "Reload Luasnip snippets" },
-
--- keymap("n", "<C-e>", , opts)
-
--- vim.keymap.set('n', '<C-e>', function() print("A lua func") end, {noremap = true})
--- vim.keymap.set('n', '<C-e>', function() harpoon.ui:toggle_quick_menu(harpoon:list()) end, opts)
--- vim.keymap.set("n", "<C-e>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end, { desc = 'harpoon menu' })
-
--- local wk = require("which-key")
-    -- wk.setup(opts.setup)
-    -- wk.register(opts.defaults)
-
-    -- wk.add({
-      -- Harpoon
-      -- harpoon import ở trên cùng file này
-    --   { "<C-e>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end, desc = "Harpoon Menu", mode = "n" },
-    --   { "<leader>ah", function() harpoon:list():add() end, desc = "Add Harpoon File", mode = "n" },
-
-    --   { "<leader>1", function() harpoon:list():select(1) end, desc = "Harpoon File 1", mode = "n" },
-    --   { "<leader>2", function() harpoon:list():select(2) end, desc = "Harpoon File 2", mode = "n" },
-    --   { "<leader>3", function() harpoon:list():select(3) end, desc = "Harpoon File 3", mode = "n" },
-    --   { "<leader>4", function() harpoon:list():select(4) end, desc = "Harpoon File 4", mode = "n" },
-    --   { "<leader>5", function() harpoon:list():select(5) end, desc = "Harpoon File 5", mode = "n" },
-
-    --   -- Toggle previous & next buffers stored within Harpoon list
-    --   { "<C-S-P>", function() harpoon:list():prev() end, desc = "Previous harpoon buffer", mode = "n" },
-    --   { "<C-S-N>", function() harpoon:list():next() end, desc = "Next harpoon buffer", mode = "n" },
-      
-      -- vim.keymap.set("n", "<C-S-P>", function() harpoon:list():prev() end)
-      -- vim.keymap.set("n", "<C-S-N>", function() harpoon:list():next() end)

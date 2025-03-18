@@ -13,11 +13,16 @@ return {
       -- sections = require("neotex.plugins.snacks.dashboard").sections,
 
       -- github dashboard style
-      -- sections = require("neotex.plugins.snacks.gh_dashboard").sections,
+      sections = require("neotex.plugins.snacks.gh_dashboard"),
     },
   },
 
-  keys = {},
+  keys = {
+    -- buff delete
+    -- src: https://github.com/folke/snacks.nvim/blob/main/docs/bufdelete.md
+    { "<leader>bd", "<cmd>lua Snacks.bufdelete()<CR>", desc = "delete current buffer" },
+  },
+
   init = function ()
   end,
 }

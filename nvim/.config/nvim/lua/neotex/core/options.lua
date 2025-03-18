@@ -30,14 +30,16 @@ local options = {     -- Nếu không để "local" thì default là global vari
 
   termguicolors = true,           -- set term gui colors (most terminals support this)
   conceallevel = 0,               -- so that `` is visible in markdown files
-  number = true,                  -- set numbered lines
 
-  -- You can also add relative line numbers, to help with jumping. Experiment for yourself to see if you like it!
+  number = true,                  -- make line numbered
+  -- You can also add relative line numbers, to help with jumping. 
+  -- Experiment for yourself to see if you like it!
   relativenumber = true,          -- set relative numbered lines
 
   numberwidth = 2,                -- set number column width to 2 {default 4}
   signcolumn = "yes",             -- always show the sign column, otherwise it would shift the text each time
   fillchars = "eob: ",            -- don't show tildes
+  
   cursorline = true,              -- highlight the current line
   -- colorcolumn = "100",             -- highlight vertical colorcolumn (moved to after/python.lua)
   wrap = true,                    -- display lines as one long line
@@ -45,6 +47,8 @@ local options = {     -- Nếu không để "local" thì default là global vari
   cmdheight = 1,                  -- space in the neovim command line for displaying messages; can be set to '2' for more space
   pumheight = 7,                 -- pop up menu height
   showmode = false,               -- we don't need to see things like -- INSERT -- anymore
+
+  -- Configure how new splits should be opened
   splitbelow = true,              -- force all horizontal splits to go below current window
   splitright = true,              -- force all vertical splits to go to the right of current window
   scrolloff = 7,                  -- minimal number of screen lines to keep above and below the cursor
@@ -72,7 +76,6 @@ local options = {     -- Nếu không để "local" thì default là global vari
   --  See `:help 'clipboard'`
   clipboard = "unnamedplus",      -- allows neovim to access the system clipboard
 
-
   mouse = "a",                    -- allow the mouse to be used in neovim
   mousescroll = "ver:2,hor:4",    -- change the speed of the scroll wheel
 
@@ -81,7 +84,9 @@ local options = {     -- Nếu không để "local" thì default là global vari
   smartcase = true,               -- smart case
 
   virtualedit = "block",          -- vitualblock mode doesn't get stuck at the end of line
-  inccommand = "split",           -- shows all inline replacements in split; Preview substitutions live, as you type!
+
+  -- shows all inline replacements in split; Preview substitutions live, as you type!
+  inccommand = "split",
   autoread = true,
 
   -- FOLDING

@@ -9,12 +9,12 @@ nmap <leader>t <CMD>VimtexTocToggle<CR>
 " Use `<localleader>c` to trigger continuous compilation...
 nmap <localleader>c <Plug>(vimtex-compile)
 
-" Start single shot compilation
+" Start single shot compilation (different work flow)
 " noremap <leader>c <Cmd>update<CR><Cmd>VimtexCompileSS<CR>
 " noremap <leader>r <Cmd>update<CR><Cmd>VimtexCompileSS<CR>
 
 " View `pdf` for current project, perform forward search if available.
-" nmap <leader>v <plug>(vimtex-view)
+nmap <leader>v <plug>(vimtex-view)
 " nmap <localleader>v <plug>(vimtex-view)
 
 " Example: make `<leader>wc` call the command `VimtexCountWords`;

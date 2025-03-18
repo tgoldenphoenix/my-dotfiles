@@ -124,7 +124,17 @@ source $ZDOTDIR/aliases/aliases
 
 # Shell integrations
 eval "$(fzf --zsh)" # install with homebrew
-eval "$(zoxide init --cmd cd zsh)"   # must be added after compinit is called
+
+# ======== start ZOXIDE integration ========
+# new command: z, zi (though 'zi' will conflict with zinit package manager for zsh)
+# eval "$(zoxide init zsh)"
+
+# change the commands to: j and ji
+# eval "$(zoxide init --cmd j zsh)"   # must be added after compinit is called
+
+# replace the cd commnand with zoxide, and new command 'cdi' for interactive mode
+eval "$(zoxide init --cmd cd zsh)"
+# ======== end ZOXIDE integration ========
 
 # ruby version manager
 # source /Users/anhao/.rvm/scripts/rvm
