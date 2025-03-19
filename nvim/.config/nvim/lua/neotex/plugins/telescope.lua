@@ -57,7 +57,11 @@ return { -- Fuzzy Finder (files, lsp, etc)
             --     i = { ['<c-enter>'] = 'to_fuzzy_refine' },
             --   },
             -- },
-            -- pickers = {}
+            pickers = {
+                find_files = {
+                  theme = "ivy"
+                }
+            },      
             extensions = {
                 ['ui-select'] = {
                     require('telescope.themes').get_dropdown(),
@@ -71,13 +75,19 @@ return { -- Fuzzy Finder (files, lsp, etc)
 
         -- See `:help telescope.builtin`
         local builtin = require 'telescope.builtin'
+
+        -- If dont see telescope preview window, try <C -> to zoom out a bit
+
         vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
         vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
 
         -- or "fd" find directory
+        -- Try typing `:Telescope find_files`
         vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
         
+        -- search funtions builtin of telescope
         vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
+
         vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
         vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
         vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
@@ -109,5 +119,9 @@ return { -- Fuzzy Finder (files, lsp, etc)
             -- try :echo stdpath("config")
             builtin.find_files { cwd = vim.fn.stdpath 'config' }
         end, { desc = '[S]earch [N]eovim files' })
+
+        -- ==== start persisted.nvim ====
+        require("telescope").load_extension("persisted")
+        -- ==== end persisted.nvim ====
     end,
 }
