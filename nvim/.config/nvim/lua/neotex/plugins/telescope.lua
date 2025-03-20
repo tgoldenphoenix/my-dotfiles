@@ -19,6 +19,7 @@ return { -- Fuzzy Finder (files, lsp, etc)
             return vim.fn.executable 'make' == 1
             end,
         },
+        -- use with lsp
         { 'nvim-telescope/telescope-ui-select.nvim' },
 
         -- Useful for getting pretty icons, but requires a Nerd Font.
@@ -27,17 +28,7 @@ return { -- Fuzzy Finder (files, lsp, etc)
 
     config = function()
         -- print("Telescope config")
-        -- Telescope is a fuzzy finder that comes with a lot of different things that
-        -- it can fuzzy find! It's more than just a "file finder", it can search
-        -- many different aspects of Neovim, your workspace, LSP, and more!
-        --
-        -- The easiest way to use Telescope, is to start by doing something like:
-        --  :Telescope help_tags
-        --
-        -- After running this command, a window will open up and you're able to
-        -- type in the prompt window. You'll see a list of `help_tags` options and
-        -- a corresponding preview of the help.
-        --
+        
         -- Two important keymaps to use while in Telescope are:
         --  - Insert mode: <c-/>
         --  - Normal mode: ?
@@ -79,7 +70,7 @@ return { -- Fuzzy Finder (files, lsp, etc)
         -- If dont see telescope preview window, try <C -> to zoom out a bit
 
         vim.keymap.set('n', '<leader>sh', builtin.help_tags, { desc = '[S]earch [H]elp' })
-        vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
+        -- vim.keymap.set('n', '<leader>sk', builtin.keymaps, { desc = '[S]earch [K]eymaps' })
 
         -- or "fd" find directory
         -- Try typing `:Telescope find_files`
@@ -88,11 +79,15 @@ return { -- Fuzzy Finder (files, lsp, etc)
         -- search funtions builtin of telescope
         vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
 
-        vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
-        vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
-        vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
-        vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
-        vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
+        -- vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
+        -- vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
+        -- vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
+        -- vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
+        -- vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
+
+        -- Just like toggle buffer list
+        -- think about this
+        -- the other you can delete buffer, i think is better than this telescope builtin
         vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
 
         -- Slightly advanced example of overriding default behavior and theme
@@ -106,12 +101,12 @@ return { -- Fuzzy Finder (files, lsp, etc)
 
         -- It's also possible to pass additional configuration options.
         --  See `:help telescope.builtin.live_grep()` for information about particular keys
-        vim.keymap.set('n', '<leader>s/', function()
-            builtin.live_grep {
-                grep_open_files = true,
-                prompt_title = 'Live Grep in Open Files',
-            }
-        end, { desc = '[S]earch [/] in Open Files' })
+        -- vim.keymap.set('n', '<leader>s/', function()
+        --     builtin.live_grep {
+        --         grep_open_files = true,
+        --         prompt_title = 'Live Grep in Open Files',
+        --     }
+        -- end, { desc = '[S]earch [/] in Open Files' })
 
         -- Shortcut for searching your Neovim configuration files
         -- "ed" edit neovim

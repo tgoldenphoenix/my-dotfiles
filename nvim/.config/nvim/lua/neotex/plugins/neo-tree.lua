@@ -9,8 +9,8 @@ return {
     },
     config = function()
 
-        vim.keymap.set("n", "<leader>e", "<cmd>Neotree toggle<CR>", {desc = "Open Neotree"})
-        vim.keymap.set("v", "<leader>e", "<cmd>Neotree toggle<CR>", {desc = "Open Neotree"})
+        vim.keymap.set("n", "<leader>e", "<cmd>Neotree toggle<CR>", {desc = "Toggle Neotre[e]"})
+        vim.keymap.set("v", "<leader>e", "<cmd>Neotree toggle<CR>", {desc = "Toggle Neotre[e]"})
 
     end,
 }

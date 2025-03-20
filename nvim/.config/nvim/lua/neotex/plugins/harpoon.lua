@@ -18,8 +18,8 @@ return {
             -- file name in ~/lua/neotex/plugins/ must be exactly harpoon.lua
             local harpoon = require("harpoon")
 
-            vim.keymap.set("n", "<leader>a", function() harpoon:list():add() end, { desc = 'add harpoon file' })
-            vim.keymap.set("n", "<C-e>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end, { desc = 'harpoon menu' })
+            vim.keymap.set("n", "<leader>a", function() harpoon:list():add() end, { desc = '[A]dd harpoon file' })
+            vim.keymap.set("n", "<leader>th", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end, { desc = '[T]oggle [H]arpoon menu' })
 
             vim.keymap.set("n", "<leader>1", function() harpoon:list():select(1) end, { desc = 'harpoon to file 1' })
             vim.keymap.set("n", "<leader>2", function() harpoon:list():select(2) end, { desc = 'harpoon to file 2' })
@@ -27,8 +27,8 @@ return {
             vim.keymap.set("n", "<leader>4", function() harpoon:list():select(4) end, { desc = 'harpoon to file 4' })
 
             -- Toggle previous & next buffers stored within Harpoon list
-            vim.keymap.set("n", "<C-S-P>", function() harpoon:list():prev() end)
-            vim.keymap.set("n", "<C-S-N>", function() harpoon:list():next() end)
+            vim.keymap.set("n", "<C-S-P>", function() harpoon:list():prev() end, { desc = 'harpoon previous file' })
+            vim.keymap.set("n", "<C-S-N>", function() harpoon:list():next() end, { desc = 'harpoon next file' })
         end,
 
     }

@@ -13,6 +13,9 @@ return {
 
         -- put toggle_quick_menu() with parentheses will yiel error
         -- You must pass a function as argument to the RHS
-        vim.keymap.set('n', '<leader>bt', builtin.toggle_quick_menu, { desc = 'toggle buffer menu' })
+        vim.keymap.set('n', '<leader>tb', builtin.toggle_quick_menu, { desc = '[T]oggle [B]uffer menu' })
+        
+        -- go to next & previous buffer
+        -- src: https://github.com/j-morano/buffer_manager.nvim?tab=readme-ov-file#go-to-next-or-previous-buffer-in-the-list
     end
 }

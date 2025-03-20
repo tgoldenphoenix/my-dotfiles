@@ -18,9 +18,9 @@ return {
   },
 
   keys = {
-    -- buff delete
+    -- Delete current buffer
     -- src: https://github.com/folke/snacks.nvim/blob/main/docs/bufdelete.md
-    { "<leader>bd", "<cmd>lua Snacks.bufdelete()<CR>", desc = "delete current buffer" },
+    { "<leader>bd", "<cmd>lua Snacks.bufdelete()<CR>", desc = "[B]uffer [D]elete current" },
   },
 
   init = function ()

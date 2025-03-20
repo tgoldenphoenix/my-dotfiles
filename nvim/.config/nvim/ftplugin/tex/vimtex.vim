@@ -2,7 +2,7 @@
 
 nmap <leader>i <plug>(vimtex-info)
 
-nmap <leader>t <CMD>VimtexTocToggle<CR>
+nmap <leader>tv <CMD>VimtexTocToggle<CR>
 
 " Compilation
 
@@ -18,7 +18,7 @@ nmap <leader>v <plug>(vimtex-view)
 " nmap <localleader>v <plug>(vimtex-view)
 
 " Example: make `<leader>wc` call the command `VimtexCountWords`;
-" noremap <leader>wc <Cmd>VimtexCountWords<CR>
+noremap <leader>wc <Cmd>VimtexCountWords<CR>
 
 " DEFINE MAPPINGS
 " ---------------------------------------------
