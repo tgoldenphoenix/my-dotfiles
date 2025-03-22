@@ -77,9 +77,10 @@ return {
     config = function()
       local wk = require("which-key")
       wk.add({
-        { "<leader>t", group = "[T]oggle" }, -- group
+        -- ===== groups ===== 
+        { "<leader>t", group = "[T]oggle" }, 
         { "<leader>s", group = "[S]earch Telescope" },
-        { "<leader>b", group = "[B]uffer" },
+        -- { "<leader>b", group = "[B]uffer" },
         { "<leader>S", group = "[S]ession" },
 
         -- ===== Start Vimtex keymaps =====
@@ -93,6 +94,13 @@ return {
         { "<leader>wc", desc = "Vimtex [W]ord [C]ount" },
         -- ===== End Vimtex keymaps =====
 
+        -- Write, used with Vimtex continuous compilation feature
+        -- { "<leader>w", "<cmd>wa!<CR>", desc = "write" },
+        { "<leader>w", "<cmd>wa<CR>", desc = "write" },
+
+        -- write & quit
+        { "<leader>q", "<cmd>wa! | qa!<CR>", desc = "write & quit" },
+        
         -- { "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Find File", mode = "n" },
         -- { "<leader>fb", function() print("hello") end, desc = "Foobar" },
         -- { "<leader>fn", desc = "New File" },

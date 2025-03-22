@@ -1,6 +1,7 @@
 " echo "anhao"
 
 " setting indentation
+" global indent is only 2, for now just try 4 and see how it goes...
 setlocal expandtab
 setlocal autoindent
 setlocal tabstop=4
