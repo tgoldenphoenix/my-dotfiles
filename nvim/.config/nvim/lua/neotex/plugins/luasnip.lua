@@ -1,33 +1,33 @@
 -- completions & snippet
 
-local kind_icons = {
-	Text = "󰉿",
-	Method = "󰆧",
-	Function = "󰊕",
-	Constructor = "",
-	Field = " ",
-	Variable = "󰀫",
-	Class = "󰠱",
-	Interface = "",
-	Module = "",
-	Property = "󰜢",
-	Unit = "󰑭",
-	Value = "󰎠",
-	Enum = "",
-	Keyword = "󰌋",
-	Snippet = "",
-	Color = "󰏘",
-	File = "󰈙",
-	Reference = "",
-	Folder = "󰉋",
-	EnumMember = "",
-	Constant = "󰏿",
-	Struct = "",
-	Event = "",
-	Operator = "󰆕",
-	TypeParameter = " ",
-	Misc = " ",
-}
+-- local kind_icons = {
+-- 	Text = "󰉿",
+-- 	Method = "󰆧",
+-- 	Function = "󰊕",
+-- 	Constructor = "",
+-- 	Field = " ",
+-- 	Variable = "󰀫",
+-- 	Class = "󰠱",
+-- 	Interface = "",
+-- 	Module = "",
+-- 	Property = "󰜢",
+-- 	Unit = "󰑭",
+-- 	Value = "󰎠",
+-- 	Enum = "",
+-- 	Keyword = "󰌋",
+-- 	Snippet = "",
+-- 	Color = "󰏘",
+-- 	File = "󰈙",
+-- 	Reference = "",
+-- 	Folder = "󰉋",
+-- 	EnumMember = "",
+-- 	Constant = "󰏿",
+-- 	Struct = "",
+-- 	Event = "",
+-- 	Operator = "󰆕",
+-- 	TypeParameter = " ",
+-- 	Misc = " ",
+-- }
 -- find more here: https://www.nerdfonts.com/cheat-sheet
 
 return {
@@ -76,10 +76,14 @@ return {
 			'hrsh7th/cmp-buffer', -- buffer completion
 			'hrsh7th/cmp-path', -- path completion
 			'hrsh7th/cmp-cmdline', -- cmdline completions
+
+			'uga-rosa/cmp-dictionary',
 		},
+
 		config = function()
 			-- vim.notify("config of cmp")
 
+			-- ===== START LUASNIP CONFIG =====
 			-- Abbreviations used in this article and the LuaSnip docs
 			local ls = require("luasnip")
 			local s = ls.snippet
@@ -119,6 +123,8 @@ return {
 			require("luasnip.loaders.from_lua").lazy_load({paths = "~/.config/nvim/LuaSnip/"})
 
 			-- require('luasnip.loaders.from_vscode').lazy_load()
+			
+			-- ===== END LUASNIP CONFIG =====
 
 			-- If do not use protected calls
 			-- local cmp = require 'cmp'
@@ -142,6 +148,7 @@ return {
 					  luasnip.lsp_expand(args.body) -- For `luasnip` users.
 					end,
 				},
+
 				mapping = {
 					-- ==== Set snippet trigger, tabstop navigation keys and other functions
 					-- I still can't find a way to add description for these mappings
@@ -264,33 +271,45 @@ return {
 				sources = {
 					-- Order of precedence top to bottom
 					-- nên để lsp & snippet on top thứ tự ưu tiên
-					{
-					  name = 'lazydev',
-					  -- set group index to 0 to skip loading LuaLS completions as lazydev recommends it
-					  group_index = 0,
-					},
+					-- {
+					--   name = 'lazydev',
+					--   -- set group index to 0 to skip loading LuaLS completions as lazydev recommends it
+					--   group_index = 0,
+					-- },
 					{ name = 'nvim_lsp' },
 					{ name = 'luasnip' },
 					{ name = "buffer" }, -- buffer là những files đang currently opened
 					{ name = 'path' },
 					{ name = 'nvim_lsp_signature_help' },
+					-- https://github.com/uga-rosa/cmp-dictionary
+					{
+						name = "dictionary",
+						keyword_length = 2,
+					},
 				},
-				formatting = {
-					fields = { "kind", "abbr", "menu" },
-					format = function(entry, vim_item)
-					  -- Kind icons
-					  vim_item.kind = string.format("%s", kind_icons[vim_item.kind])
-					  -- vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
-					  vim_item.menu = ({
-						nvim_lsp = "[LSP]",
-						luasnip = "[Snippet]",
-						buffer = "[Buffer]",
-						path = "[Path]",
-					  })[entry.source.name]
-					  return vim_item
-					end,
-				},
+				
+				-- formatting = {
+				-- 	fields = { "kind", "abbr", "menu" },
+				-- 	format = function(entry, vim_item)
+				-- 	  -- Kind icons
+				-- 	  vim_item.kind = string.format("%s", kind_icons[vim_item.kind])
+				-- 	  -- vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
+				-- 	  vim_item.menu = ({
+				-- 		nvim_lsp = "[LSP]",
+				-- 		luasnip = "[Snippet]",
+				-- 		buffer = "[Buffer]",
+				-- 		path = "[Path]",
+				-- 	  })[entry.source.name]
+				-- 	  return vim_item
+				-- 	end,
+				-- },
+
 			} -- END cmp.setup()
+
+			require("cmp_dictionary").setup({
+				paths = { "/usr/share/dict/words" },
+				exact_length = 2,
+			})
 
 			vim.cmd[[
 				" Vimscript goes here!

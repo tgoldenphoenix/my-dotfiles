@@ -104,6 +104,7 @@ end
 -- Sets how neovim will display certain whitespace characters in the editor.
 --  See `:help 'list'`
 --  and `:help 'listchars'`
+-- https://neovim.io/doc/user/options.html#'list'
 vim.opt.list = true
 vim.opt.listchars = { tab = '» ', trail = '·', nbsp = '␣' }
 
@@ -127,3 +128,14 @@ vim.opt.iskeyword:append "-"  -- hyphenated words recognized by searches
 --   },
 --   cache_enabled = 1,
 -- }
+
+-- Settings for the brianhuster/autosave.nvim plugin
+-- vim.cmd[[
+--   " Vimscript goes here!
+  
+--   " Legacy Vimscript
+
+--   " Enable autosave when the plugin is loaded. Set to v:false to disable autosave, and only enable it when you run the :AutoSave toggle command.
+--   let g:autosave_enabled = v:false
+--   let g:autosave_disable_inside_paths = [] " A list of paths inside which autosave should be disabled. 
+-- ]]

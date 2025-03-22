@@ -4,6 +4,8 @@ return {
   opts = {
     -- Your config goes here ...
     -- autostart = true -- Automatically start the plugin on load?
+
+    -- sessions are stored inside ~/.local/share/nvim/sessions
   },
   keys = {
     

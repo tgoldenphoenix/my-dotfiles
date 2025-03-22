@@ -36,12 +36,12 @@ keymap("v", "p", '"_dP', opts)
 
 -- Unmappings
 keymap("n", "<C-z>", "<nop>", opts) -- suspend the Vim session and sends it to the background
-keymap("n", "gc", "<nop>", opts)  -- Comment/Uncomment a Selection
-keymap("n", "gcc", "<nop>", opts) -- Comment/Uncomment a Line
+-- keymap("n", "gc", "<nop>", opts)  -- Comment/Uncomment a Selection
+-- keymap("n", "gcc", "<nop>", opts) -- Comment/Uncomment a Line
 
 -- Toggle comments. Dùng `;` chứ không dùng `/`
-keymap('n', "<C-;>", '<Plug>(comment_toggle_linewise_current)', opts)
-keymap('x', "<C-;>", '<Plug>(comment_toggle_linewise_visual)', opts)
+-- keymap('n', "<C-;>", '<Plug>(comment_toggle_linewise_current)', opts)
+-- keymap('x', "<C-;>", '<Plug>(comment_toggle_linewise_visual)', opts)
 
 -- Clear highlights on search when pressing <Esc> in normal mode
 --  See `:help hlsearch`
@@ -99,8 +99,8 @@ keymap("n", "<A-l>", ":vertical resize +2<CR>", opts)
 -- Navigate buffers, "S" stands for shift
 keymap("n", "<TAB>", "", {callback = function() GotoBuffer(1, 1) end, desc = 'Next buffer by modified time'})
 keymap("n", "<S-TAB>", "", {callback = function() GotoBuffer(1, -1) end, desc = 'Previous buffer by modified time'})
--- keymap("n", "<BS>", "<CMD>bnext<CR>", opts)
--- keymap("n", "<S-BS>", "<CMD>bprevious<CR>", opts)
+keymap("n", "<BS>", "<CMD>bnext<CR>", opts)
+keymap("n", "<S-BS>", "<CMD>bprevious<CR>", opts)
 -- keymap("n", "<S-l>", ":bnext<CR>", opts)
 -- keymap("n", "<S-h>", ":bprevious<CR>", opts)
 
@@ -149,3 +149,6 @@ keymap("n", "<", "<S-v><<esc>", opts)
 keymap("n", ">", "<S-v>><esc>", opts)
 -- keymap("v", "<", "<gv^", opts)
 -- keymap("v", ">", ">gv^", opts)
+
+-- save file
+keymap("n", "<C-i>", ":update<CR>", opts)
