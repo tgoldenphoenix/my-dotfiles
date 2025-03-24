@@ -15,6 +15,20 @@ return {
       -- github dashboard style
       sections = require("neotex.plugins.snacks.gh_dashboard"),
     },
+
+    -- Better vim.ui.input
+    -- works with nvimtree, lsp
+    -- https://github.com/folke/snacks.nvim/blob/main/docs/input.md
+    input = { 
+      enabled = true,
+
+      icon = " ",
+      icon_hl = "SnacksInputIcon",
+      icon_pos = "left",
+      prompt_pos = "title",
+      win = { style = "input" },
+      expand = true,
+    },
   },
 
   keys = {
@@ -26,3 +40,9 @@ return {
   init = function ()
   end,
 }
+
+-- dressing.nvim
+-- https://github.com/stevearc/dressing.nvim
+-- :lua vim.ui.input({prompt = "Enter input: "}, function(input) print(input) end)
+
+-- Already have ui.select

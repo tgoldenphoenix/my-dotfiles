@@ -19,7 +19,10 @@ return { -- Fuzzy Finder (files, lsp, etc)
             return vim.fn.executable 'make' == 1
             end,
         },
-        -- use with lsp
+        -- used to select lsp action for example
+        -- try this command
+        -- :lua vim.ui.select({"one", "two"}, {}, function(selection) print(selection) end)
+        -- https://github.com/nvim-telescope/telescope-ui-select.nvim
         { 'nvim-telescope/telescope-ui-select.nvim' },
 
         -- Useful for getting pretty icons, but requires a Nerd Font.
@@ -39,15 +42,24 @@ return { -- Fuzzy Finder (files, lsp, etc)
 
         -- [[ Configure Telescope ]]
         -- See `:help telescope` and `:help telescope.setup()`
+        local actions = require('telescope.actions')
+
         require('telescope').setup {
             -- You can put your default mappings / updates / etc. in here
             --  All the info you're looking for is in `:help telescope.setup()`
             --
-            -- defaults = {
-            --   mappings = {
-            --     i = { ['<c-enter>'] = 'to_fuzzy_refine' },
-            --   },
-            -- },
+            defaults = {
+              -- keymaps inside the picker window
+              mappings = {
+                i = { 
+                    -- ['<c-enter>'] = 'to_fuzzy_refine',
+
+                    -- default mappings: https://github.com/nvim-telescope/telescope.nvim?tab=readme-ov-file#default-mappings 
+                    ['<c-j>'] = actions.move_selection_next,
+                    ['<c-k>'] = actions.move_selection_previous,
+                },
+              },
+            },
             pickers = {
                 find_files = {
                   theme = "ivy"
@@ -74,16 +86,21 @@ return { -- Fuzzy Finder (files, lsp, etc)
 
         -- or "fd" find directory
         -- Try typing `:Telescope find_files`
-        vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles' })
+        vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles cwd' })
         
         -- search funtions builtin of telescope
         vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
 
-        -- vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
-        -- vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
+        -- test this!
+        -- BurntSushi/ripgrep is required for live_grep and grep_string. Run `rg --version`
+        -- look for the string under the cursor inside the cwd
+        vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
+        -- find string in cwd
+        vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep' })
+
         -- vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
         -- vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })
-        -- vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
+        vim.keymap.set('n', '<leader>s.', builtin.oldfiles, { desc = '[S]earch Recent Files ("." for repeat)' })
 
         -- Just like toggle buffer list
         -- think about this

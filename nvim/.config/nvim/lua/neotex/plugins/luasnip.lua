@@ -58,7 +58,7 @@ return {
 					--    See the README about individual language/framework/plugin snippets:
 					--    https://github.com/rafamadriz/friendly-snippets
 					{
-					  'rafamadriz/friendly-snippets', -- a bunch of snippets
+					  'rafamadriz/friendly-snippets', -- a bunch of useful snippets for different languages
 					  config = function()
 					    -- require('luasnip.loaders.from_vscode').lazy_load()
 					  end,
@@ -73,8 +73,8 @@ return {
 			-- 'neovim/nvim-lspconfig',
 			-- 'hrsh7th/cmp-nvim-lsp',
 			-- 'hrsh7th/cmp-nvim-lsp-signature-help',
-			'hrsh7th/cmp-buffer', -- buffer completion
-			'hrsh7th/cmp-path', -- path completion
+			'hrsh7th/cmp-buffer', -- source for text in buffer completion
+			'hrsh7th/cmp-path', -- src for file system path completion
 			'hrsh7th/cmp-cmdline', -- cmdline completions
 
 			'uga-rosa/cmp-dictionary',
@@ -122,7 +122,8 @@ return {
 			-- Lazy-load snippets, i.e. only load when required, e.g. for a given filetype
 			require("luasnip.loaders.from_lua").lazy_load({paths = "~/.config/nvim/LuaSnip/"})
 
-			-- require('luasnip.loaders.from_vscode').lazy_load()
+			-- from rafamadriz/friendly-snippets
+			require('luasnip.loaders.from_vscode').lazy_load()
 			
 			-- ===== END LUASNIP CONFIG =====
 
@@ -143,7 +144,7 @@ return {
 	  
 			cmp.setup {
 				-- REQUIRED - you must specify a snippet engine
-				snippet = {
+				snippet = {	-- configure how nvim-cmp interacts with the snippet engine
 					expand = function(args)
 					  luasnip.lsp_expand(args.body) -- For `luasnip` users.
 					end,
@@ -153,8 +154,12 @@ return {
 					-- ==== Set snippet trigger, tabstop navigation keys and other functions
 					-- I still can't find a way to add description for these mappings
 
-					["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-1), { "i", "c" }), -- "c" stands for command mode
-					["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(1), { "i", "c" }),
+					-- the preview window
+					-- this is not working for some reason
+					-- ["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-4), { "i", "c" }), -- "c" stands for command mode
+					-- ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(4), { "i", "c" }),
+					-- ["<C-b>"] = cmp.mapping.scroll_docs(-4),
+					-- ["<C-f>"] = cmp.mapping.scroll_docs(4),
 
 					--  Manually trigger a completion from nvim-cmp.
 					--  Generally you don't need this, because nvim-cmp will display
@@ -170,7 +175,7 @@ return {
 					-- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
 					["<C-y>"] = cmp.config.disable,
 					
-					-- Expand snippets in insert mode, you can also use <TAB>
+					-- Expand snippets in insert mode, you can also use <TAB> or <CR>
 					['<C-y>'] = cmp.mapping(function(fallback)
 						if cmp.visible() then
 							if luasnip.expandable() then
@@ -287,7 +292,7 @@ return {
 						keyword_length = 2,
 					},
 				},
-				
+
 				-- formatting = {
 				-- 	fields = { "kind", "abbr", "menu" },
 				-- 	format = function(entry, vim_item)

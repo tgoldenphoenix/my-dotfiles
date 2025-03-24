@@ -1,5 +1,8 @@
 return {
     "folke/which-key.nvim",
+
+    -- you can use the VeryLazy event for things that can
+    -- load later and are not important for the initial UI
     -- event = "VeryLazy",
     event = 'VimEnter', -- Sets the loading event to 'VimEnter'
     opts = {
@@ -82,6 +85,7 @@ return {
         { "<leader>s", group = "[S]earch Telescope" },
         -- { "<leader>b", group = "[B]uffer" },
         { "<leader>S", group = "[S]ession" },
+        { "<leader>v", group = "[V]imtex" },
 
         -- ===== Start Vimtex keymaps =====
         -- NOTE: In which-key, I only add description
@@ -89,8 +93,8 @@ return {
 
         { "<leader>i", desc = "Vimtex [I]nfo" },  -- default mode "n"
         { "<leader>tv", desc = "[V]imtex [T]oc Toggle" },
-        { "<leader>c", desc = "Vimtex [C]ompile" },
-        { "<leader>v", desc = "Vimtex [V]iew" },
+        { "<leader>vc", desc = "[V]imtex [C]ompile" },
+        { "<leader>vv", desc = "[V]imtex [V]iew" },
         { "<leader>wc", desc = "Vimtex [W]ord [C]ount" },
         -- ===== End Vimtex keymaps =====
 

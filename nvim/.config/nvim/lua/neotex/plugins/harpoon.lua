@@ -3,7 +3,7 @@ return {
         "ThePrimeagen/harpoon",
         branch = "harpoon2",
         dependencies = { "nvim-lua/plenary.nvim" },
-        
+
         config = function()
             -- REQUIRED
             -- harpoon:setup()
@@ -13,7 +13,7 @@ return {
             -- require file from different directory
             -- Use ~/lua/ as the root of require
             -- local harpoon = require("neotex.plugins.harpoon")
-            
+
             -- if require a file in the same directory
             -- file name in ~/lua/neotex/plugins/ must be exactly harpoon.lua
             local harpoon = require("harpoon")
