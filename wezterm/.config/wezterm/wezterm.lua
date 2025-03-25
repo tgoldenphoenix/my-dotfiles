@@ -22,9 +22,12 @@ config.font_rules = {
 -- Colors
 config.colors = require 'cyberdream'
 
+
 -- Appearance
+config.enable_tab_bar = false
+
 config.cursor_blink_rate = 0
-config.window_decorations = 'RESIZE'
+config.window_decorations = 'RESIZE' -- able to resize window
 config.hide_tab_bar_if_only_one_tab = true
 config.window_padding = {
   left = 0,
@@ -34,6 +37,9 @@ config.window_padding = {
 }
 config.window_background_image = constants.bg_image
 config.macos_window_background_blur = 40
+
+config.window_background_opacity = 0.9
+config.macos_window_background_blur = 10
 
 -- Miscellaneous settings
 config.max_fps = 120

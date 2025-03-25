@@ -5,7 +5,11 @@ return {
       local configs = require("nvim-treesitter.configs")
 
       configs.setup({
-          ensure_installed = { "lua", "vim", "vimdoc", "javascript", "html" },
+          ensure_installed = { 
+            "lua", 
+            "vim", "vimdoc", "javascript", "html",
+            "python" 
+          },
           ignore_install = { "latex" },
 
           -- Install parsers synchronously (only applied to `ensure_installed`)

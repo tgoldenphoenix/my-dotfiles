@@ -4,7 +4,7 @@ return {
   priority = 1000, -- make sure to load this before all the other start plugins
   config = function()
     require("gruvbox").setup({
-
+      -- for highlight group
       overrides = {
         -- THIS BLOCK
         SignColumn = { bg = "#282828" },
@@ -18,8 +18,9 @@ return {
         -- NvimTreeCutHL = { fg="#fb4934", bg="#3c3836" },
         -- NvimTreeCopiedHL = { fg="#b8bb26", bg="#3c3836" }
         -- END
-      }
-
+      },
+      -- affected by opacity config in wezterm
+      transparent_mode = true,
     })
     
     -- VERY IMPORTANT: Make sure to call setup() BEFORE calling the colorscheme command, to use your custom configs
