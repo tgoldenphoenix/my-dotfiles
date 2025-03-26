@@ -16,12 +16,17 @@ return {
         opts = {},
     },
 
-    { 
-        'echasnovski/mini.nvim', version = false,
-        config = function()
-            require('mini.animate').setup()
-        end 
-    },
+    {
+        "karb94/neoscroll.nvim",
+        opts = {},
+    }
+
+    -- { 
+    --     'echasnovski/mini.nvim', version = false,
+    --     config = function()
+    --         require('mini.animate').setup()
+    --     end 
+    -- },
 
     -- {
     --     "brianhuster/autosave.nvim",

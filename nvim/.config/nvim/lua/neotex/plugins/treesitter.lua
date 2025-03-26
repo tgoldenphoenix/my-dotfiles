@@ -1,16 +1,18 @@
 return {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
-    config = function () 
+    config = function ()
       local configs = require("nvim-treesitter.configs")
 
       configs.setup({
-          ensure_installed = { 
-            "lua", 
-            "vim", "vimdoc", "javascript", "html",
-            "python" 
-          },
-          ignore_install = { "latex" },
+        -- A list of parser names, or "all" (the listed parsers MUST always be installed) 
+        ensure_installed = {
+          "lua",
+          "vim", "vimdoc", "javascript", "html",
+          "python"
+        },
+        -- List of parsers to ignore installing (or "all")
+        ignore_install = { "latex" },
 
           -- Install parsers synchronously (only applied to `ensure_installed`)
           sync_install = false,

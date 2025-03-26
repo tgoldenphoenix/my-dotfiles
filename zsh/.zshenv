@@ -28,13 +28,13 @@ export SAVEHIST=10000                   # Maximum events in history file
 ### $PATH environment variable
 
 # flutter
-export PATH=~/Development/flutter/bin:$PATH
+# export PATH=~/Development/flutter/bin:$PATH
 
 # For CocoaPods
-export PATH=$HOME/.gem/bin:$PATH
+# export PATH=$HOME/.gem/bin:$PATH
 
 # for flutterfire_cli
-export PATH="$PATH":"$HOME/.pub-cache/bin"
+# export PATH="$PATH":"$HOME/.pub-cache/bin"
 
 # postgres psql
 export PATH="/Applications/PostgreSQL 15/:$PATH"
@@ -48,6 +48,10 @@ export PATH=$PATH:/usr/local/bin
 
 # add latex to path on ubuntu
 export PATH=/usr/local/texlive/2024/bin/x86_64-linux:$PATH
+
+# my custom scripts
+# include tmux-sessionizer
+export PATH=$PATH:$HOME/bin
 
 # Rust & cargo
 . "$HOME/.cargo/env"
