@@ -1,20 +1,9 @@
-# latex auto-generated files
-*.pdf
-*.aux
-*.fdb_latexmk
-*.fls
-*.log
-*.gz
-
 benjamin-latex-config
 ejmastnak-dotfiles
 nvim-backup
 python-example
-backup-nvim-my-latest
 kickstart.nvim
 josean-config
 linkarzu
-
-.config
 
 building_management_system_link.sql
