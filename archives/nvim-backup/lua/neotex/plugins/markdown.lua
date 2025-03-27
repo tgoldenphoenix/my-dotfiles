@@ -1,4 +1,7 @@
 return {
+    -- check out these plugings
+    -- https://github.com/roodolv/markdown-toggle.nvim
+
     {
         'MeanderingProgrammer/render-markdown.nvim',
         dependencies = { 'nvim-treesitter/nvim-treesitter', 'echasnovski/mini.nvim' }, -- if you use the mini.nvim suite
@@ -10,6 +13,25 @@ return {
         keys = {
             -- { "<leader>b", "<cmd>lua Snacks.bufdelete()<CR>", desc = "[D]elete current buffer" },
           },
+    },
+
+    {
+        'antonk52/markdowny.nvim',
+        config = function()
+            require('markdowny').setup()
+        end
+    },
+
+    {
+        "hedyhli/outline.nvim",
+        lazy = true,
+        cmd = { "Outline", "OutlineOpen" },
+        keys = { -- Example mapping to toggle outline
+          { "<leader>o", "<cmd>Outline<CR>", desc = "Toggle outline" },
+        },
+        opts = {
+          -- Your setup opts here
+        },
     },
 
     {

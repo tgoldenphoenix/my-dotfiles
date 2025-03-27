@@ -94,7 +94,8 @@ bindkey '^n' history-search-forward
 bindkey '^[w' kill-region
 
 # https://github.com/edr3x/tmux-sessionizer
-bindkey -s '^f' 'tmux-sessionizer\n'
+# ^f conflict with auto-complete
+bindkey -s '^y' 'tmux-sessionizer\n'
 
 ### ===== End keybindings =====
 

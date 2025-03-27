@@ -12,5 +12,10 @@
 -- Nếu path là ~/lua/core/keymaps.lua
 -- require("core.keymaps")
 
--- bootstrap lazy.nvim, LazyVim and your plugins
-require("config.lazy")
+require("neotex.core")
+
+-- boot plugins
+require("neotex.bootstrap")
+
+-- require("anhao.core")
+-- require("anhao.bootstrap")

@@ -1,2 +1,11 @@
-# each laptop different session, don't push them on git
+tt.*
+.tests
+doc/tags
+debug
+.repro
+foo.*
+*.log
+data
+
+# each laptop has different session, don't push them on git
 sessions

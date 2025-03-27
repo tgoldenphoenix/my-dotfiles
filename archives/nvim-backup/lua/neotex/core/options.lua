@@ -90,9 +90,9 @@ local options = {     -- Nếu không để "local" thì default là global vari
   autoread = true,
 
   -- FOLDING
-  foldenable = false,      -- Disable folding by default
-  foldmethod = "manual",   -- Set manual folding
-  foldlevel = 99,         -- Open all folds by default
+  -- foldenable = false,      -- Disable folding by default
+  -- foldmethod = "manual",   -- Set manual folding
+  -- foldlevel = 99,         -- Open all folds by default
 
 }
 

@@ -1,0 +1,3 @@
+" echo stdpath("config")
+echo stdpath("state") .. "/sessions/"
+" echo "kim phuong"
