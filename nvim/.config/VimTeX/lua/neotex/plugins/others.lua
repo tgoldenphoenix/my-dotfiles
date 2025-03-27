@@ -19,7 +19,7 @@ return {
     {
         "karb94/neoscroll.nvim",
         opts = {},
-    }
+    },
 
     -- { 
     --     'echasnovski/mini.nvim', version = false,

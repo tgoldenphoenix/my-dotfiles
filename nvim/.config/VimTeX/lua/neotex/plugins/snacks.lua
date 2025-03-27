@@ -9,11 +9,11 @@ return {
     dashboard = {
       enabled = true,
       
-      preset = require("plugins.snacks.dashboard").preset,
+      preset = require("neotex.plugins.snacks.dashboard").preset,
       -- sections = require("neotex.plugins.snacks.dashboard").sections,
 
       -- github dashboard style
-      sections = require("plugins.snacks.gh_dashboard"),
+      sections = require("neotex.plugins.snacks.gh_dashboard"),
     },
 
     -- Better vim.ui.input

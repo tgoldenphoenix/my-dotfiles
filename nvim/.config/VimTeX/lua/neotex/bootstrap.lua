@@ -41,16 +41,8 @@ vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
   spec = {
-    -- add LazyVim and import its plugins
-    { "LazyVim/LazyVim", import = "lazyvim.plugins" },
-    -- Import any extra modules here
-    -- I do this to keep consistency and install the same plugins in all my
-    -- machines, if you don't want that, comment them here and then manually
-    -- enable them on each machine under :LazyExtras
-    { import = "lazyvim.plugins.extras.lang.markdown" },
-
     { import = "neotex.plugins" },    -- main plugins directory
-    { import = "neotex.plugins.lsp" }, -- lsp plugins directory
+    -- { import = "neotex.plugins.lsp" }, -- lsp plugins directory
   },
   -- Configure any other settings here. See the documentation for more details.
   -- colorscheme that will be used when installing plugins.

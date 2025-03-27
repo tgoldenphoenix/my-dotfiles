@@ -120,7 +120,7 @@ return {
 			-- require("luasnip.loaders.from_lua").load({paths = "~/.config/nvim/LuaSnip/"})
 
 			-- Lazy-load snippets, i.e. only load when required, e.g. for a given filetype
-			require("luasnip.loaders.from_lua").lazy_load({paths = "~/.config/nvim/LuaSnip/"})
+			require("luasnip.loaders.from_lua").lazy_load({paths = "~/.config/VimTeX/LuaSnip/"})
 
 			-- from rafamadriz/friendly-snippets
 			require('luasnip.loaders.from_vscode').lazy_load()
