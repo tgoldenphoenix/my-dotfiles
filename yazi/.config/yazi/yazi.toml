@@ -1,0 +1,9 @@
+# Comments in TOML look like this.
+
+[manager]
+ratio = [ 1, 4, 3 ]
+show_hidden = false
+
+[preview]
+max_width = 1800
+max_height = 1800

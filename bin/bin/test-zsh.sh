@@ -1,0 +1,1 @@
+echo "test zsh script"

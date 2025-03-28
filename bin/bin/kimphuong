@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+# to give run permission to this script:
+# Run $sudo chmod 755 'filename'
+# or $chmod +x ~/.local/scripts/tmux-sessionizer
+
+echo "Tran kim phuong, coca iu <3"
