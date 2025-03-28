@@ -23,12 +23,17 @@ require("lazy").setup({
     -- I do this to keep consistency and install the same plugins in all my
     -- machines, if you don't want that, comment them here and then manually
     -- enable them on each machine under :LazyExtras
-    { import = "lazyvim.plugins.extras.lang.markdown" },
+    
+    -- { import = "lazyvim.plugins.extras.lang.markdown" },
 
+    -- { import = "lazyvim.plugins.extras.coding.luasnip" },
+
+    -- debug
     { import = "lazyvim.plugins.extras.dap.core" },
 
     { import = "lazyvim.plugins.extras.editor.neo-tree" },
     { import = "lazyvim.plugins.extras.editor.harpoon2" },
+    { import = "lazyvim.plugins.extras.editor.outline" },
 
     { import = "lazyvim.plugins.extras.lsp.none-ls" },
 
