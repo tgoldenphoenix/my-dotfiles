@@ -152,3 +152,6 @@ function y() {
 	fi
 	rm -f -- "$tmp"
 }
+
+# uv python
+. "$HOME/.local/bin/env"

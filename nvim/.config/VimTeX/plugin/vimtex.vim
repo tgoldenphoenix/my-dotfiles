@@ -50,3 +50,6 @@ let g:vimtex_view_method = 'skim'
 
 " Don't automatically open PDF viewer after first compilation
 " let g:vimtex_view_automatic = 0
+
+" default is 0 (false)
+" let g:vimtex_fold_enabled = 1

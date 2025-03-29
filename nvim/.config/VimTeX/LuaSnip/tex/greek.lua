@@ -49,6 +49,7 @@ return
     {
       t("\\vartheta"),
   }),
+  -- O not zero
   s({trig=";O", snippetType="autosnippet"},
     {
       t("\\Theta"),

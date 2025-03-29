@@ -1,3 +1,4 @@
+-- LazyVim also use neo-tree
 return {
   "nvim-neo-tree/neo-tree.nvim",
   branch = "v3.x",
@@ -11,17 +12,24 @@ return {
   opts = {
     filesystem = {
       filtered_items = {
-        hide_by_name = {},
+        hide_dotfiles = false,
+        hide_by_name = {
+          ".git",
+          ".DS_Store",
+        },
         hide_by_pattern = {},
 
-        always_show = {},
+        always_show = {
+          ".env"
+        },
         always_show_by_pattern = { -- remains visible even if other settings would normally hide it
           -- "*.txt",
         },
       }, -- filtered_items
-    },
+    },  -- filesystem
 
     window = {
+      -- position = "right",
       mappings = {
         ["l"] = "open", -- open node
         ["h"] = "close_node",
@@ -41,6 +49,7 @@ return {
           desc = "Open with System Application",
         },
         ["P"] = { "toggle_preview", config = { use_float = false } },
+        -- problem with neoscroll, have to wait ~ 1 second
         ["z"] = "close_all_nodes",
             --["Z"] = "expand_all_nodes",
       },

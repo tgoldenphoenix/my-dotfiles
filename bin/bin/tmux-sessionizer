@@ -4,20 +4,27 @@ if [[ $# -eq 1 ]]; then
     selected=$1
 else
     selected=$(find ~/.dotfiles ~/Documents/markdown-notes ~/Documents/LaTeX-files -mindepth 1 -maxdepth 3 -type d | fzf)
+
+    # Debugging, uncomment below if you need to see what's being selected
+    # tmux display-message -d 10000 "Directory selected via fzf: $selected"
 fi
 
 if [[ -z $selected ]]; then
     exit 0
 fi
 
+# Extracts the filename from the full path stored in $selected
 selected_name=$(basename "$selected" | tr . _)
 tmux_running=$(pgrep tmux)
 
+# -z (zero-length check) returns true if $TMUX is empty or unset.
+# $TMUX is an environment variable that is set only when you are INSIDE a tmux session. Outside empty
 if [[ -z $TMUX ]] && [[ -z $tmux_running ]]; then
     tmux new-session -s $selected_name -c $selected
     exit 0
 fi
 
+# If the tmux session $selected_name does NOT exist, then new-session
 if ! tmux has-session -t=$selected_name 2> /dev/null; then
     tmux new-session -ds $selected_name -c $selected
 fi
