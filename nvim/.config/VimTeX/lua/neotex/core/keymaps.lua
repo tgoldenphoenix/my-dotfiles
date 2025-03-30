@@ -132,14 +132,25 @@ keymap("v", "<S-l>", "g$", opts)
 keymap("n", "<S-h>", "g^", opts)
 keymap("n", "<S-l>", "g$", opts)
 
--- Navigate display lines
--- một wrapped line có nhiều displayed line
--- Nhưng một wrap line chỉ ứng với only one real numbered line
+-- ===== START Navigate display lines =====
+-- the default j and k motions move across physical lines, not the visible, soft-wrapped screen lines (displayed line)
+-- một physical wrapped line có nhiều displayed line
+-- https://stackoverflow.com/questions/20975928/moving-the-cursor-through-long-soft-wrapped-lines-in-vim
 -- src: https://stackoverflow.com/questions/13376822/vim-line-numbers-on-display-lines
-keymap("n", "J", "gj", opts)    -- Shift+j để navigate displayed line
-keymap("n", "K", "gk", opts)
-keymap("v", "J", "gj", opts)
-keymap("v", "K", "gk", opts)
+
+-- The old day
+-- keymap("n", "J", "gj", opts)    -- Shift+j để navigate displayed line
+-- keymap("n", "K", "gk", opts)
+-- keymap("v", "J", "gj", opts)
+-- keymap("v", "K", "gk", opts)
+
+-- better up/down, the LazyVim way
+vim.keymap.set({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { desc = "Down", expr = true, silent = true })
+vim.keymap.set({ "n", "x" }, "<Down>", "v:count == 0 ? 'gj' : 'j'", { desc = "Down", expr = true, silent = true })
+vim.keymap.set({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { desc = "Up", expr = true, silent = true })
+vim.keymap.set({ "n", "x" }, "<Up>", "v:count == 0 ? 'gk' : 'k'", { desc = "Up", expr = true, silent = true })
+
+-- ===== END Navigate display lines =====
 
 -- Indentation
 -- Use in visual mode, select and use arrow key to indent

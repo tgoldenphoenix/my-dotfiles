@@ -38,12 +38,20 @@ local options = {     -- Nếu không để "local" thì default là global vari
 
   numberwidth = 2,                -- set number column width to 2 {default 4}
   signcolumn = "yes",             -- always show the sign column, otherwise it would shift the text each time
-  fillchars = "eob: ",            -- don't show tildes
+
+  -- fillchars = "eob: ",            -- don't show tildes
+  fillchars = {
+    foldopen = "", -- mark the beginning of a fold
+    foldclose = "",  -- show a closed fold
+    fold = " ", -- filling 'foldtext'
+    foldsep = " ",
+    diff = "╱",
+    eob = " ",  -- empty lines at the end of a buffer
+  },
   
   cursorline = true,              -- highlight the current line
   -- colorcolumn = "100",             -- highlight vertical colorcolumn (moved to after/python.lua)
-  wrap = true,                    -- display lines as one long line
-  showbreak = "  ",               -- set indent of wrapped lines
+
   cmdheight = 1,                  -- space in the neovim command line for displaying messages; can be set to '2' for more space
   pumheight = 7,                 -- pop up menu height
   showmode = false,               -- we don't need to see things like -- INSERT -- anymore
@@ -66,6 +74,11 @@ local options = {     -- Nếu không để "local" thì default là global vari
   breakindent = true,             -- tab wrapped lines
   linebreak = true,               -- companion to wrap, don't split words
   backspace = "indent,eol,start", -- allow backspace on indent, end of line or insert mode start position
+
+  -- wrap = true,                    -- display lines as one long line
+  wrap = true, -- Disable line wrap
+  -- showbreak = "  ",               -- set indent of wrapped lines
+  -- showbreak = "wrap>",               -- set indent of wrapped lines
 
   -- EDIT
   spell = true,                   -- turns on spellchecker

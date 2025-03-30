@@ -11,6 +11,7 @@ return {
   -- override lazyvim completely
   opts = function(_, opts)
     opts.filesystem = {}
-    return opts
+    -- do not need to return opts
+    -- return opts
   end,
 }

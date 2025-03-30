@@ -24,8 +24,10 @@ require("lazy").setup({
     -- machines, if you don't want that, comment them here and then manually
     -- enable them on each machine under :LazyExtras
 
-    -- { import = "lazyvim.plugins.extras.lang.markdown" },
+    { import = "lazyvim.plugins.extras.lang.markdown" },
 
+    { import = "lazyvim.plugins.extras.formatting.prettier" },
+    
     -- { import = "lazyvim.plugins.extras.coding.luasnip" },
 
     -- debug
