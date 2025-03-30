@@ -1,7 +1,7 @@
 return {
   {
     "neovim/nvim-lspconfig",
-    opts = function()
+    opts = {
       servers = {
         pylsp = {
           settings = {
@@ -18,10 +18,8 @@ return {
               },
             },
           },
-        },
-        
-      }
-
-    end,
+        }, -- pylsp
+      } -- servers
+    } -- opts
   },
 }
