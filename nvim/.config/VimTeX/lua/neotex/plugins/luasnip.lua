@@ -176,6 +176,7 @@ return {
 					["<C-y>"] = cmp.config.disable,
 					
 					-- Expand snippets in insert mode, you can also use <TAB> or <CR>
+					-- I really hated this behaviour, maybe skill issue, but every time I was at the end of a line and hit enter, it would autocomplete a word instead of moving to the line below
 					['<C-y>'] = cmp.mapping(function(fallback)
 						if cmp.visible() then
 							if luasnip.expandable() then
