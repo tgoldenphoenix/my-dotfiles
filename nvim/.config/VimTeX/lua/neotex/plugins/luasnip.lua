@@ -196,7 +196,7 @@ return {
 
 					-- Separate jump & select_next_item
 					-- <C-j> & <C-k> to select next & prev item in the cmp menu
-					["<C-j>"] = cmp.mapping(function(fallback)
+					["<C-n>"] = cmp.mapping(function(fallback)
 						if cmp.visible() then
 						  cmp.select_next_item() -- bị dính phải C-e to quit :/
 						else
@@ -204,7 +204,7 @@ return {
 						end
 					end, { "i", "s" }),
 
-					["<C-k>"] = cmp.mapping(function(fallback)
+					["<C-p>"] = cmp.mapping(function(fallback)
 						if cmp.visible() then
 						  cmp.select_prev_item() -- bị dính phải C-e to quit :/
 						else
@@ -222,7 +222,8 @@ return {
 					end, { "i", "s" }),
 					
 					-- <C-p> to jump backward
-					["<C-p>"] = cmp.mapping(function(fallback)
+					-- or maybe try <C-j>
+					["<S-Tab>"] = cmp.mapping(function(fallback)
 						if luasnip.locally_jumpable(-1) then
 						  luasnip.jump(-1)
 						else

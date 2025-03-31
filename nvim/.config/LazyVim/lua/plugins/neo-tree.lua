@@ -10,7 +10,24 @@ return {
   -- opts = {},
   -- override lazyvim completely
   opts = function(_, opts)
-    opts.filesystem = {}
+    opts.filesystem = {
+      filtered_items = {
+        hide_dotfiles = false,
+        hide_by_name = {
+          ".git",
+          ".DS_Store",
+        },
+        hide_by_pattern = {},
+
+        always_show = {
+          ".env"
+        },
+        always_show_by_pattern = { -- remains visible even if other settings would normally hide it
+          -- "*.txt",
+        },
+      }, -- filtered_items
+    }  -- filesystem
+
     -- do not need to return opts
     -- return opts
   end,
