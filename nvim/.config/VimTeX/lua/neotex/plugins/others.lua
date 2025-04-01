@@ -21,6 +21,20 @@ return {
         opts = {},
     },
 
+    {
+      'arnamak/stay-centered.nvim',
+      lazy = false,
+        opts = {
+            -- The filetype is determined by the vim filetype, not the file extension. In order to get the filetype, open a file and run the command:
+            -- :lua print(vim.bo.filetype)
+            skip_filetypes = { 'lua', 'typescript' },
+        },
+        keys = {
+            {"<leader>tc", function() require('stay-centered').toggle() end, desc = "Toggle stay-[C]entered.nvim"},
+            -- {"gb", function () require("snipe").open_buffer_menu() end, desc = "Open Snipe buffer menu"}
+        }
+    }
+
     -- { 
     --     'echasnovski/mini.nvim', version = false,
     --     config = function()

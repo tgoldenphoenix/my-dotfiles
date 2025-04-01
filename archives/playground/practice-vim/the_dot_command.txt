@@ -3,3 +3,17 @@ let two = "2";
 let three = "3";
 
 pancake, potatoes, fruit-juice,
+
+pancake
+potatoes
+fruit-juice
+
+let one = "1";
+let two = "2";
+let three = "3";
+let four = "4";
+
+kim phuong_name
+kim phuong_comment
+kim phuong_phone
+kim phuong_email
