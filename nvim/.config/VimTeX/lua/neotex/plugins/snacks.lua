@@ -34,7 +34,7 @@ return {
   keys = {
     -- Delete current buffer
     -- src: https://github.com/folke/snacks.nvim/blob/main/docs/bufdelete.md
-    { "<leader>b", "<cmd>lua Snacks.bufdelete()<CR>", desc = "[D]elete current buffer" },
+    { "<leader>bd", "<cmd>lua Snacks.bufdelete()<CR>", desc = "[D]elete current buffer" },
   },
 
   init = function ()

@@ -8,7 +8,9 @@ return {
     "MunifTanjim/nui.nvim",
     -- {"3rd/image.nvim", opts = {}}, -- Optional image support in preview window: See `# Preview Mode` for more information
   },
-  lazy = false, -- neo-tree will lazily load itself
+  -- lazy = false, -- neo-tree will lazily load itself
+  -- opts = function(_, opts)
+  -- end
   opts = {
     filesystem = {
       filtered_items = {
@@ -42,6 +44,7 @@ return {
           end,
           desc = "Copy Path to Clipboard",
         },
+        -- open finder if is a directory
         ["O"] = {
           function(state)
             require("lazy.util").open(state.tree:get_node().path, { system = true })
@@ -53,8 +56,7 @@ return {
         ["z"] = "close_all_nodes",
             --["Z"] = "expand_all_nodes",
       },
-    },
-
+    },  -- window
   },
 
   keys = {

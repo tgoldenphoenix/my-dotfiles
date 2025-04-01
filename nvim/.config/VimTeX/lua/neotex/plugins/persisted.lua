@@ -6,9 +6,9 @@ return {
     -- autostart = true -- Automatically start the plugin on load?
 
     -- sessions are stored inside ~/.local/share/nvim/sessions
+    -- Do not auto save, must save manually for each directory (only one time though)
   },
   keys = {
-    
     { "<leader>qt", "<cmd>Telescope persisted<cr>", desc = "[T]oggle [S]ession menu" },
     { "<leader>qc", "<cmd>SessionLoad<cr>", desc = "Load the [S]ession for the [C]urrent directory" },
     { "<leader>ql", "<cmd>SessionLoadLast<cr>", desc = "Load the [L]ast recent [S]ession" },
@@ -18,6 +18,6 @@ return {
     -- stop Persistence => session won't be saved on exit
     -- { "<leader>qd", function() require("persistence").stop() end, desc = "stop Persistence" },
   },
-  config = function()
-  end,
+  config = function() end,
 }
+

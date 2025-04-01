@@ -86,7 +86,8 @@ return { -- Fuzzy Finder (files, lsp, etc)
 
         -- or "fd" find directory
         -- Try typing `:Telescope find_files`
-        vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles cwd' })
+        -- vim.keymap.set('n', '<leader>sf', builtin.find_files, { desc = '[S]earch [F]iles cwd' })
+        vim.keymap.set('n', '<leader><space>', builtin.find_files, { desc = '[S]earch [F]iles cwd' })
         
         -- search funtions builtin of telescope
         vim.keymap.set('n', '<leader>ss', builtin.builtin, { desc = '[S]earch [S]elect Telescope' })
