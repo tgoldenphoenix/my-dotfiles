@@ -227,6 +227,11 @@ return {
       --     -- example: 'foo_|_bar' will match 'foo_' for 'prefix' and 'foo__bar' for 'full'
       --     range = "full",
       --   },
+      list = {
+        selection = {
+          auto_insert = false,
+        }
+      },
       menu = {
         border = "single",
       },
@@ -263,6 +268,7 @@ return {
     -- the completion will be accepted
     -- https://cmp.saghen.dev/configuration/keymap.html#default
     opts.keymap = {
+      -- TODO: C-e should delete the snippet auto-type thing
       preset = "default",
       ["jk"] = { "snippet_forward", "fallback" },
       -- ["<S-Tab>"] = { "snippet_backward", "fallback" },
