@@ -1,0 +1,38 @@
+return {
+  "nvim-neo-tree/neo-tree.nvim",
+  -- opts = {
+  --   filesystem = {
+  --     bind_to_cwd = true,
+  --     follow_current_file = { enabled = true },
+  --     use_libuv_file_watcher = true,
+  --   },
+  -- },
+  -- opts = {},
+  -- override lazyvim completely
+  opts = function(_, opts)
+    opts.filesystem = {
+      -- bind_to_cwd = true,
+      -- follow_current_file = { enabled = false },
+      -- use_libuv_file_watcher = false,
+
+      filtered_items = {
+        hide_dotfiles = false,
+        hide_by_name = {
+          ".git",
+          ".DS_Store",
+        },
+        hide_by_pattern = {},
+
+        always_show = {
+          ".env"
+        },
+        always_show_by_pattern = { -- remains visible even if other settings would normally hide it
+          -- "*.txt",
+        },
+      }, -- filtered_items
+    }  -- filesystem
+
+    -- do not need to return opts
+    return opts
+  end,
+}

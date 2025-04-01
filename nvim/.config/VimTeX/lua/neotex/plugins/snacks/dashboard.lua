@@ -11,6 +11,7 @@ M.preset = {
   -- Set your custom keymaps here.
   -- When using a function, the `items` argument are the default keymaps.
   keys = {
+    -- "olimorris/persisted.nvim",
     { icon = "", key = "s", desc = "Restore Session cwd", action = ":SessionLoad" },
     { icon = " ", key = "e", desc = "Explorer", action = ":Neotree toggle" },
     { icon = " ", key = "f", desc = "Find File cwd", action = ":lua require('telescope.builtin').find_files()" },

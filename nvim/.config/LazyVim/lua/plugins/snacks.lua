@@ -6,7 +6,7 @@ return {
     opts.dashboard = {
       preset = {
         keys = {
-          { icon = "", key = "s", desc = "Restore Session cwd", action = ":SessionLoad" },
+          { icon = "", key = "s", desc = "Restore Session cwd", action = function() require("persistence").load() end },
           { icon = " ", key = "e", desc = "Explorer", action = ":Neotree toggle" },
           { icon = " ", key = "f", desc = "Find File cwd", action = ":lua require('telescope.builtin').find_files()" },
           { icon = " ", key = "n", desc = "New File", action = ":ene | startinsert" },

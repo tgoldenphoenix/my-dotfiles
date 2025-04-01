@@ -12,3 +12,8 @@ local opt = vim.opt
 -- vim.opt.spell = false
 
 -- vim.opt_local.spell = false
+
+-- root dir now == cwd
+-- Why Does Neo Tree Show Different Directories for CWD and Root Dir in a Monorepo?
+-- https://github.com/LazyVim/LazyVim/discussions/2150
+vim.g.root_spec = { "cwd" }

@@ -84,7 +84,7 @@ return {
         { "<leader>t", group = "[T]oggle" }, 
         { "<leader>s", group = "[S]earch Telescope" },
         -- { "<leader>b", group = "[B]uffer" },
-        { "<leader>S", group = "[S]ession" },
+        { "<leader>q", group = "Session" },
         { "<leader>v", group = "[V]imtex" },
 
         -- ===== Start Vimtex keymaps =====
@@ -103,7 +103,7 @@ return {
         { "<leader>w", "<cmd>wa<CR>", desc = "write" },
 
         -- write & quit
-        { "<leader>q", "<cmd>wa! | qa!<CR>", desc = "write & quit" },
+        { "<leader>Q", "<cmd>wa! | qa!<CR>", desc = "write & quit" },
         
         -- { "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Find File", mode = "n" },
         -- { "<leader>fb", function() print("hello") end, desc = "Foobar" },
