@@ -20,8 +20,7 @@ local line_begin = function(line_to_cursor, matched_trigger)
 end
 
 -- Return snippet tables
-return
-  {
+return{
     -- Greek letter snippets, autotriggered for efficiency
     
     -- TYPEWRITER i.e. \texttt
@@ -55,6 +54,16 @@ return
     s({trig = "tbb", snippetType="autosnippet"},
       fmta(
         "\\textbf{<>}",
+        {
+          d(1, get_visual),
+        }
+      )
+    ),
+
+    -- UNDERLINE i.e. \underline
+    s({trig = "tuu", snippetType="autosnippet"},
+      fmta(
+        "\\underline{<>}",
         {
           d(1, get_visual),
         }
@@ -118,4 +127,4 @@ return
     ),
 
     
-  }
+} -- return

@@ -46,7 +46,8 @@ keymap("n", "<C-z>", "<nop>", opts) -- suspend the Vim session and sends it to t
 -- vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
 -- Kill search highlights
-keymap("n", "<CR>", "<cmd>noh<CR>", opts)
+-- Use Escape, don't use enter conflict with fold
+-- keymap("n", "<CR>", "<cmd>noh<CR>", opts)
 
 -- Diagnostic keymaps
 -- vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
@@ -66,10 +67,12 @@ keymap("v", "Y", "y$", opts)
 -- keymap("v", "E", "ge", opts) -- causes errors with luasnip autocmp
 
 -- Center cursor
-keymap("n", "m", "zt", opts) -- moves the current line to the top of the window without changing the cursor position.
-keymap("v", "m", "zt", opts)
+-- I have a plugin for this already
+-- keymap("n", "m", "zt", opts) -- moves the current line to the top of the window without changing the cursor position.
+-- keymap("v", "m", "zt", opts)
 
 -- Keybinds to make split navigation easier.
+-- I don't need to split window in neovim yet
 --  Use CTRL+<hjkl> to switch between windows
 --  See `:help wincmd` for a list of all window commands
 -- vim.keymap.set('n', '<C-h>', '<C-w><C-h>', { desc = 'Move focus to the left window' })
@@ -85,28 +88,52 @@ keymap("v", "m", "zt", opts)
 -- Resize with arrows
 -- keymap("n", "<C-Up>", ":resize -2<CR>", opts)
 -- keymap("n", "<C-Down>", ":resize +2<CR>", opts)
-keymap("n", "<A-Left>", ":vertical resize -2<CR>", opts)
-keymap("n", "<A-Right>", ":vertical resize +2<CR>", opts)
-keymap("n", "<A-h>", ":vertical resize -2<CR>", opts)
-keymap("n", "<A-l>", ":vertical resize +2<CR>", opts)
+-- keymap("n", "<A-Left>", ":vertical resize -2<CR>", opts)
+-- keymap("n", "<A-Right>", ":vertical resize +2<CR>", opts)
+-- keymap("n", "<A-h>", ":vertical resize -2<CR>", opts)
+-- keymap("n", "<A-l>", ":vertical resize +2<CR>", opts)
 
 -- Navigate buffers, "S" stands for shift
-keymap("n", "<TAB>", "", {
-  callback = function()
-    GotoBuffer(1, 1)
-  end,
-  desc = "Next buffer by modified time",
-})
-keymap("n", "<S-TAB>", "", {
-  callback = function()
-    GotoBuffer(1, -1)
-  end,
-  desc = "Previous buffer by modified time",
-})
-keymap("n", "<BS>", "<CMD>bnext<CR>", opts)
-keymap("n", "<S-BS>", "<CMD>bprevious<CR>", opts)
+-- keymap("n", "<TAB>", "", {
+--   callback = function()
+--     GotoBuffer(1, 1)
+--   end,
+--   desc = "Next buffer by modified time",
+-- })
+-- keymap("n", "<S-TAB>", "", {
+--   callback = function()
+--     GotoBuffer(1, -1)
+--   end,
+--   desc = "Previous buffer by modified time",
+-- })
+-- keymap("n", "<BS>", "<CMD>bnext<CR>", opts)
+-- keymap("n", "<S-BS>", "<CMD>bprevious<CR>", opts)
 -- keymap("n", "<S-l>", ":bnext<CR>", opts)
 -- keymap("n", "<S-h>", ":bprevious<CR>", opts)
+
+-- Quickly alternate between the last 2 files
+-- LazyVim comes with the default shortcut <leader>bb for this, but I navigate
+-- between alternate files way too often, so doing leader<space> is more useful for me
+--
+-- By default, in LazyVim, With leader<space> you usually find files in the root directory
+--
+-- I tried disabling leader<space> in telescope.lua and setting it in this file but didn't work
+-- So I set the command to alternate between files directly in the `telescope.lua` file
+--
+-- With `:help registers` you can see the register below
+-- Alternate buffer register "#
+-- The command to switch is `:e #`
+-- `:e` is used to `edit-a-file`, see `help :e`
+
+-- HACK: Alternate between the last 2 tmux sessions or neovim buffers, blazingly fast, with a keymap
+-- https://youtu.be/HWs3YEj05K4
+--
+-- Switch to the alternate buffer lamw25wmal
+vim.keymap.set({ "n", "i", "v" }, "<M-BS>", "<cmd>e #<cr>", { desc = "[P]Alternate buffer" })
+-- vim.keymap.set({ "n" }, "<leader><BS>", "<cmd>e #<cr>", { desc = "[P]Alternate buffer" })
+
+vim.keymap.set("n", "<S-h>", "<cmd>bprevious<cr>", { desc = "Prev Buffer" })
+vim.keymap.set("n", "<S-l>", "<cmd>bnext<cr>", { desc = "Next Buffer" })
 
 -- Drag lines (Move text up and down)
 -- Alt nhưng máy macOS xài option key
@@ -126,14 +153,16 @@ keymap("v", "<A-k>", ":m-2<CR>gv", opts)
 -- keymap("i", "fd", "<ESC>", opts)
 
 -- Horizontal line movments --
+-- zz to center the current line in the window
 keymap("n", "<c-u>", "<c-u>zz", opts)
 keymap("n", "<c-d>", "<c-d>zz", opts)
 
 -- Horizontal line movments --
-keymap("v", "<S-h>", "g^", opts)
-keymap("v", "<S-l>", "g$", opts)
-keymap("n", "<S-h>", "g^", opts)
-keymap("n", "<S-l>", "g$", opts)
+-- I dont need this????
+-- keymap("v", "<S-h>", "g^", opts)
+-- keymap("v", "<S-l>", "g$", opts)
+-- keymap("n", "<S-h>", "g^", opts)
+-- keymap("n", "<S-l>", "g$", opts)
 
 -- ===== START Navigate display lines =====
 -- the default j and k motions move across physical lines, not the visible, soft-wrapped screen lines (displayed line)
@@ -141,7 +170,7 @@ keymap("n", "<S-l>", "g$", opts)
 -- https://stackoverflow.com/questions/20975928/moving-the-cursor-through-long-soft-wrapped-lines-in-vim
 -- src: https://stackoverflow.com/questions/13376822/vim-line-numbers-on-display-lines
 
--- The old day
+-- The old way of doing things
 -- keymap("n", "J", "gj", opts)    -- Shift+j để navigate displayed line
 -- keymap("n", "K", "gk", opts)
 -- keymap("v", "J", "gj", opts)
@@ -165,4 +194,5 @@ keymap("n", ">", "<S-v>><esc>", opts)
 -- keymap("v", ">", ">gv^", opts)
 
 -- save file
-keymap("n", "<C-i>", ":update<CR>", opts)
+-- now use <C-s>
+-- keymap("n", "<C-i>", ":update<CR>", opts)

@@ -8,6 +8,9 @@
 " Turn off VimTeX indentation
 let g:vimtex_indent_enabled = 0
 
+" default is 0 (false)
+" let g:vimtex_fold_enabled = 1
+
 " Disable default mappings; I'll define my own in ftplugin/vimtex
 let g:vimtex_mappings_enabled = 0
 
@@ -50,6 +53,3 @@ let g:vimtex_view_method = 'skim'
 
 " Don't automatically open PDF viewer after first compilation
 " let g:vimtex_view_automatic = 0
-
-" default is 0 (false)
-" let g:vimtex_fold_enabled = 1
