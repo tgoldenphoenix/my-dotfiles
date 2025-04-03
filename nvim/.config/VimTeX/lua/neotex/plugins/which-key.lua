@@ -90,10 +90,10 @@ return {
       -- NOTE: In which-key, I only add description
       -- The actualy mappings are inside ftplugin/vimtex.vim
 
-      { "<leader>i", desc = "Vimtex [I]nfo" }, -- default mode "n"
-      { "<leader>tv", desc = "[V]imtex [T]oc Toggle" },
+      { "<leader>vi", desc = "Vimtex [I]nfo" }, -- default mode "n"
+      { "<leader>vv", desc = "[V]imtex toc Toggle" },
       { "<leader>vc", desc = "[V]imtex [C]ompile" },
-      { "<leader>vv", desc = "[V]imtex [V]iew" },
+      { "<leader>vg", desc = "Vimtex view" },
       { "<leader>wc", desc = "Vimtex [W]ord [C]ount" },
       -- ===== End Vimtex keymaps =====
 

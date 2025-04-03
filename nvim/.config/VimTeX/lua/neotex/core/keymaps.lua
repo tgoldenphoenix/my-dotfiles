@@ -45,6 +45,15 @@ keymap("n", "<C-z>", "<nop>", opts) -- suspend the Vim session and sends it to t
 --  See `:help hlsearch`
 -- vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
 
+-- Clear search and stop snippet on escape
+-- <CR> already used to fold
+vim.keymap.set({ "i", "n", "s" }, "<esc>", function()
+  vim.cmd("noh")
+  -- LazyVim.cmp.actions.snippet_stop()
+  -- require("cmp").mapping.abort()
+  return "<esc>"
+end, { expr = true, desc = "Escape and Clear hlsearch" })
+
 -- Kill search highlights
 -- Use Escape, don't use enter conflict with fold
 -- keymap("n", "<CR>", "<cmd>noh<CR>", opts)
@@ -196,3 +205,24 @@ keymap("n", ">", "<S-v>><esc>", opts)
 -- save file
 -- now use <C-s>
 -- keymap("n", "<C-i>", ":update<CR>", opts)
+
+-- ====== FOLDING ======
+
+-- Use <CR> to fold when in normal mode
+-- To see help about folds use `:help fold`
+-- Use `zi` will yield error
+vim.keymap.set("n", "<CR>", function()
+  -- Get the current line number
+  local line = vim.fn.line(".")
+  -- Get the fold level of the current line
+  -- :lua print(vim.fn.foldlevel("."))
+  local foldlevel = vim.fn.foldlevel(line)
+  if foldlevel == 0 then
+    vim.notify("No fold found", vim.log.levels.INFO)
+  else
+    vim.cmd("normal! za")
+    vim.cmd("normal! zz") -- center the cursor line on screen
+  end
+end, { desc = "Toggle fold" })
+
+-- ====== END FOLDING ======

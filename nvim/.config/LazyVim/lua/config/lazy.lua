@@ -39,6 +39,7 @@ require("lazy").setup({
     { import = "lazyvim.plugins.extras.ui.dashboard-nvim" },
 
     { import = "lazyvim.plugins.extras.editor.neo-tree" },
+    { import = "lazyvim.plugins.extras.editor.telescope" },
     { import = "lazyvim.plugins.extras.editor.harpoon2" },
     { import = "lazyvim.plugins.extras.editor.outline" },
 

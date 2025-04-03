@@ -91,7 +91,7 @@ end, { desc = "[P]Unfold all headings level 2 or above" })
 
 -- gk jummps to the markdown heading above
 -- zi by default toggles folding, but I don't need it
--- What is the different <CR>???
+-- What is the different with <CR> above???
 vim.keymap.set("n", "zi", function()
   -- "Update" saves only if the buffer has been modified since the last save
   vim.cmd("silent update")

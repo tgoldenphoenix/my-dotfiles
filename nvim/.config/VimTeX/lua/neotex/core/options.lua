@@ -102,10 +102,13 @@ local options = {     -- Nếu không để "local" thì default là global vari
   inccommand = "split",
   autoread = true,
 
-  -- FOLDING
+  -- FOLDING settings
   -- foldenable = false,      -- Disable folding by default
   -- foldmethod = "expr",   -- Set manual folding
   foldlevel = 99,         -- Open all folds by default
+
+  -- https://www.jackfranklin.co.uk/blog/code-folding-in-vim-neovim/
+  foldlevelstart = 1, -- top level folds are open, but anything nested beyond that is closed
   -- foldtext = "",
 
 }

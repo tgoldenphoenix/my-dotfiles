@@ -4,6 +4,7 @@
 
 local opt = vim.opt
 
+-- ====== SPELLING ======
 -- just toggle it
 -- opt.spell = false                   -- turns on spellchecker
 -- opt.spelllang = { 'en_us' }        -- sets spelling dictionary
@@ -13,7 +14,17 @@ local opt = vim.opt
 
 -- vim.opt_local.spell = false
 
+-- ====== END SPELLING ======
+
 -- root dir now == cwd
 -- Why Does Neo Tree Show Different Directories for CWD and Root Dir in a Monorepo?
 -- https://github.com/LazyVim/LazyVim/discussions/2150
 vim.g.root_spec = { "cwd" }
+
+-- then you need to set the option below.
+vim.g.lazyvim_picker = "telescope"
+
+-- Default LazyVim, no need to set
+-- opt.foldexpr = "v:lua.require'lazyvim.util'.ui.foldexpr()"
+-- opt.foldmethod = "expr"
+-- opt.foldtext = ""

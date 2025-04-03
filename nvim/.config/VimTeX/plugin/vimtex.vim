@@ -9,6 +9,12 @@
 let g:vimtex_indent_enabled = 0
 
 " ======= START FOLDING =======
+
+" zR open all folds
+" zM close all open folds
+" za toggles the fold at the cursor
+" `zk` `zj` move up/down to the next fold
+
 " default is 0 (false)
 " do not use session when changing this setting because
 " session save your settings
