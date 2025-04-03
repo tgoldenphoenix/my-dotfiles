@@ -104,8 +104,9 @@ local options = {     -- Nếu không để "local" thì default là global vari
 
   -- FOLDING
   -- foldenable = false,      -- Disable folding by default
-  -- foldmethod = "manual",   -- Set manual folding
-  -- foldlevel = 99,         -- Open all folds by default
+  -- foldmethod = "expr",   -- Set manual folding
+  foldlevel = 99,         -- Open all folds by default
+  -- foldtext = "",
 
 }
 

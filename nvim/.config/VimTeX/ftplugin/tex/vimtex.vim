@@ -1,8 +1,8 @@
 " LateX-specfic configuration related to the VimTeX plugin
 
-nmap <leader>i <plug>(vimtex-info)
+nmap <leader>vi <plug>(vimtex-info)
 
-nmap <leader>tv <CMD>VimtexTocToggle<CR>
+nmap <leader>vv <CMD>VimtexTocToggle<CR>
 
 " Compilation
 
@@ -15,7 +15,7 @@ nmap <localleader>vc <Plug>(vimtex-compile)
 " noremap <leader>r <Cmd>update<CR><Cmd>VimtexCompileSS<CR>
 
 " View `pdf` for current project, perform forward search if available.
-nmap <leader>vv <plug>(vimtex-view)
+nmap <leader>vg <plug>(vimtex-view)
 " nmap <localleader>v <plug>(vimtex-view)
 
 " Example: make `<leader>wc` call the command `VimtexCountWords`;

@@ -8,8 +8,18 @@
 " Turn off VimTeX indentation
 let g:vimtex_indent_enabled = 0
 
+" ======= START FOLDING =======
 " default is 0 (false)
-" let g:vimtex_fold_enabled = 1
+" do not use session when changing this setting because
+" session save your settings
+let g:vimtex_fold_enabled = 0
+
+" or set vimtex_fold_enabled to 0 & set fold option manually
+set foldmethod=expr
+set foldexpr=vimtex#fold#level(v:lnum)
+set foldtext=""
+
+" ======= END FOLDING =======
 
 " Disable default mappings; I'll define my own in ftplugin/vimtex
 let g:vimtex_mappings_enabled = 0

@@ -11,8 +11,8 @@ return {
   -- lazy = false, -- neo-tree will lazily load itself
   -- opts = function(_, opts)
   -- end
-  opts = {
-    filesystem = {
+  opts = function(_, opts)
+    opts.filesystem = {
       filtered_items = {
         hide_dotfiles = false,
         hide_by_name = {
@@ -28,9 +28,9 @@ return {
           -- "*.txt",
         },
       }, -- filtered_items
-    },  -- filesystem
+    }  -- filesystem
 
-    window = {
+    opts.window = {
       -- position = "right",
       mappings = {
         ["l"] = "open", -- open node
@@ -56,8 +56,8 @@ return {
         ["z"] = "close_all_nodes",
             --["Z"] = "expand_all_nodes",
       },
-    },  -- window
-  },
+    }  -- window
+  end,
 
   keys = {
     {"<leader>e", "<cmd>Neotree toggle<CR>", desc = "Toggle Neotre[e]"},
