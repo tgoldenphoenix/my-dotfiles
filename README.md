@@ -12,7 +12,7 @@ This dotfiles repo is for my MacOS and Linux (Ubuntu) machines. I don't know abo
 
 I am now working mainly on a Macbook machine and only switch to Linux sometime to learn a few thing. I plan to switch entirely to Linux in the future.
 
-The main softwares covered in this repo includes: NeoVim, Tmux, Zsh, a tiling-window manager (i3 or yabai). Other software includes: Zathura, Karabiner, yazi, sketchybar...
+The main softwares covered in this repo includes: **NeoVim, Tmux, Zsh, a tiling-window manager (i3 or yabai)**. Other software includes: Zathura, Karabiner, yazi, sketchybar...
 
 ## Neovim
 
@@ -73,6 +73,14 @@ I also have other tmux sessions for other project such as python, practice vim m
 
 In my zsh shell, I have a few add-on features such as:
 1. one
+
+### GNU Stow
+
+I keep all my dotfiles inside a single repo that I push to GitHub and use [GNU Stow](https://www.gnu.org/software/stow/) to create symlinks to appropriate locations on my home directory.
+
+### WezTerm terminal emulator
+
+I just use it because other people recommend it.
 
 ## Mac OS Installation Instruction
 

@@ -12,7 +12,11 @@ return {
     { "<leader>qt", "<cmd>Telescope persisted<cr>", desc = "[T]oggle [S]ession menu" },
     { "<leader>qc", "<cmd>SessionLoad<cr>", desc = "Load the [S]ession for the [C]urrent directory" },
     { "<leader>ql", "<cmd>SessionLoadLast<cr>", desc = "Load the [L]ast recent [S]ession" },
-    { "<leader>qs", "<cmd>SessionSave<cr>", desc = "[S]ession [S]ave current" },
+
+    -- each time you change folding option, remember to save again
+    -- if you do not change any setting, you only need to save session once for
+    -- each directory
+    { "<leader>qs", "<cmd>SessionSave<cr>", desc = "Save session cwd" },
     { "<leader>qd", "<cmd>SessionDelete<cr>", desc = "[S]ession [D]elete current" },
 
     -- stop Persistence => session won't be saved on exit
