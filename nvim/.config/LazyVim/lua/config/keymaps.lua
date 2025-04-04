@@ -115,6 +115,9 @@ local function fold_markdown_headings(levels)
 end
 
 -- Keymap for folding markdown headings of level 1 or above
+-- !!! override with default `zj` which jump down to the next fold
+-- `zk` jump to the previous fold
+-- `zh` `z-[1234]` is vacant
 vim.keymap.set("n", "zj", function()
   -- "Update" saves only if the buffer has been modified since the last save
   vim.cmd("silent update")
@@ -168,6 +171,7 @@ vim.keymap.set("n", "z;", function()
 end, { desc = "[P]Fold all headings level 4 or above" })
 
 -- Use <CR> to fold when in normal mode instead of `za`
+-- You can also try using <tab> (in normal mode)
 -- To see help about folds use `:help fold`
 -- Use `zi` will yield error
 vim.keymap.set("n", "<CR>", function()
@@ -210,6 +214,17 @@ vim.keymap.set("n", "zi", function()
   vim.cmd("normal! za")
   vim.cmd("normal! zz") -- center the cursor line on screen
 end, { desc = "[P]Fold the heading cursor currently on" })
+
+-- Debug function
+-- or <tab>
+vim.keymap.set("n", "p", function()
+  local current_line = vim.fn.line(".")
+  local line_content = vim.fn.getline(current_line)
+  local current_foldlevel = vim.fn.foldlevel(current_line)
+  
+  print(string.format('line #%s; foldlevel %s', current_line, current_foldlevel))
+
+end, { desc = "echo foldlevel current line" })
 
 -------------------------------------------------------------------------------
 --                         End Folding section
