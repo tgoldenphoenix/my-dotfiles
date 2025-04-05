@@ -24,12 +24,14 @@ require("lazy").setup({
     -- machines, if you don't want that, comment them here and then manually
     -- enable them on each machine under :LazyExtras
 
+    -- only add lsp support not linter, formater
     { import = "lazyvim.plugins.extras.lang.yaml" },
     { import = "lazyvim.plugins.extras.lang.markdown" },
-    { import = "lazyvim.plugins.extras.lang.json" },
-    { import = "lazyvim.plugins.extras.lang.typescript" },
+    -- { import = "lazyvim.plugins.extras.lang.json" },
+    -- { import = "lazyvim.plugins.extras.lang.typescript" },
 
-    { import = "lazyvim.plugins.extras.formatting.prettier" },
+    -- prettier will mess up ES lint format from VSCode for now!!!
+    -- { import = "lazyvim.plugins.extras.formatting.prettier" },
     
     { import = "lazyvim.plugins.extras.coding.luasnip" },
 

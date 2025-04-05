@@ -210,6 +210,9 @@ keymap("n", ">", "<S-v>><esc>", opts)
 --                           LaTeX Folding section
 -------------------------------------------------------------------------------
 
+-- folding only tested in /section files
+-- I do not need to fold in master.tex yet!
+
 local function fold_headings_of_level(level)
 
   local choice_tbl =

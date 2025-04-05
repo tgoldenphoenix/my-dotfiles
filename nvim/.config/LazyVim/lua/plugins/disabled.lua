@@ -4,4 +4,7 @@ return {
 
   -- this line work!!!
   -- { "saghen/blink.cmp", enabled = false },
+
+  -- { "mfussenegger/nvim-lint", enabled = false },
+  
 }
