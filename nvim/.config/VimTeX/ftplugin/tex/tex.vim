@@ -32,4 +32,11 @@ let g:vimtex_fold_enabled = 1
 " set foldexpr=vimtex#fold#level(v:lnum)
 " set foldtext=""
 
+" set trong filetype error, set ngoài all setting
+" set foldlevel = 99  " Open all folds by default
+
+" top level folds are open, but anything nested beyond that is closed
+" https://www.jackfranklin.co.uk/blog/code-folding-in-vim-neovim/
+" set foldlevelstart = 1 
+
 " ======= END FOLDING =======

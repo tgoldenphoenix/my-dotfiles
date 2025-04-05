@@ -206,16 +206,108 @@ keymap("n", ">", "<S-v>><esc>", opts)
 -- now use <C-s>
 -- keymap("n", "<C-i>", ":update<CR>", opts)
 
--- ====== FOLDING ======
+-------------------------------------------------------------------------------
+--                           LaTeX Folding section
+-------------------------------------------------------------------------------
 
--- Use <CR> to fold when in normal mode
+local function fold_headings_of_level(level)
+
+  local choice_tbl =
+  {
+    [1] = 'chapter',
+    [2] = 'section',
+  }
+
+  if not choice_tbl[level] then
+    -- print('do not support level: ' .. level)
+    return
+  end
+
+  -- Move to the top of the FILE
+  vim.cmd("normal! gg")
+  -- Get the total number of lines
+  local total_lines = vim.fn.line("$")
+  for line = 1, total_lines do
+    -- Get the content of the current line
+    local line_content = vim.fn.getline(line)
+    
+    -- '^\\chapter%b{}$'
+    -- will match \chapter{...}, \section{...}
+    -- %b match a balanced pair in lua
+    -- https://www.lua.org/pil/20.2.html
+    if line_content:match("^\\" .. choice_tbl[level] .. "%b{}$") then
+      print('match heading level: ' .. level)
+      -- Move the cursor to the current line
+      vim.fn.cursor(line, 1)
+      -- Check if the current line has a fold level > 0
+      local current_foldlevel = vim.fn.foldlevel(line)
+      if current_foldlevel > 0 then
+        -- Fold the heading if it matches the level
+        if vim.fn.foldclosed(line) == -1 then
+          -- print('this line is currently open (not fold)')
+          -- print(vim.fn.foldlevel(line)) -- print out 0
+          -- foldlevel is calculated using foldexpr
+          -- which mean something is wrong with the foldexpr??
+
+          -- print(vim.bo.filetype) -- print out filetype 'markdown' correctly
+          vim.cmd("normal! za") -- this line yield error no fold found?
+        end
+        -- else
+        --   vim.notify("No fold at line " .. line, vim.log.levels.WARN)
+      end
+    end
+  end
+end
+
+local function fold_latex_headings(levels)
+  -- set_foldmethod_expr()  -- he used to called this, now he use auto-cmd
+  -- I save the view to know where to jump back after folding
+  local saved_view = vim.fn.winsaveview()
+  for _, level in ipairs(levels) do
+    fold_headings_of_level(level)
+  end
+  vim.cmd("nohlsearch")
+  -- Restore the view to jump to where I was
+  vim.fn.winrestview(saved_view)
+end
+
+-- \chapter{} has foldlevel 1
+-- \section{} has foldlevel 2
+vim.keymap.set("n", "zj", function()
+  -- "Update" saves only if the buffer has been modified since the last save
+  vim.cmd("silent update")
+  -- vim.keymap.set("n", "<leader>mfj", function()
+  -- Reloads the file to refresh folds, otheriise you have to re-open neovim
+  vim.cmd("edit!")
+  -- Unfold everything first or I had issues
+  vim.cmd("normal! zR")
+  fold_latex_headings({ 6, 5, 4, 3, 2, 1 })
+  -- fold_latex_headings({ 6 })
+  vim.cmd("normal! zz") -- center the cursor line on screen
+end, { desc = "Fold to \\chapter{}" })
+
+-- Keymap for folding markdown headings of level 2 or above
+-- I know, it reads like "madafaka" but "k" for me means "2"
+vim.keymap.set("n", "zk", function()
+  -- "Update" saves only if the buffer has been modified since the last save
+  vim.cmd("silent update")
+  -- vim.keymap.set("n", "<leader>mfk", function()
+  -- Reloads the file to refresh folds, otherwise you have to re-open neovim
+  vim.cmd("edit!")
+  -- Unfold everything first or I had issues
+  vim.cmd("normal! zR")
+  fold_latex_headings({ 6, 5, 4, 3, 2 })
+  vim.cmd("normal! zz") -- center the cursor line on screen
+end, { desc = "Fold to \\section{}" })
+
+-- Use <CR> to fold when in normal mode instead of `za`
+-- You can also try using <tab> (in normal mode)
 -- To see help about folds use `:help fold`
 -- Use `zi` will yield error
-vim.keymap.set("n", "<CR>", function()
+vim.keymap.set("n", "<TAB>", function()
   -- Get the current line number
   local line = vim.fn.line(".")
   -- Get the fold level of the current line
-  -- :lua print(vim.fn.foldlevel("."))
   local foldlevel = vim.fn.foldlevel(line)
   if foldlevel == 0 then
     vim.notify("No fold found", vim.log.levels.INFO)
@@ -223,6 +315,32 @@ vim.keymap.set("n", "<CR>", function()
     vim.cmd("normal! za")
     vim.cmd("normal! zz") -- center the cursor line on screen
   end
-end, { desc = "Toggle fold" })
+end, { desc = "[P]Toggle fold" })
 
--- ====== END FOLDING ======
+-- Keymap for unfolding markdown headings of level 2 or above
+-- Changed all the markdown folding and unfolding keymaps from <leader>mfj to
+-- zj, zk, zl, z; and zu respectively lamw25wmal
+vim.keymap.set("n", "zu", function()
+  -- "Update" saves only if the buffer has been modified since the last save
+  vim.cmd("silent update")
+  -- vim.keymap.set("n", "<leader>mfu", function()
+  -- Reloads the file to reflect the changes
+  vim.cmd("edit!")
+  vim.cmd("normal! zR") -- Unfold all headings
+  vim.cmd("normal! zz") -- center the cursor line on screen
+end, { desc = "[P]Unfold all headings level 2 or above" })
+
+-- Debug function
+-- or <tab>
+-- vim.keymap.set("n", "fv", function()
+--   local current_line = vim.fn.line(".")
+--   local line_content = vim.fn.getline(current_line)
+--   local current_foldlevel = vim.fn.foldlevel(current_line)
+  
+--   print(string.format('line #%s; foldlevel %s', current_line, current_foldlevel))
+
+-- end, { desc = "[F]olf [V]erbose: echo foldlevel & current line" })
+
+-------------------------------------------------------------------------------
+--                           LaTeX Folding section
+-------------------------------------------------------------------------------

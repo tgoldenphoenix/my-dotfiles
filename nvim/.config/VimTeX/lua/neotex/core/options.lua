@@ -104,10 +104,10 @@ local options = {     -- Nếu không để "local" thì default là global vari
 
   -- ====== START FOLDING settings====== 
   -- foldenable = false,      -- Disable folding by default
-  -- foldlevel = 99,         -- Open all folds by default
+  foldlevel = 99,         -- Open all folds by default
 
   -- https://www.jackfranklin.co.uk/blog/code-folding-in-vim-neovim/
-  -- foldlevelstart = 1, -- top level folds are open, but anything nested beyond that is closed
+  foldlevelstart = 1, -- top level folds are open, but anything nested beyond that is closed
   -- foldlevelstart = 99, -- start unfolded
 
   -- foldmethod = 'expr',

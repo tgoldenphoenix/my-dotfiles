@@ -174,7 +174,7 @@ end, { desc = "[P]Fold all headings level 4 or above" })
 -- You can also try using <tab> (in normal mode)
 -- To see help about folds use `:help fold`
 -- Use `zi` will yield error
-vim.keymap.set("n", "<CR>", function()
+vim.keymap.set("n", "<TAB>", function()
   -- Get the current line number
   local line = vim.fn.line(".")
   -- Get the fold level of the current line
@@ -203,6 +203,7 @@ end, { desc = "[P]Unfold all headings level 2 or above" })
 -- `zi` jummps to the markdown heading above and then folds it
 -- zi by default toggles folding, but I don't need it lamw25wmal
 -- What is the different with <CR> above???
+-- giống <CR> ở trên nhưng will jump to the line of the heading
 vim.keymap.set("n", "zi", function()
   -- "Update" saves only if the buffer has been modified since the last save
   vim.cmd("silent update")
@@ -217,14 +218,14 @@ end, { desc = "[P]Fold the heading cursor currently on" })
 
 -- Debug function
 -- or <tab>
-vim.keymap.set("n", "p", function()
-  local current_line = vim.fn.line(".")
-  local line_content = vim.fn.getline(current_line)
-  local current_foldlevel = vim.fn.foldlevel(current_line)
+-- vim.keymap.set("n", "fv", function()
+--   local current_line = vim.fn.line(".")
+--   local line_content = vim.fn.getline(current_line)
+--   local current_foldlevel = vim.fn.foldlevel(current_line)
   
-  print(string.format('line #%s; foldlevel %s', current_line, current_foldlevel))
+--   print(string.format('line #%s; foldlevel %s', current_line, current_foldlevel))
 
-end, { desc = "echo foldlevel current line" })
+-- end, { desc = "[F]olf [V]erbose: echo foldlevel & current line" })
 
 -------------------------------------------------------------------------------
 --                         End Folding section
