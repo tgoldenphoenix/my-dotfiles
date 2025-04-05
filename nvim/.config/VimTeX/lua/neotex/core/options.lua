@@ -102,15 +102,22 @@ local options = {     -- Nếu không để "local" thì default là global vari
   inccommand = "split",
   autoread = true,
 
-  -- FOLDING settings
+  -- ====== START FOLDING settings====== 
   -- foldenable = false,      -- Disable folding by default
-  -- foldmethod = "expr",   -- Set manual folding
-  foldlevel = 99,         -- Open all folds by default
+  -- foldlevel = 99,         -- Open all folds by default
 
   -- https://www.jackfranklin.co.uk/blog/code-folding-in-vim-neovim/
-  foldlevelstart = 1, -- top level folds are open, but anything nested beyond that is closed
-  -- foldtext = "",
+  -- foldlevelstart = 1, -- top level folds are open, but anything nested beyond that is closed
+  -- foldlevelstart = 99, -- start unfolded
 
+  -- foldmethod = 'expr',
+  -- foldexpr = 'v:lua.neotex.foldexpr(v:lnum)',
+
+  -- foldminlines = 0, -- Allow closing even 1-line folds.
+  
+  -- foldtext = 'v:lua.neotex.foldtext()',
+  -- foldtext = "",
+  -- ====== END FOLDING settings======
 }
 
 -- turns on all values in options table above
@@ -156,3 +163,11 @@ vim.opt.iskeyword:append "-"  -- hyphenated words recognized by searches
 --   let g:autosave_enabled = v:false
 --   let g:autosave_disable_inside_paths = [] " A list of paths inside which autosave should be disabled. 
 -- ]]
+
+-- print('option lua here')
+
+-- vim.opt.foldlevelstart = 99 -- start unfolded
+-- vim.opt.foldmethod = 'expr'
+-- vim.opt.foldminlines = 0 -- Allow closing even 1-line folds.
+-- vim.opt.foldexpr = 'v:lua.wincent.foldexpr(v:lnum)'
+-- vim.opt.foldtext = 'v:lua.wincent.foldtext()'
