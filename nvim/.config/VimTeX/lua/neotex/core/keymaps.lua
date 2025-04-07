@@ -239,7 +239,7 @@ local function fold_headings_of_level(level)
     -- %b match a balanced pair in lua
     -- https://www.lua.org/pil/20.2.html
     if line_content:match("^\\" .. choice_tbl[level] .. "%b{}$") then
-      print('match heading level: ' .. level)
+      -- print('match heading level: ' .. level)
       -- Move the cursor to the current line
       vim.fn.cursor(line, 1)
       -- Check if the current line has a fold level > 0
@@ -335,14 +335,14 @@ end, { desc = "[P]Unfold all headings level 2 or above" })
 
 -- Debug function
 -- or <tab>
--- vim.keymap.set("n", "fv", function()
---   local current_line = vim.fn.line(".")
---   local line_content = vim.fn.getline(current_line)
---   local current_foldlevel = vim.fn.foldlevel(current_line)
+vim.keymap.set("n", "fv", function()
+  local current_line = vim.fn.line(".")
+  local line_content = vim.fn.getline(current_line)
+  local current_foldlevel = vim.fn.foldlevel(current_line)
   
---   print(string.format('line #%s; foldlevel %s', current_line, current_foldlevel))
+  print(string.format('line #%s; foldlevel %s', current_line, current_foldlevel))
 
--- end, { desc = "[F]olf [V]erbose: echo foldlevel & current line" })
+end, { desc = "[F]olf [V]erbose: echo foldlevel & current line" })
 
 -------------------------------------------------------------------------------
 --                           LaTeX Folding section
