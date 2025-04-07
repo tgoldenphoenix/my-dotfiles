@@ -6,6 +6,7 @@
 -- SQL wasn't showing in my codeblocks when working with .md files, that's
 -- how I found out it was missing from treesitter
 
+-- https://www.lazyvim.org/plugins/treesitter#nvim-treesitter
 return {
   {
     "nvim-treesitter/nvim-treesitter",
@@ -25,6 +26,7 @@ return {
         "csv",
         "java",
         "javascript",
+        -- python TS is needed for the python debug DAP
         "python",
         "dockerfile",
         "html",

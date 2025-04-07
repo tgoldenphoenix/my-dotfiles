@@ -1,16 +1,51 @@
+-- i don't use conform nvim
+
+-- Format on save and linters
 return {
-  "nvimtools/none-ls.nvim",
-  dependencies = {'nvimtools/none-ls-extras.nvim'},
+  'nvimtools/none-ls.nvim',
+  dependencies = {
+    'nvimtools/none-ls-extras.nvim',
+    'jayp0521/mason-null-ls.nvim', -- ensure dependencies are installed
+  },
   config = function()
     local null_ls = require 'null-ls'
     local formatting = null_ls.builtins.formatting   -- to setup formatters
     local diagnostics = null_ls.builtins.diagnostics -- to setup linters
 
+    -- list of formatters & linters for mason to install
+    require('mason-null-ls').setup {
+      ensure_installed = {
+        -- list of formaters & linters
+        -- 'checkmake',
+        'prettier', -- ts/js formatter
+        'stylua',   -- lua formatter
+        -- 'eslint_d', -- ts/js linter
+
+        'shfmt',
+        'ruff',
+      },
+      -- auto-install configured formatters & linters (with null-ls)
+      automatic_installation = true,
+    }
+
     local sources = {
-      formatting.prettier.with { filetypes = { 'html', 'json', 'yaml', 'markdown' } },
-      -- LazyVim conform.nvim có format cho shfmt already
+      -- diagnostics.checkmake,
+
+      formatting.prettier.with { filetypes = { 
+        -- 'html', 
+        'json', 
+        'yaml', 
+        -- 'markdown' 
+      }},
+      formatting.stylua,
       formatting.shfmt.with { args = { '-i', '4' } },
+
+      -- what is terraform?
+      -- formatting.terraform_fmt,
+
+      -- the ruff linter
       require('none-ls.formatting.ruff').with { extra_args = { '--extend-select', 'I' } },
+      -- the ruff formatter
       require 'none-ls.formatting.ruff_format',
     }
 
@@ -22,6 +57,8 @@ return {
       on_attach = function(client, bufnr)
         if client.supports_method 'textDocument/formatting' then
           vim.api.nvim_clear_autocmds { group = augroup, buffer = bufnr }
+          -- auto format when save file
+          -- https://neovim.io/doc/user/autocmd.html#BufWritePre
           vim.api.nvim_create_autocmd('BufWritePre', {
             group = augroup,
             buffer = bufnr,
@@ -33,6 +70,4 @@ return {
       end,
     }
   end,
-
-  
 }
