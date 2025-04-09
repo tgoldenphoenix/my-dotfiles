@@ -1,10 +1,7 @@
--- Filename: ~/github/dotfiles-latest/neovim/neobean/lua/plugins/mini-surround.lua
--- ~/github/dotfiles-latest/neovim/neobean/lua/plugins/mini-surround.lua
---
--- I'm just using lazyvim.org defaults here
--- This plugin comes installed by default, but it was removed one time, so just
--- leaving it here because I want to always have it installed
---
+-- This plugin is an extras from LazyVim. But I don't activate it in lazy.lua
+-- I copy & paste the LazyVim config here so it always installed.
+-- https://www.lazyvim.org/extras/coding/mini-surround 
+
 -- https://github.com/echasnovski/mini.surround
 
 return {

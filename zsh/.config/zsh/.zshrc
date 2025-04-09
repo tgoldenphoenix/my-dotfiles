@@ -23,7 +23,8 @@ fi
 # fzf này tải bằng git lưu ở ~/.fzf/bin. Trong này có luôn uninstall script
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-# nvm - node version manager
+# source nvm - node version manager
+# `-s` true if file exists
 export NVM_DIR="$HOME/.config/nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

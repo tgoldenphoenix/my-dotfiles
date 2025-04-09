@@ -2,8 +2,10 @@
 -- Default keymaps that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/keymaps.lua
 -- Add any additional keymaps here
 
+-- Start Mardown folding section {{{1
+
 -------------------------------------------------------------------------------
---                           Folding section
+--                        Markdown Folding section
 -------------------------------------------------------------------------------
 
 -- HACK: Fold markdown headings in Neovim with a keymap
@@ -228,8 +230,9 @@ end, { desc = "[P]Fold the heading cursor currently on" })
 -- end, { desc = "[F]olf [V]erbose: echo foldlevel & current line" })
 
 -------------------------------------------------------------------------------
---                         End Folding section
+--                         End Markdown Folding section
 -------------------------------------------------------------------------------
+-- }}}1 End Markdown Folding section
 
 -- Quickly alternate between the last 2 files
 -- LazyVim comes with the default shortcut <leader>bb for this, but I navigate
@@ -332,10 +335,57 @@ vim.keymap.set({ "n", "v", "i" }, "<M-d>", function()
   require("noice").cmd("dismiss")
 end, { desc = "Dismiss All" })
 
+------------------------------------------------------------------------------
+-- START Main toggle logic
+------------------------------------------------------------------------------
+
+-- Remap 'gss' to 'gsa`' in visual mode
+-- This surrounds with inline code, that I use a lot lamw25wmal
+vim.keymap.set("v", "gss", function()
+  -- Use nvim_replace_termcodes to handle special characters like backticks
+  local keys = vim.api.nvim_replace_termcodes("gsa`", true, false, true)
+  -- Feed the keys in visual mode ('x' for visual mode)
+  vim.api.nvim_feedkeys(keys, "x", false)
+  -- I tried these 3, but they didn't work, I assume because of the backtick character
+  -- vim.cmd("normal! gsa`")
+  -- vim.cmd([[normal! gsa`]])
+  -- vim.cmd("normal! gsa\\`")
+end, { desc = "[P] Surround selection with backticks (inline code)" })
+
+-- This surrounds CURRENT WORD with inline code in NORMAL MODE lamw25wmal
+vim.keymap.set("n", "gss", function()
+  -- Use nvim_replace_termcodes to handle special characters like backticks
+  local keys = vim.api.nvim_replace_termcodes("gsaiw`", true, false, true)
+  -- Feed the keys in visual mode ('x' for visual mode)
+  vim.api.nvim_feedkeys(keys, "x", false)
+  -- I tried these 3, but they didn't work, I assume because of the backtick character
+  -- vim.cmd("normal! gsa`")
+  -- vim.cmd([[normal! gsa`]])
+  -- vim.cmd("normal! gsa\\`")
+end, { desc = "[P] Surround selection with backticks (inline code)" })
+
+-- In visual mode, check if the selected text is already striked through and show a message if it is
+-- If not, surround it
+vim.keymap.set("v", "<leader>mx", function()
+  -- Get the selected text range
+  local start_row, start_col = unpack(vim.fn.getpos("'<"), 2, 3)
+  local end_row, end_col = unpack(vim.fn.getpos("'>"), 2, 3)
+  -- Get the selected lines
+  local lines = vim.api.nvim_buf_get_lines(0, start_row - 1, end_row, false)
+  local selected_text = table.concat(lines, "\n"):sub(start_col, #lines == 1 and end_col or -1)
+  if selected_text:match("^%~%~.*%~%~$") then
+    vim.notify("Text already has strikethrough", vim.log.levels.INFO)
+  else
+    vim.cmd("normal 2gsa~")
+  end
+end, { desc = "[P]Strike through current selection" })
+
 -- In visual mode, check if the selected text is already bold and show a message if it is
 -- If not, surround it with double asterisks for bold
 vim.keymap.set("v", "<leader>mb", function()
   -- Get the selected text range
+  -- https://www.codecademy.com/resources/docs/lua/tables/unpack
+  -- https://neovim.io/doc/user/builtin.html#getpos()
   local start_row, start_col = unpack(vim.fn.getpos("'<"), 2, 3)
   local end_row, end_col = unpack(vim.fn.getpos("'>"), 2, 3)
   -- Get the selected lines
@@ -414,109 +464,9 @@ vim.keymap.set("n", "<leader>mb", function()
   end
 end, { desc = "[P]BOLD toggle bold markers" })
 
--- -- Single word/line bold
--- -- In normal mode, bold the current word under the cursor
--- -- If already bold, it will unbold the word under the cursor
--- -- This does NOT unbold multilines
--- vim.keymap.set("n", "<leader>mb", function()
---   local cursor_pos = vim.api.nvim_win_get_cursor(0)
---   -- local row = cursor_pos[1] -- Removed the unused variable
---   local col = cursor_pos[2]
---   local line = vim.api.nvim_get_current_line()
---   -- Check if the cursor is on an asterisk
---   if line:sub(col + 1, col + 1):match("%*") then
---     vim.notify("Cursor is on an asterisk, run inside the bold text", vim.log.levels.WARN)
---     return
---   end
---   -- Check if the cursor is inside surrounded text
---   local before = line:sub(1, col)
---   local after = line:sub(col + 1)
---   local inside_surround = before:match("%*%*[^%*]*$") and after:match("^[^%*]*%*%*")
---   if inside_surround then
---     vim.cmd("normal gsd*.")
---   else
---     vim.cmd("normal viw")
---     vim.cmd("normal 2gsa*")
---   end
--- end, { desc = "[P]BOLD toggle on current word or selection" })
-
--- -- Search UP for a markdown header
--- -- If you have comments inside a codeblock, they can start with `# ` but make
--- -- sure that the line either below or above of the comment is not empty
--- -- Headings are considered the ones that have both an empty line above and also below
--- -- My markdown headings are autoformatted, so I always make sure about that
--- vim.keymap.set("n", "gk", function()
---   local foundHeader = false
---   -- Function to check if the given line number is blank
---   local function isBlankLine(lineNum)
---     return vim.fn.getline(lineNum):match("^%s*$") ~= nil
---   end
---   -- Function to search up for a markdown header
---   local function searchBackwardForHeader()
---     vim.cmd("silent! ?^\\s*#\\+\\s.*$")
---     local currentLineNum = vim.fn.line(".")
---     local aboveIsBlank = isBlankLine(currentLineNum - 1)
---     local belowIsBlank = isBlankLine(currentLineNum + 1)
---     -- Check if both above and below lines are blank, indicating a markdown header
---     if aboveIsBlank and belowIsBlank then
---       foundHeader = true
---     end
---     return currentLineNum
---   end
---   -- Initial search
---   local lastLineNum = searchBackwardForHeader()
---   -- Continue searching if the initial search did not find a header
---   while not foundHeader and vim.fn.line(".") > 1 do
---     local currentLineNum = searchBackwardForHeader()
---     -- Break the loop if the search doesn't change line number to prevent infinite loop
---     if currentLineNum == lastLineNum then
---       break
---     else
---       lastLineNum = currentLineNum
---     end
---   end
---   -- Clear search highlighting after operation
---   vim.cmd("nohlsearch")
--- end, { desc = "[P]Go to previous markdown header" })
---
--- -- Search DOWN for a markdown header
--- -- If you have comments inside a codeblock, they can start with `# ` but make
--- -- sure that the line either below or above of the comment is not empty
--- -- Headings are considered the ones that have both an empty line above and also below
--- -- My markdown headings are autoformatted, so I always make sure about that
--- vim.keymap.set("n", "gj", function()
---   local foundHeader = false
---   -- Function to check if the given line number is blank
---   local function isBlankLine(lineNum)
---     return vim.fn.getline(lineNum):match("^%s*$") ~= nil
---   end
---   -- Function to search down for a markdown header
---   local function searchForwardForHeader()
---     vim.cmd("silent! /^\\s*#\\+\\s.*$")
---     local currentLineNum = vim.fn.line(".")
---     local aboveIsBlank = isBlankLine(currentLineNum - 1)
---     local belowIsBlank = isBlankLine(currentLineNum + 1)
---     -- Check if both above and below lines are blank, indicating a markdown header
---     if aboveIsBlank and belowIsBlank then
---       foundHeader = true
---     end
---     return currentLineNum
---   end
---   -- Initial search
---   local lastLineNum = searchForwardForHeader()
---   -- Continue searching if the initial search did not find a header
---   while not foundHeader and vim.fn.line(".") < vim.fn.line("$") do
---     local currentLineNum = searchForwardForHeader()
---     -- Break the loop if the search doesn't change line number to prevent infinite loop
---     if currentLineNum == lastLineNum then
---       break
---     else
---       lastLineNum = currentLineNum
---     end
---   end
---   -- Clear search highlighting after operation
---   vim.cmd("nohlsearch")
--- end, { desc = "[P]Go to next markdown header" })
+------------------------------------------------------------------------------
+-- END Main toggle logic
+------------------------------------------------------------------------------
 
 -- HACK: Jump between markdown headings in lazyvim
 -- https://youtu.be/9S7Zli9hzTE
