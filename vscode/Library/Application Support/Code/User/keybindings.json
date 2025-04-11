@@ -1,0 +1,37 @@
+// Place your key bindings in this file to override the defaults
+[
+  // ===== Neovim Keymaps =====
+  // Ensure that tab button works in vim.
+  // https://www.youtube.com/watch?v=h-epcklOC_g&t=16s
+  // {
+  //   "key": "tab",
+  //   "command": "tab",
+  //   "when": "editorTextFocus && !editorTabMovesFocus"
+  // },
+  // {
+  //   "key": "shift+tab",
+  //   "command": "outdent",
+  //   "when": "editorTextFocus && !editorTabMovesFocus"
+  // },
+  // move the cursor by each display line with word wrapping
+  // Caveat, I use up, down arrow keys instead of j/k because `10j` will not work
+  // https://github.com/VSCodeVim/Vim?tab=readme-ov-file#-faq
+  {
+    "key": "up",
+    "command": "cursorUp",
+    "when": "editorTextFocus && vim.active && !inDebugRepl && vim.mode == 'Normal' && !suggestWidgetMultipleSuggestions && !suggestWidgetVisible"
+  },
+  {
+    "key": "down",
+    "command": "cursorDown",
+    "when": "editorTextFocus && vim.active && !inDebugRepl && vim.mode == 'Normal' && !suggestWidgetMultipleSuggestions && !suggestWidgetVisible"
+  },
+  // Toggle fold with <tab> in normal mode
+  {
+    "key": "tab",
+    // "command": "editor.toggleFold",
+    "command": "editor.toggleFoldRecursively",
+    "when": "editorTextFocus && foldingEnabled && vim.active && vim.mode == 'Normal'",
+    // "when": "editorTextFocus && foldingEnabled && vim.active && !inDebugRepl && vim.mode == 'Normal' && !suggestWidgetMultipleSuggestions && !suggestWidgetVisible"
+  }
+]

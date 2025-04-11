@@ -1,0 +1,88 @@
+{
+  "workbench.colorTheme": "Gruvbox Dark Hard",
+  "terminal.integrated.fontFamily": "Hack Nerd Font",
+  "workbench.iconTheme": "material-icon-theme",
+  "editor.fontSize": 14,
+  "editor.formatOnSave": false,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "[javascript]": {
+    "editor.formatOnSave": false,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascriptreact]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "emmet.includeLanguages": {
+    "javascript": "javascriptreact"
+  },
+  "liveSassCompile.settings.formats": [
+    {
+      "format": "expanded",
+      "extensionName": ".css",
+      "savePath": "/dist",
+      "savePathReplacementPairs": null
+    }
+  ],
+  "liveServer.settings.CustomBrowser": "firefox",
+  "window.zoomLevel": 1,
+  "liveServer.settings.donotVerifyTags": true,
+  "editor.accessibilitySupport": "off",
+  "dart.flutterSdkPath": "/Users/anhao/development/flutter",
+  "dart.debugExternalPackageLibraries": false,
+  "dart.debugSdkLibraries": false,
+  "files.exclude": {
+    "**/.git": false
+  },
+  "terminal.explorerKind": "external",
+  "terminal.external.osxExec": "WezTerm",
+  "editor.fontFamily": "Hack Nerd Font, Menlo, Monaco, 'Courier New', monospace",
+  "search.followSymlinks": false,
+  "editor.tabSize": 2,
+
+  // ===== Neovim settings===== 
+  "editor.lineNumbers": "relative",
+  // faster VSCodeVim
+  "extensions.experimental.affinity": {
+    "vscodevim.vim": 1
+  },
+  "vim.useSystemClipboard": true,
+  "vim.leader": "<space>",
+  // Hack to fix moving j/k over folds opens up the folds
+  "vim.foldfix": true,
+  "vim.normalModeKeyBindings": [
+    {
+      "before": ["<leader>", "e"],
+      "commands": [
+          "workbench.action.toggleSidebarVisibility"
+      ]
+    },
+    {
+      "before": ["<TAB>"],
+      // "after": ["za"],
+      "commands": ["normal! za"],
+    }
+  ],
+  "vim.visualModeKeyBindings": [
+    // Bind > and < in visual mode to indent/outdent lines (repeatable)
+    {
+      "before": [
+        ">"
+      ],
+      "commands": [
+        "editor.action.indentLines"
+      ]
+    },
+    {
+      "before": [
+        "<"
+      ],
+      "commands": [
+        "editor.action.outdentLines"
+      ]
+    },
+  ]
+}

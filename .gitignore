@@ -7,6 +7,6 @@
 *.gz
 
 
-*.zcompdump
+*.zcompdump*
 *.zhistory
 .zcompdump.kimphuong-Latitude-E7440.11184
