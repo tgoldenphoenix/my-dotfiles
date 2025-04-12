@@ -35,12 +35,14 @@ yabai -m mouse_drop_action swap
 # ===== Rules ==================================
 
 # disable specific apps
-# Ghi đúng tên app vô đây là được hihi
+# Ghi đúng tên app vô đây là được hihi (case-sensitive)
 yabai -m rule --add app="^System Settings$" manage=off
 yabai -m rule --add app="^qemu-system-aarch64$" manage=off
 yabai -m rule --add app="^Finder$" manage=off
 yabai -m rule --add app="^Preview$" manage=off
 yabai -m rule --add app="^manager-osx$" manage=off
+yabai -m rule --add app="^Prepros$" manage=off
+yabai -m rule --add app="^DaVinci Resolve$" manage=off
 
 # Cái này dùng để test native MacOS app flutter
 yabai -m rule --add app="^first_flutter_app$" manage=off

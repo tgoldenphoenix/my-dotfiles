@@ -32,3 +32,10 @@ vim.g.lazyvim_picker = "telescope"
 -- Enable the option to require a Prettier config file
 -- If no prettier config file is found, the formatter will not be used
 vim.g.lazyvim_prettier_needs_config = false
+
+-- https://dev.to/cbartlett/word-wrapping-in-vim-4oog
+-- true by default
+-- <leader>uw to toggle
+vim.opt.wrap = true
+-- Wraps text at the end of a word. This is what prevents a word from being split in two.
+-- vim.opt.linebreak = true -- beta

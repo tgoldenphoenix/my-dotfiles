@@ -33,5 +33,12 @@
     "command": "editor.toggleFoldRecursively",
     "when": "editorTextFocus && foldingEnabled && vim.active && vim.mode == 'Normal'",
     // "when": "editorTextFocus && foldingEnabled && vim.active && !inDebugRepl && vim.mode == 'Normal' && !suggestWidgetMultipleSuggestions && !suggestWidgetVisible"
+  },
+  // save
+  // <C-a> in terminal => choose neovim config to use
+  // vscode vim currently override this
+  {
+    "key": "<C-s>",
+    "command": "workbench.action.files.save"
   }
 ]

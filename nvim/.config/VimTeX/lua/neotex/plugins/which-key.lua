@@ -100,6 +100,7 @@ return {
       -- Write, used with Vimtex continuous compilation feature
       -- { "<leader>w", "<cmd>wa!<CR>", desc = "write" },
       -- { "<leader>w", "<cmd>wa<CR>", desc = "write" },
+      -- <C-a> in terminal => choose neovim config to use
       { "<C-s>", "<cmd>wa<CR>", desc = "Save file (write)" },
 
       -- write & quit

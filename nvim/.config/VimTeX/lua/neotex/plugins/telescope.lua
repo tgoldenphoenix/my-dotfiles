@@ -97,7 +97,8 @@ return { -- Fuzzy Finder (files, lsp, etc)
         -- look for the string under the cursor inside the cwd
         vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
         -- find string in cwd
-        vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep (Root Dir)' })
+        -- vim.keymap.set('n', '<leader>sg', builtin.live_grep, { desc = '[S]earch by [G]rep (Root Dir)' })
+        vim.keymap.set('n', '<leader>/', builtin.live_grep, { desc = '[S]earch by [G]rep (Root Dir)' })
 
         -- vim.keymap.set('n', '<leader>sd', builtin.diagnostics, { desc = '[S]earch [D]iagnostics' })
         -- vim.keymap.set('n', '<leader>sr', builtin.resume, { desc = '[S]earch [R]esume' })

@@ -75,7 +75,7 @@ local options = {     -- Nếu không để "local" thì default là global vari
   linebreak = true,               -- companion to wrap, don't split words
   backspace = "indent,eol,start", -- allow backspace on indent, end of line or insert mode start position
 
-  -- wrap = true,                    -- display lines as one long line
+  -- linebreak = true -- Wrap lines at convenient points???
   wrap = true, -- Disable line wrap
   -- showbreak = "  ",               -- set indent of wrapped lines
   -- showbreak = "wrap>",               -- set indent of wrapped lines

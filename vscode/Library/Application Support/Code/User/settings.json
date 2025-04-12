@@ -4,32 +4,10 @@
   "workbench.iconTheme": "material-icon-theme",
   "editor.fontSize": 14,
   "editor.formatOnSave": false,
-  "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "[javascript]": {
-    "editor.formatOnSave": false,
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[typescriptreact]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[javascriptreact]": {
-    "editor.formatOnSave": true,
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
   "emmet.includeLanguages": {
     "javascript": "javascriptreact"
   },
-  "liveSassCompile.settings.formats": [
-    {
-      "format": "expanded",
-      "extensionName": ".css",
-      "savePath": "/dist",
-      "savePathReplacementPairs": null
-    }
-  ],
-  "liveServer.settings.CustomBrowser": "firefox",
   "window.zoomLevel": 1,
-  "liveServer.settings.donotVerifyTags": true,
   "editor.accessibilitySupport": "off",
   "dart.flutterSdkPath": "/Users/anhao/development/flutter",
   "dart.debugExternalPackageLibraries": false,
@@ -43,7 +21,21 @@
   "search.followSymlinks": false,
   "editor.tabSize": 2,
 
-  // ===== Neovim settings===== 
+  // start extensions
+  "liveSassCompile.settings.formats": [
+    {
+      "format": "expanded",//or expand or compress
+      "extensionName": ".css",
+      "savePath": "/dist",
+      "savePathReplacementPairs": null
+    }
+  ],
+  "liveServer.settings.CustomBrowser": "firefox",
+  "liveServer.settings.donotVerifyTags": true,
+  // extensions end
+
+  // ===== Neovim settings =====
+  "vim.disableExtension": false,// default is false
   "editor.lineNumbers": "relative",
   // faster VSCodeVim
   "extensions.experimental.affinity": {
@@ -53,18 +45,46 @@
   "vim.leader": "<space>",
   // Hack to fix moving j/k over folds opens up the folds
   "vim.foldfix": true,
+  "vim.changeWordIncludesWhitespace": true,
+  "vim.hlsearch": true,
+
+  "vim.highlightedyank.enable": true,
+  "vim.highlightedyank.color": "rgba(250, 240, 170, 0.5)",//default, change if you want
+  "vim.highlightedyank.duration": 250,
+  // "vim.visualstar": true,
+
+  // key maps
   "vim.normalModeKeyBindings": [
+    //open neotree
     {
       "before": ["<leader>", "e"],
       "commands": [
           "workbench.action.toggleSidebarVisibility"
       ]
     },
+    //show the command palette, and don't show the message on the status bar
     {
-      "before": ["<TAB>"],
-      // "after": ["za"],
-      "commands": ["normal! za"],
-    }
+      "before": [":"],
+      "commands": [
+        "workbench.action.showCommands",
+      ],
+      "silent": true
+    },
+    //turn off search highlighting
+    //I don't know how to use <ESC>
+    {
+      "before":["<C-n>"],
+      "commands": [
+        ":nohl",
+      ]
+    },
+    // save current file
+    {
+      "before": ["leader", "w"],
+      "commands": [
+        "workbench.action.files.save",
+      ]
+    },
   ],
   "vim.visualModeKeyBindings": [
     // Bind > and < in visual mode to indent/outdent lines (repeatable)
@@ -84,5 +104,11 @@
         "editor.action.outdentLines"
       ]
     },
-  ]
+  ],
+  "vim.normalModeKeyBindingsNonRecursive": [
+    // {
+    //   "before": ["<C-n>"],
+    //   "commands": [":nohl"]
+    // }
+  ],
 }
