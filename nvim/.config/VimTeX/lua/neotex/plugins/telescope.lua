@@ -107,6 +107,7 @@ return { -- Fuzzy Finder (files, lsp, etc)
         -- Just like toggle buffer list
         -- think about this
         -- the other you can delete buffer, i think is better than this telescope builtin
+        -- in Tmux, <prefix>space alternate session
         vim.keymap.set('n', '<leader><leader>', builtin.buffers, { desc = '[ ] Find existing buffers' })
 
         -- Slightly advanced example of overriding default behavior and theme

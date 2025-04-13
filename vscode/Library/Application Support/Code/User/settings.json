@@ -72,13 +72,14 @@
     },
     //turn off search highlighting
     //I don't know how to use <ESC>
+    // C-l is "go to right window" but I don't split vim window
     {
       "before":["<C-n>"],
       "commands": [
         ":nohl",
       ]
     },
-    // save current file
+    // save current files
     {
       "before": ["leader", "w"],
       "commands": [
