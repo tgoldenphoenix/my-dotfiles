@@ -20,8 +20,10 @@
   "editor.fontFamily": "Hack Nerd Font, Menlo, Monaco, 'Courier New', monospace",
   "search.followSymlinks": false,
   "editor.tabSize": 2,
+  "editor.wordWrap": "on",
+  "debug.toolBarLocation": "docked",
 
-  // start extensions
+  // start extensions settings
   "liveSassCompile.settings.formats": [
     {
       "format": "expanded",//or expand or compress
@@ -54,6 +56,9 @@
   // "vim.visualstar": true,
 
   // key maps
+  // "vim.handleKeys": {
+  //   "<C-s>": true,
+  // },
   "vim.normalModeKeyBindings": [
     //open neotree
     {
@@ -86,6 +91,18 @@
         "workbench.action.files.save",
       ]
     },
+    {
+      "before": ["H"],
+      "commands": [
+        "workbench.action.previousEditor",
+      ]
+    },
+    {
+      "before": ["L"],
+      "commands": [
+        "workbench.action.nextEditor",
+      ]
+    },
   ],
   "vim.visualModeKeyBindings": [
     // Bind > and < in visual mode to indent/outdent lines (repeatable)
@@ -107,9 +124,5 @@
     },
   ],
   "vim.normalModeKeyBindingsNonRecursive": [
-    // {
-    //   "before": ["<C-n>"],
-    //   "commands": [":nohl"]
-    // }
   ],
 }

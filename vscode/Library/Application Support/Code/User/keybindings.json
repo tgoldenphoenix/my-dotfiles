@@ -36,17 +36,20 @@
   },
   // test
   // not working
-  {
-    "key": "<esc>",
-    "command": ":nohl",
-    "when": "vim.active && vim.mode == 'SearchInProgressMode'"
-  },
+  // {
+  //   "key": "<esc>",
+  //   "command": ":nohl",
+  //   "when": "vim.active && vim.mode == 'SearchInProgressMode'"
+  // },
   // save
   // <C-a> in terminal => choose neovim config to use
-  // vscode vim currently override this
-  // not working
   {
-    "key": "<C-s>",
+    "key": "ctrl+s",
     "command": "workbench.action.files.save"
-  }
+  },
+  // just use cmd c/v to copy-paste for now
+  // {
+  //   "key": "ctrl+v",
+  //   "command": "editor.action.clipboardPasteAction"
+  // }
 ]

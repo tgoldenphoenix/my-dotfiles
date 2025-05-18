@@ -23,11 +23,13 @@ yabai -m config window_placement second_child
 yabai -m config mouse_follows_focus on
 
 # modifier for clicking and dragging with mouse (instead of only able to drag the top bar of the window)
-yabai -m config mouse_modifier cmd
+# I don't really use this feature since I only have one app/window
+# And it conflict with feature in editing software (davinci, figma)
+# yabai -m config mouse_modifier cmd
 # set modifier + left-click drag to move window
-yabai -m config mouse_action1 move
+# yabai -m config mouse_action1 move
 # set modifier + right-click drag to resize window
-yabai -m config mouse_action2 resize
+# yabai -m config mouse_action2 resize
 
 # when window is dropped in center of another window, swap them (on edges it will split it)
 yabai -m mouse_drop_action swap
@@ -43,6 +45,7 @@ yabai -m rule --add app="^Preview$" manage=off
 yabai -m rule --add app="^manager-osx$" manage=off
 yabai -m rule --add app="^Prepros$" manage=off
 yabai -m rule --add app="^DaVinci Resolve$" manage=off
+yabai -m rule --add app="^Google Chrome$" manage=off
 
 # Cái này dùng để test native MacOS app flutter
 yabai -m rule --add app="^first_flutter_app$" manage=off

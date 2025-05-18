@@ -37,11 +37,15 @@ export SAVEHIST=10000                   # Maximum events in history file
 # export PATH="$PATH":"$HOME/.pub-cache/bin"
 
 # postgres psql
-export PATH="/Applications/PostgreSQL 15/:$PATH"
+# So we can use psql
+export PATH="/Library/PostgreSQL/15/bin/:$PATH"
+# export PATH="/Applications/PostgreSQL 15/:$PATH"
 # export PATH="/Applications/Postgres.app/Contents/Versions/15/bin:$PATH"
 
 # For Java jdk
 export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk-17.jdk/Contents/Home"
+# export JAVA_HOME=$(/usr/libexec/java_home -v 21.0.1)
+# export PATH=$JAVA_HOME/bin:$PATH
 
 # for nodejs
 export PATH=$PATH:/usr/local/bin
