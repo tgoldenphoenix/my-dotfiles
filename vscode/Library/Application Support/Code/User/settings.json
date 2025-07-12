@@ -125,4 +125,10 @@
   ],
   "vim.normalModeKeyBindingsNonRecursive": [
   ],
+  "search.exclude": {
+    "**/dist": true
+  },
+  "turboConsoleLog.quote": "'",
+  "turboConsoleLog.logMessagePrefix": "🐦‍🔥",
+  "extensions.ignoreRecommendations": true,
 }
