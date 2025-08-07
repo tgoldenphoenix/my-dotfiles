@@ -18,27 +18,6 @@ vim.opt.rtp:prepend(lazypath)
 --  To update plugins you can run
 --    :Lazy update
 
--- ===== old way of setup lazy =====
--- require("lazy").setup({
---   { import = "neotex.plugins" },    -- main plugins directory
---   { import = "neotex.plugins.lsp" } -- lsp plugins directory
--- }, {
---   -- Configure any other settings here. See the documentation for more details.
---   -- colorscheme that will be used when installing plugins.
---   install = {
---     colorscheme = { "gruvbox" },
---   },
---   -- automatically check for plugin updates
---   checker = {
---     enabled = true,
---     notify = false,
---   }
---   -- ,
---   -- change_detection = {
---   --   notify = false,
---   -- },
--- })
-
 require("lazy").setup({
   spec = {
     { import = "neotex.plugins" },    -- main plugins directory
@@ -54,8 +33,4 @@ require("lazy").setup({
     enabled = true,
     notify = false,
   }
-  -- ,
-  -- change_detection = {
-  --   notify = false,
-  -- },
 })

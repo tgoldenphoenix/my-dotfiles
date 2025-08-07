@@ -1,9 +1,9 @@
--- START testing Lua commands
+-- ===== START testing Lua commands =====
 -- use `:messages` to view all logged messages
 
 -- print('hello from init.lua')
 -- vim.notify("console log")
--- END testing Lua commands
+-- ===== END testing Lua commands =====
 
 -- require .lua files in ./lua/
 -- require("user.options")
@@ -16,6 +16,3 @@ require("neotex.core")
 
 -- boot plugins
 require("neotex.bootstrap")
-
--- require("anhao.core")
--- require("anhao.bootstrap")

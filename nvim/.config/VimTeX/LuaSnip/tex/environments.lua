@@ -112,21 +112,37 @@ return{
     ),
 
     -- FIGURE
+    -- s({trig = "fig"},
+    --   fmta(
+    --     [[
+    --     \begin{figure}[htb!]
+    --       \centering
+    --       \includegraphics[width=<>\linewidth]{<>}
+    --       \caption{<>}
+    --       \label{fig:<>}
+    --     \end{figure}
+    --     ]],
+    --     {
+    --       i(1),
+    --       i(2),
+    --       i(3),
+    --       i(4),
+    --     }
+    --   ),
+    --   { condition = line_begin }
+    -- ),
     s({trig = "fig"},
       fmta(
         [[
         \begin{figure}[htb!]
           \centering
-          \includegraphics[width=<>\linewidth]{<>}
+          \includegraphics[width=0.7\linewidth]{<>}
           \caption{<>}
-          \label{fig:<>}
         \end{figure}
         ]],
         {
           i(1),
           i(2),
-          i(3),
-          i(4),
         }
       ),
       { condition = line_begin }

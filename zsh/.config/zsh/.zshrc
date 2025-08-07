@@ -5,6 +5,7 @@
 
 # echo '.config/zsh/.shrc day ne'
 # run source ~/.zshrc or source ~/.bashrc
+# source ~/.config/zsh/.zshrc
 
 ### TODO:
 # zsh bd instead of cd multiple times: https://github.com/Tarrasch/zsh-bd
@@ -156,3 +157,6 @@ function y() {
 
 # uv python
 . "$HOME/.local/bin/env"
+
+# laravel php
+export PATH="$HOME/.composer/vendor/bin:$PATH"

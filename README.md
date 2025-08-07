@@ -17,7 +17,8 @@ The main softwares covered in this repo includes: **NeoVim, Tmux, Zsh, a tiling-
 ## Neovim
 
 I use [NVIM_APPNAME](https://neovim.io/doc/user/starting.html#%24NVIM_APPNAME) and some shell script to change between two NeoVim configs.  
-The first config named `NeoTex` is only for working with LaTeX document. The second config named `LazyVim`, which is based on the NeoVim distro [Lazyvim](https://www.lazyvim.org/), is for working with markdown and other file type like lua, python, javascript.
+The first config named `NeoTex` is only for working with LaTeX document. The second config named `LazyVim`, which is based on the NeoVim distro [Lazyvim](https://www.lazyvim.org/), is for working with markdown and other file type like lua, python, javascript.  
+The zsh script can be found in `.config/zsh/aliases`
 
 My neovim version is:
 
@@ -42,8 +43,6 @@ I use the [folke/lazy.nvim](https://github.com/folke/lazy.nvim) package manager.
 
 - [VimTex](https://github.com/lervag/vimtex) integration
 
-![Screenshot of the configuration](images/screenshot_cite.png)
-
 The following sections provide installation instructions for Mac, and Ubuntu operating systems.
 
 In the CheatSheet.md you can find all of the key-bindings that I have added to NeoVim for writing LaTeX documents and some other software in this configs.
@@ -53,6 +52,7 @@ In the CheatSheet.md you can find all of the key-bindings that I have added to N
 ### [Karabiner-Elements](https://karabiner-elements.pqrs.org/)
 
 I use Karabiner to re-map the cap-lock key to act as:
+
 - Escape when tap
 - Ctrl when holding with other keys
 
@@ -63,6 +63,7 @@ I use Karabiner to re-map the cap-lock key to act as:
 ### tmux
 
 I currently have three tmux sessions that I always go to which are:
+
 1. My local ~/.config repository
 2. My LaTeX directory
 3. My markdown directory where I write all my notes
@@ -72,6 +73,7 @@ I also have other tmux sessions for other project such as python, practice vim m
 ### zsh
 
 In my zsh shell, I have a few add-on features such as:
+
 1. one
 
 ### GNU Stow
@@ -121,3 +123,24 @@ brew install node
 ```
 
 ## Linux Installation Instruction
+
+`sudo apt update && sudo apt upgrade`
+
+install `python3` with `uv`. To check, run `python3 --version`.
+
+install nodejs with nvm
+
+```bash
+sudo apt install git
+sudo apt install fzf
+sudo apt install ripgrep
+sudo apt install pandoc
+sudo apt install pandoc-citeproc
+sudo apt install nodejs
+sudo apt install stylua
+sudo apt install lua-language-server
+sudo apt install wget
+sudo apt install xsel
+sudo apt install python3-pip
+sudo pip3 install neovim-remote
+```
