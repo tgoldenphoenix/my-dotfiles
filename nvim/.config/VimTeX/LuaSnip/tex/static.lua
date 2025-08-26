@@ -47,7 +47,14 @@ return
     ),
     s({trig="and", snippetType="autosnippet"},
       {
-        t("\\quad \\text{and} \\quad"),
+        -- t("\\quad \\text{and} \\quad"),
+        t("\\text{ and }"),
+      },
+      {condition = tex.in_mathzone}
+    ),
+    s({trig="or", snippetType="autosnippet"},
+      {
+        t("\\text{ or }"),
       },
       {condition = tex.in_mathzone}
     ),

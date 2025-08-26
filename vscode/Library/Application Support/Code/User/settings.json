@@ -32,7 +32,7 @@
       "savePathReplacementPairs": null
     }
   ],
-  "liveServer.settings.CustomBrowser": "firefox",
+  "liveServer.settings.CustomBrowser": "chrome",
   "liveServer.settings.donotVerifyTags": true,
   // extensions end
 
