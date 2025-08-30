@@ -276,6 +276,20 @@ return
     {condition = tex.in_mathzone}
   ),
 
+  -- NUMBERING PROBLEM
+  -- This is a self-defined \newcommand
+  s({trig = "([^%\\])nb", wordTrig = false, regTrig = true, snippetType="autosnippet"},
+    fmta(
+      -- There is an empty character at the end
+      "<>\\circled{<>}\\ ",
+      {
+        f( function(_, snip) return snip.captures[1] end ),
+        d(1, get_visual),
+      }
+    ),
+    {condition = tex.in_mathzone}
+  ),
+
   -- BINOMIAL SYMBOL
   s({trig = "([^%\\])bnn", wordTrig = false, regTrig = true, snippetType="autosnippet"},
     fmta(

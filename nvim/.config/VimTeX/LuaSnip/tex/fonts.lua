@@ -37,6 +37,19 @@ return{
       {condition = tex.in_text}
     ),
 
+    -- TEXTCOLOR i.e. \textcolor{red}{red text}
+    -- The pattern ([^%a]) will not match is beginning of lines
+    s({trig = "([^%a])tcc", regTrig = true, wordTrig = false, snippetType="autosnippet"},
+      fmta(
+        "<>\\textcolor{<>}{<>}",
+        {
+          f( function(_, snip) return snip.captures[1] end ),
+          i(1),
+          d(2, get_visual),
+        }
+      )
+    ),
+
     -- ITALIC i.e. \textit
     -- italic font implementing visual selection
     -- if there is no active visual selection, the dynamic node simply acts as a regular insert node.
