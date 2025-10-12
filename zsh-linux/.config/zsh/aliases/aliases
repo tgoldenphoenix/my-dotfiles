@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+
+# ===== Git =====
+alias gs='git status'
+alias gl='git log'
+
+alias ga='git add *'
+# alias gc='git commit'
+alias gp='git push'
+
+alias gplo='git pull'
+
+### ls
+alias ls='ls --color'
+alias c='clear'
+
+# ===== Tmux =====
+alias tls='tmux ls'
+
+# ===== Neovim Config Switcher =====
+# https://www.youtube.com/watch?v=LkHjJlSgKZY
+
+# alias vim='nvim'
+
+# alias lazyvim='NVIM_APPNAME=linkarzu/dotfiles-latest/neovim/neobean nvim'
+alias lvim="NVIM_APPNAME=LazyVim nvim"
+alias vim='NVIM_APPNAME=VimTeX nvim'
+
+function nvims() {
+    items=("VimTeX" "LazyVim" "default")
+    config=$(printf "%s\n" "${items[@]}" | fzf --prompt=" Neovim Config 󰩓 " --height=~50% --layout=reverse --border --exit-0)
+    if [[ -z $config ]]; then
+        echo "Nothing selected"
+        return 0
+    elif [[ $config == "default" ]]; then
+        config=""
+    fi
+    NVIM_APPNAME=$config nvim $@
+}
+
+bindkey -s ^a "nvims\n"
