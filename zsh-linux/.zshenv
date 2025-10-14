@@ -29,19 +29,16 @@ export SAVEHIST=10000                   # Maximum events in history file
 ### $PATH environment variable
 
 # For Java jdk
-export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk-17.jdk/Contents/Home"
+# export JAVA_HOME="/Library/Java/JavaVirtualMachines/jdk-17.jdk/Contents/Home"
 # export JAVA_HOME=$(/usr/libexec/java_home -v 21.0.1)
 # export PATH=$JAVA_HOME/bin:$PATH
 
 # for nodejs
-export PATH=$PATH:/usr/local/bin
+# export PATH=$PATH:/usr/local/bin
 
 # add latex to path on ubuntu
-export PATH=/usr/local/texlive/2024/bin/x86_64-linux:$PATH
+# export PATH=/usr/local/texlive/2024/bin/x86_64-linux:$PATH
 
 # my custom scripts
 # include tmux-sessionizer
-export PATH=$PATH:$HOME/bin
-
-# Rust & cargo
-. "$HOME/.cargo/env"
+# export PATH=$PATH:$HOME/bin

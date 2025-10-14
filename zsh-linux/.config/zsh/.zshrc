@@ -12,14 +12,6 @@
 
 # test gnu stow
 
-if [[ -f "/opt/homebrew/bin/brew" ]] then
-  # If you're using macOS, you'll want this enabled
-  # 
-  # Set PATH, MANPATH, etc., for Homebrew. Make homebrew-installed apps avaiable in your path
-  # If don't have this line, eval fzf & zoxide will yield error
-  eval "$(/opt/homebrew/bin/brew shellenv)"
-fi
-
 # auto-added by fzf install script
 # fzf này tải bằng git lưu ở ~/.fzf/bin. Trong này có luôn uninstall script
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
