@@ -1,0 +1,131 @@
+{
+  "workbench.colorTheme": "Gruvbox Dark Hard",
+  "terminal.integrated.fontFamily": "JetBrainsMono Nerd Font",
+  "workbench.iconTheme": "material-icon-theme",
+  "editor.fontSize": 16,
+  "editor.formatOnSave": false,
+  "emmet.includeLanguages": {
+    "javascript": "javascriptreact"
+  },
+  "window.zoomLevel": 0.2,
+  "editor.accessibilitySupport": "off",
+  "files.exclude": {
+    "**/.git": false
+  },
+  "terminal.explorerKind": "external",
+  // "terminal.external.osxExec": "WezTerm",
+  "editor.fontFamily": "JetBrainsMono Nerd Font, Menlo, Monaco, 'Courier New', monospace",
+  "search.followSymlinks": false,
+  "editor.tabSize": 2,
+  "editor.wordWrap": "on",
+  "debug.toolBarLocation": "docked",
+
+  // start extensions settings
+  "liveSassCompile.settings.formats": [
+    {
+      "format": "expanded",//or expand or compress
+      "extensionName": ".css",
+      "savePath": "/dist",
+      "savePathReplacementPairs": null
+    }
+  ],
+  "liveServer.settings.CustomBrowser": "chrome",
+  "liveServer.settings.donotVerifyTags": true,
+  // extensions end
+
+  // ===== Neovim settings =====
+  "vim.disableExtension": false,// default is false
+  "editor.lineNumbers": "relative",
+  // faster VSCodeVim
+  "extensions.experimental.affinity": {
+    "vscodevim.vim": 1
+  },
+  "vim.useSystemClipboard": true,
+  "vim.leader": "<space>",
+  // Hack to fix moving j/k over folds opens up the folds
+  "vim.foldfix": true,
+  "vim.changeWordIncludesWhitespace": true,
+  "vim.hlsearch": true,
+
+  "vim.highlightedyank.enable": true,
+  "vim.highlightedyank.color": "rgba(250, 240, 170, 0.5)",//default, change if you want
+  "vim.highlightedyank.duration": 250,
+  // "vim.visualstar": true,
+
+  // key maps
+  // "vim.handleKeys": {
+  //   "<C-s>": true,
+  // },
+  "vim.normalModeKeyBindings": [
+    //open neotree
+    {
+      "before": ["<leader>", "e"],
+      "commands": [
+          "workbench.action.toggleSidebarVisibility"
+      ]
+    },
+    //show the command palette, and don't show the message on the status bar
+    {
+      "before": [":"],
+      "commands": [
+        "workbench.action.showCommands",
+      ],
+      "silent": true
+    },
+    //turn off search highlighting
+    //I don't know how to use <ESC>
+    // C-l is "go to right window" but I don't split vim window
+    {
+      "before":["<C-n>"],
+      "commands": [
+        ":nohl",
+      ]
+    },
+    // save current files
+    {
+      "before": ["leader", "w"],
+      "commands": [
+        "workbench.action.files.save",
+      ]
+    },
+    {
+      "before": ["H"],
+      "commands": [
+        "workbench.action.previousEditor",
+      ]
+    },
+    {
+      "before": ["L"],
+      "commands": [
+        "workbench.action.nextEditor",
+      ]
+    },
+  ],
+  "vim.visualModeKeyBindings": [
+    // Bind > and < in visual mode to indent/outdent lines (repeatable)
+    {
+      "before": [
+        ">"
+      ],
+      "commands": [
+        "editor.action.indentLines"
+      ]
+    },
+    {
+      "before": [
+        "<"
+      ],
+      "commands": [
+        "editor.action.outdentLines"
+      ]
+    },
+  ],
+  "vim.normalModeKeyBindingsNonRecursive": [
+  ],
+  "search.exclude": {
+    "**/dist": true
+  },
+  "turboConsoleLog.quote": "'",
+  "turboConsoleLog.logMessagePrefix": "🐦‍🔥",
+  "extensions.ignoreRecommendations": true,
+}

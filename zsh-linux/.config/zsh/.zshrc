@@ -132,23 +132,3 @@ eval "$(zoxide init --cmd cd zsh)"
 
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
-
-# Wezterm terminal emulator
-PATH="$PATH:/Applications/WezTerm.app/Contents/MacOS"
-export PATH
-
-# Move back to the original CWD When Exiting Yazi
-function y() {
-	local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
-	yazi "$@" --cwd-file="$tmp"
-	if cwd="$(command cat -- "$tmp")" && [ -n "$cwd" ] && [ "$cwd" != "$PWD" ]; then
-		builtin cd -- "$cwd"
-	fi
-	rm -f -- "$tmp"
-}
-
-# uv python
-. "$HOME/.local/bin/env"
-
-# laravel php
-export PATH="$HOME/.composer/vendor/bin:$PATH"
