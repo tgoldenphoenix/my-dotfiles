@@ -38,4 +38,5 @@ function nvims() {
     NVIM_APPNAME=$config nvim $@
 }
 
-bindkey -s ^a "nvims\n"
+# conflict: shell emacs move to beginning of line
+# bindkey -s ^a "nvims\n"

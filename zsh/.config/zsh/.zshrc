@@ -82,7 +82,8 @@ bindkey '^n' history-search-forward
 bindkey '^[w' kill-region
 
 # https://github.com/edr3x/tmux-sessionizer
-bindkey -s '^f' 'tmux-sessionizer\n'
+# Conflict with shell emac move forward
+# bindkey -s '^f' 'tmux-sessionizer\n'
 
 ### ===== End keybindings =====
 
